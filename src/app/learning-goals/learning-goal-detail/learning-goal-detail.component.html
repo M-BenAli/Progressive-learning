@@ -1,0 +1,23 @@
+<div id="learning-goal-detail" class="bg-light" *ngIf="selectedLearningGoal">
+  <div id="selected-learning-goal" *ngIf="!isEditing">
+    <h1 class="text-center">{{selectedLearningGoal.goal}}</h1>
+      <div class="form-row p-3" *ngFor="let task of selectedLearningGoal.tasks">
+        <input class="mx-2 my-2" type="checkbox" [checked]="task.completed"
+               [(ngModel)]="task.completed" (change)="onTaskUpdate()">
+        <span class="">{{task.name}}</span>
+      </div>
+    <div class="progress" >
+      <div class="progress-bar progress-bar-striped" role="progressbar"
+           [style.width]="selectedLearningGoal.progress+'%'">{{selectedLearningGoal.progress}}%</div>
+    </div>
+      <textarea class="form-control mt-2">{{selectedLearningGoal.description}}</textarea>
+  </div>
+  <div id="editing-learning-goal" *ngIf="isEditing">
+    <app-learning-goal-edit></app-learning-goal-edit>
+  </div>
+  <div class="btn-group mt-3" >
+    <button class="btn btn-info" [disabled]="isEditing" (click)="onEdit()">Edit</button>
+    <button class="btn btn-danger" [disabled]="isEditing" (click)="onDelete()">Delete</button>
+    <button class="btn btn-dark" [hidden]="!isEditing" (click)="onSave()">Save</button>
+  </div>
+</div>
