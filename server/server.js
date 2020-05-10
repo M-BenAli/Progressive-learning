@@ -1,8 +1,22 @@
 const express = require('express');
-
 const bodyParser = require('body-parser');
-
 const port = 5000;
+
+// Database connection
+const db = require('./config/database')
+
+try {
+    db.authenticate().then(() => {
+        console.log("Connection has been established")
+    })
+} catch(error){
+    console.log("Unable to connect to database")
+}
+
+
+db.sync({ force: true }).then(() => {
+    console.log("Creating tables..", db.models)
+} )
 
 const app = express();
 const learningGoalsRoute =  require('./router/learning-goals');
