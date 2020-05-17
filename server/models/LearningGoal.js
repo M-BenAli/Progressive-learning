@@ -16,7 +16,7 @@ module.exports = LearningGoal.init({
     }
 }, {
     sequelize,
-    modelName: 'learningGoal'
+    modelName: 'learning-goal'
 })
 
 

@@ -2,7 +2,8 @@ const { Sequelize } = require('sequelize');
 
 module.exports = new Sequelize('progressive_learning', 'mohamed', 'admin', {
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging: true
 });
 
 const LearningGoal = require('../models/LearningGoal')
