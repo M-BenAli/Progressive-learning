@@ -7,17 +7,17 @@ import {LearningGoalCreateComponent} from "../components/forms/learning-goal-cre
 
 
 const learningGoalsRoutes: Routes = [
-    {path: 'learning-goals', component: LearningGoalsListComponent , children: [
-  ]},
+  {path: 'learning-goals', component: LearningGoalsListComponent , children: [
+      {path: 'create', component: LearningGoalCreateComponent},
+      {path: 'edit', component: LearningGoalEditComponent}
+    ]},
 
 ]
 
 @NgModule({
   imports: [RouterModule.forChild(learningGoalsRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class LearningGoalsRoutingModule {
-
-
 
 }

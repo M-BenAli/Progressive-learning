@@ -10,14 +10,8 @@ import {LearningGoalCreateComponent} from "./components/forms/learning-goal-crea
 
 
 const routes: Routes = [
-  {
-    path: 'homepage', component: HomepageComponent,
-    children: [
-      {path: ':learning-goals', component: LearningGoalDetailComponent}
-    ]/*, canActivate: [AuthenticationGuard]*/
-  },
   {path: 'login', component: LoginComponent },
-  {path: '', redirectTo: 'homepage', pathMatch: 'full'}
+  {path: '', redirectTo: 'learning-goals', pathMatch: 'full'}
 ];
 
 @NgModule({
