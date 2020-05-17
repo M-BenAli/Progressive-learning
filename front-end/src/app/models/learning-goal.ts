@@ -1,4 +1,4 @@
-import {Task} from "./task";
+import { Task } from "./task";
 
 export class LearningGoal {
 
@@ -8,18 +8,31 @@ export class LearningGoal {
   tasks: Task[];
   progress: number;
 
-  constructor(id: number, goal: string, tasks: Task[], progress: number, description?: string) {
-    this.id = id;
+  constructor(goal: string, tasks: Task[], progress: number, description?: string, id?: number) {
     this.goal = goal;
     this.tasks = tasks;
-    this.progress = 0;
+    this.progress = progress;
     this.description = description;
+    this.id = id
+  }
+
+  public getId(): number{
+    return this.id
+  }
+
+  public addTask(task: Task): void{
+    this.tasks.push(task)
+  }
+
+  static fromJSON(data: LearningGoal): LearningGoal{
+    data.tasks = data.tasks.map(task => Task.fromJSON(task))
+    return new LearningGoal(data.goal, data.tasks, data.progress, data.description,
+      data.id)
   }
 
   static deepCopy(learningGoal: LearningGoal) {
-    return Object.assign(new LearningGoal(learningGoal.id, learningGoal.goal,
-      learningGoal.tasks, learningGoal.progress, learningGoal.description), learningGoal)
+    return Object.assign(new LearningGoal(learningGoal.goal, learningGoal.tasks,
+      learningGoal.progress, learningGoal.description, learningGoal.id), learningGoal)
   }
-
 
 }

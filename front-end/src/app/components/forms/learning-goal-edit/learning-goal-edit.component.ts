@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {LearningGoal} from "../../../models/learning-goal";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {LearningGoalService} from "../../../services/learning-goal.service";
 import {Task} from "../../../models/task";
+import {error} from "util";
 
 @Component({
   selector: 'app-learning-goal-edit',
@@ -11,7 +12,7 @@ import {Task} from "../../../models/task";
 })
 export class LearningGoalEditComponent implements OnInit {
 
-  public editingLearningGoal: LearningGoal;
+  @Input() editingLearningGoal: LearningGoal;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
               private learningGoalService: LearningGoalService) {
@@ -19,8 +20,7 @@ export class LearningGoalEditComponent implements OnInit {
   }
 
   private addTaskInput() {
-    this.editingLearningGoal.tasks.push(new Task(''))
-
+    this.editingLearningGoal.addTask(new Task(''))
   }
 
   trackByIdx(index: number, obj: any){
@@ -28,10 +28,7 @@ export class LearningGoalEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      let learningGoal = this.learningGoalService.get(params['id'])
-      this.editingLearningGoal = LearningGoal.deepCopy(learningGoal)
-    })
+    console.log(this.editingLearningGoal)
   }
 
 }
