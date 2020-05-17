@@ -19,7 +19,8 @@ db.sync({ force: true }).then(() => {
 } )
 
 const app = express();
-const learningGoalsRoute =  require('./router/learning-goals');
+const learningGoalsRoute = require('./routes/learning-goals');
+const tasksRoute = require('./routes/tasks');
 
 const logger = (req, res, next) => {
     console.log(`${req.method} to url: ${req.protocol}://${req.get('host')}${req.originalUrl}`);
@@ -35,6 +36,7 @@ app.use(function (req, res, next) {
     next();
 });
 app.use(learningGoalsRoute);
+app.use(tasksRoute);
 
 
 app.get('/', function (req, res) {
