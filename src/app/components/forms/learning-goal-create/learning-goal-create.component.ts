@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {LearningGoal} from "../../../models/learning-goal";
 import {LearningGoalService} from "../../../services/learning-goal.service";
 import {Task} from "../../../models/task";
@@ -13,13 +13,14 @@ export class LearningGoalCreateComponent implements OnInit {
 
   private taskInputs: Task[];
   private learningGoalInput: string;
-  private descriptionInput: string;
+  private descriptionInput: string
+  @Output() createdLearningGoal = new EventEmitter<LearningGoal>()
 
-  private learningGoal: LearningGoal;
+  private newLearningGoal: LearningGoal;
 
   constructor(private learningGoalService: LearningGoalService,
               private router: Router) {
-    this.taskInputs = [new Task('')]
+    this.taskInputs = []
     this.learningGoalInput = ''
     this.descriptionInput = ''
   }
@@ -30,9 +31,17 @@ export class LearningGoalCreateComponent implements OnInit {
   }
 
   private createLearningGoal() {
-    this.learningGoal = new LearningGoal(Math.floor(Math.random() * 9999), this.learningGoalInput, this.taskInputs, 0,
-      this.descriptionInput)
-    this.learningGoalService.create(this.learningGoal).closed;
+  this.learningGoalService.create(new LearningGoal(this.learningGoalInput, this.taskInputs,
+      0, this.descriptionInput)).subscribe(
+      (newLearningGoal: LearningGoal) => {
+        this.newLearningGoal = LearningGoal.fromJSON(newLearningGoal);
+      }, (error) => console.log(error),
+    () => {
+      this.createdLearningGoal.emit(this.newLearningGoal);
+      this.router.navigate([''], {
+        queryParams: {id: this.newLearningGoal.id}
+      });
+     });
   }
 
   trackByIdx(index: number, obj: any){
@@ -40,6 +49,7 @@ export class LearningGoalCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    // console.log("Rendering create..")
   }
 
 }

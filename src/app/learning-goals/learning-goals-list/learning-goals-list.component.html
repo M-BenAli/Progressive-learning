@@ -2,20 +2,21 @@
   <div class="row" style="min-height: 300px">
     <div class="col-md-6">
       <div class="list-group">
-        <button class="list-group-item" *ngFor="let learningGoal of learningGoalService.learningGoals"
-                (click)="onSelection(learningGoal)">{{learningGoal.goal}}</button>
+        <button class="list-group-item" *ngFor="let learningGoal of learningGoals"
+                (click)="renderLearningGoal(learningGoal)">{{learningGoal.goal}}</button>
       </div>
     </div>
     <div class="col-md-6" *ngIf="selectedLearningGoal">
-      <app-learning-goal-detail (editing)="this.isEditing = $event" ></app-learning-goal-detail>
+      <app-learning-goal-detail (editing)="onEdit($event)" (deleted)="onDelete()" (saved)="onSave($event)"
+                                [selectedLearningGoal]="selectedLearningGoal">
+      </app-learning-goal-detail>
     </div>
-    <div class="col-md-6" *ngIf="creatingLearningGoal">
-     <app-learning-goal-create></app-learning-goal-create>
+    <div class="col-md-6" *ngIf="renderingCreate">
+      <app-learning-goal-create (createdLearningGoal)="onCreate($event)"></app-learning-goal-create>
     </div>
-
   </div>
   <div class="btn-group mt-4 float-left">
-    <button class="btn btn-primary" [disabled]="creatingLearningGoal"
-            (click)="createLearningGoal()">Create learning goal</button>
+    <button class="btn btn-primary" (click)="renderCreate()">Create learning goal</button>
   </div>
 </div>
+

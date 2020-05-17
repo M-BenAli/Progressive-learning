@@ -22,7 +22,7 @@ speed-measure-plugin*.json
 *.launch
 .settings/
 *.sublime-workspace
-/progressive-learning.iml
+/front-end.iml
 
 # IDE - VSCode
 .vscode/*
@@ -44,5 +44,5 @@ testem.log
 
 # System Files
 .DS_Store
-Thumbs.db
+Thumbs.database
 
