@@ -35,18 +35,24 @@ router.put('/api/learning-goals/:id', async function (req, res) {
         include: [Task]
     })
 
-    let tasks = learningGoal.tasks
-    let changedTasks = req.body.tasks
-    for (let i = 0; i < tasks.length; i++) {
-        let task = await Task.findByPk(tasks[i].id)
-        let changedTask = changedTasks.find(t => t.id === task.id)
-        task.name = changedTask.name
-        task.completed = changedTask.completed
-        task.save()
-        tasks[i] = task
+    let tasks = []
+    let updatedTasks = req.body.tasks
+    for (let i = 0; i < updatedTasks.length; i++) {
+        let updatedTask = updatedTasks[i]
+        if(!updatedTask.id){
+            let task = await Task.create({ name: updatedTask.name, completed: updatedTask.completed,
+            learningGoalId: learningGoal.id})
+            tasks.push(task)
+        } else {
+            let task = await Task.findByPk(updatedTask.id)
+            task.name = updatedTask.name
+            task.completed = updatedTask.completed
+            task.save()
+            tasks.push(task)
+        }
     }
 
-    tasks.forEach(task => console.log(task.toJSON()))
+    // tasks.forEach(task => console.log(task.toJSON()))
     if (!learningGoal || learningGoal.goal == null) {
         res.status(400).json({msg: "No learning goal found with that ID!"})
     } else {
@@ -54,7 +60,8 @@ router.put('/api/learning-goals/:id', async function (req, res) {
         learningGoal.progress = req.body.progress
         learningGoal.description = req.body.description
         learningGoal.tasks = tasks
-        learningGoal.save()
+        console.log(learningGoal.toJSON())
+        await learningGoal.save()
         res.status(200).json(learningGoal)
     }
 });

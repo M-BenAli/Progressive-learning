@@ -1,4 +1,3 @@
-
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
 import {LearningGoal} from "../../models/learning-goal";
@@ -43,7 +42,6 @@ export class LearningGoalDetailComponent implements OnInit {
 
   onSave() {
     this.learningGoal = this.learningEdit.editingLearningGoal
-    console.log(this.learningGoal)
     this.learningGoalService.update(this.learningGoal.id, this.learningGoal)
       .subscribe((learningGoal: LearningGoal) => {
           this.learningGoal = LearningGoal.fromJSON(learningGoal)
@@ -53,13 +51,13 @@ export class LearningGoalDetailComponent implements OnInit {
         },
         () => {
           console.log(this.learningGoal)
+          this.renderEdit = false
+          this.saved.emit(this.learningGoal)
+          this.router.navigate([''], {
+            relativeTo: this.activatedRoute,
+            queryParams: {id: this.learningGoal.id}
+          })
         });
-    this.renderEdit = false
-    this.saved.emit(this.learningGoal)
-    this.router.navigate([''], {
-      relativeTo: this.activatedRoute,
-      queryParams: {id: this.learningGoal.id}
-    })
   }
 
   onDelete() {
@@ -78,15 +76,17 @@ export class LearningGoalDetailComponent implements OnInit {
   reloadTaskProgress() {
     let completedTasks: number = 0
     let tasks = this.learningGoal.tasks
-    for (let i = 0; i < tasks.length; i++) {
-      if (tasks[i].completed) {
+    tasks.forEach(task => {
+      console.log(task)
+      if (task.completed) {
         completedTasks++
       }
-    }
+    })
 
     this.learningGoal.progress = (100 / tasks.length) * completedTasks
-    this.learningGoalService.update(this.selectedLearningGoal.id, this.selectedLearningGoal)
+    this.learningGoalService.update(this.learningGoal.id, this.learningGoal)
       .subscribe((learningGoal: LearningGoal) => {
+        console.log(learningGoal)
         this.learningGoal = LearningGoal.fromJSON(learningGoal)
       }, error => {
         console.log(error)

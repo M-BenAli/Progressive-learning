@@ -11,9 +11,9 @@ import {Router} from "@angular/router";
 })
 export class LearningGoalCreateComponent implements OnInit {
 
-  private taskInputs: Task[];
-  private learningGoalInput: string;
-  private descriptionInput: string
+  taskInputs: Task[];
+  learningGoalInput: string;
+  descriptionInput: string
   @Output() createdLearningGoal = new EventEmitter<LearningGoal>()
 
   private newLearningGoal: LearningGoal;

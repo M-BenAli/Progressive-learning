@@ -20,7 +20,7 @@ export class LearningGoalEditComponent implements OnInit {
   }
 
   private addTaskInput() {
-    this.editingLearningGoal.addTask(new Task(''))
+    this.editingLearningGoal.addTask(new Task('', false))
   }
 
   trackByIdx(index: number, obj: any){
