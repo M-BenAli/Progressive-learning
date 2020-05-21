@@ -9,15 +9,15 @@ import {SessionService} from "../../services/session/session.service";
 })
 export class LoginComponent implements OnInit {
 
-  private username: string;
-  private password: string;
+  username: string;
+  password: string;
 
   constructor(private router: Router, private sessionService: SessionService) {
     this.username = ""
     this.password= ""
   }
 
-  private onLogin(){
+  onLogin(){
       this.sessionService.login(this.username, this.password)
   }
 

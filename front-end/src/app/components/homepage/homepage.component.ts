@@ -13,7 +13,7 @@ export class HomepageComponent implements OnInit {
   // learningGoals: LearningGoal[];
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
-              private learningGoalService: LearningGoalService) {
+              public learningGoalService: LearningGoalService) {
     // this.learningGoals = [];
 
   }

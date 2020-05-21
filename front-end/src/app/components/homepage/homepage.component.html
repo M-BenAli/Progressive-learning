@@ -2,11 +2,11 @@
 <div class="row mt-5">
     <div class="col-sm-11 col-md-4 border pb-3 h-100" >
       <h4 class="text-center">List of learning goals</h4>
-      <div class="list-group">
-        <a (click)="onSelection(i, learningGoal)" class="list-group-item list-group-item-action"
-            *ngFor="let learningGoal of learningGoalService.learningGoals;
-            index as i">{{learningGoal.goal}}</a>
-      </div>
+<!--      <div class="list-group">-->
+<!--        <a (click)="onSelection(i, learningGoal)" class="list-group-item list-group-item-action"-->
+<!--            *ngFor="let learningGoal of learningGoalService;-->
+<!--            index as i">{{learningGoal.goal}}</a>-->
+<!--      </div>-->
     </div>
     <div class=" col-md-8">
       <app-learning-goal-detail></app-learning-goal-detail>

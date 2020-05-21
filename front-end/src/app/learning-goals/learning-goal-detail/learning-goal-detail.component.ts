@@ -17,7 +17,7 @@ export class LearningGoalDetailComponent implements OnInit {
   learningGoal: LearningGoal;
   renderEdit: boolean;
 
-  @ViewChild(LearningGoalEditComponent, {static: false}) learningEdit: LearningGoalEditComponent
+  @ViewChild(LearningGoalEditComponent) learningEdit: LearningGoalEditComponent
   @Input() selectedLearningGoal: LearningGoal;
   @Output() editing: EventEmitter<boolean>;
   @Output() deleted: EventEmitter<boolean>;

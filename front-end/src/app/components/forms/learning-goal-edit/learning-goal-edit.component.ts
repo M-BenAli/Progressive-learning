@@ -19,7 +19,7 @@ export class LearningGoalEditComponent implements OnInit {
 
   }
 
-  private addTaskInput() {
+   addTaskInput() {
     this.editingLearningGoal.addTask(new Task('', false))
   }
 

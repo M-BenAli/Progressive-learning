@@ -25,12 +25,12 @@ export class LearningGoalCreateComponent implements OnInit {
     this.descriptionInput = ''
   }
 
-  private addTaskInput(){
+  addTaskInput(){
     console.log("Adding a task")
     this.taskInputs.push(new Task(''))
   }
 
-  private createLearningGoal() {
+  createLearningGoal() {
     this.learningGoalService.create(new LearningGoal(this.learningGoalInput, this.taskInputs,
       0, this.descriptionInput)).subscribe(
       (newLearningGoal: LearningGoal) => {

@@ -25,7 +25,7 @@ export class LearningGoalsListComponent implements OnInit {
     this.renderingCreate = false;
   }
 
-  private renderLearningGoal(learningGoal: LearningGoal) {
+  renderLearningGoal(learningGoal: LearningGoal) {
     this.selectedLearningGoal = learningGoal
     console.log(learningGoal)
     this.renderingCreate = false
@@ -35,7 +35,7 @@ export class LearningGoalsListComponent implements OnInit {
     })
   }
 
-  private renderCreate() {
+  renderCreate() {
     this.selectedLearningGoal = null;
     this.renderingCreate = true;
     this.router.navigate(['create'], {
