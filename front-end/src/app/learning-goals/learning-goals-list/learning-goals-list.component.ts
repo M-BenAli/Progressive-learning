@@ -26,9 +26,8 @@ export class LearningGoalsListComponent implements OnInit {
   }
 
   renderLearningGoal(learningGoal: LearningGoal) {
-    this.selectedLearningGoal = learningGoal
-    console.log(learningGoal)
     this.renderingCreate = false
+    this.selectedLearningGoal = learningGoal
     this.router.navigate([''], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedLearningGoal.id}
@@ -36,18 +35,18 @@ export class LearningGoalsListComponent implements OnInit {
   }
 
   renderCreate() {
-    this.selectedLearningGoal = null;
-    this.renderingCreate = true;
+    this.selectedLearningGoal = null
+    this.renderingCreate = true
     this.router.navigate(['create'], {
       relativeTo: this.activatedRoute
     })
   }
 
-  onCloseReq(event) {
+  onClose() {
     console.log("Closing child components..")
-    // this.learningGoals = this.learningGoalService.getAll()
     this.renderingCreate = false;
     this.selectedLearningGoal = null;
+    this.router.navigate([''])
   }
 
   onCreate(learningGoal: LearningGoal) {

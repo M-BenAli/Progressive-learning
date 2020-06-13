@@ -10,14 +10,14 @@
       <div class="progress-bar" role="progressbar"
            [style.width.%]="learningGoal.progress">{{learningGoal.progress}}%</div>
     </div>
-    <textarea class="form-control mt-2">{{learningGoal.description}}</textarea>
+    <textarea class="form-control mt-2 mh-100" disabled>{{learningGoal.description}}</textarea>
   </div>
   <div id="editing-learning-goal" *ngIf="renderEdit">
     <app-learning-goal-edit [editingLearningGoal]="learningGoal"></app-learning-goal-edit>
   </div>
   <div class="btn-group mt-3" >
-    <button class="btn btn-info" [disabled]="renderEdit" (click)="onEdit()">Edit</button>
-    <button class="btn btn-danger" [disabled]="renderEdit" (click)="onDelete()">Delete</button>
-    <button class="btn btn-dark" [hidden]="!renderEdit" (click)="onSave()">Save</button>
+    <button class="btn btn-info" [disabled]="renderEdit" (click)="edit()">Edit</button>
+    <button class="btn btn-danger" [disabled]="renderEdit" (click)="delete()">Delete</button>
+    <button class="btn btn-dark" [hidden]="!renderEdit" (click)="save()">Save</button>
   </div>
 </div>

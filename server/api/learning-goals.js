@@ -7,8 +7,7 @@ const db = require('../config/database')
 router.get('/api/learning-goals', async function (req, res) {
     const learningGoals = await LearningGoal.findAll({
         include: {
-            model: Task,
-            required: true
+            model: Task
         }
     })
     res.json(learningGoals)
@@ -17,8 +16,7 @@ router.get('/api/learning-goals', async function (req, res) {
 router.get('/api/learning-goals/:id', async function (req, res) {
     const learningGoal = await LearningGoal.findByPk(req.params.id, {
         include: {
-            model: Task,
-            required: true
+            model: Task
         }
     })
 
@@ -35,31 +33,18 @@ router.put('/api/learning-goals/:id', async function (req, res) {
         include: [Task]
     })
 
-    let tasks = []
     let updatedTasks = req.body.tasks
-    for (let i = 0; i < updatedTasks.length; i++) {
-        let updatedTask = updatedTasks[i]
-        if(!updatedTask.id){
-            let task = await Task.create({ name: updatedTask.name, completed: updatedTask.completed,
-            learningGoalId: learningGoal.id})
-            tasks.push(task)
-        } else {
-            let task = await Task.findByPk(updatedTask.id)
-            task.name = updatedTask.name
-            task.completed = updatedTask.completed
-            task.save()
-            tasks.push(task)
-        }
-    }
+    updatedTasks.forEach(task => console.log(task))
+    await updateTasks(updatedTasks, learningGoal)
 
-    // tasks.forEach(task => console.log(task.toJSON()))
+    await learningGoal.reload()
+    console.log(learningGoal.toJSON())
     if (!learningGoal || learningGoal.goal == null) {
         res.status(400).json({msg: "No learning goal found with that ID!"})
     } else {
         learningGoal.goal = req.body.goal
         learningGoal.progress = req.body.progress
         learningGoal.description = req.body.description
-        learningGoal.tasks = tasks
         console.log(learningGoal.toJSON())
         await learningGoal.save()
         res.status(200).json(learningGoal)
@@ -106,5 +91,24 @@ router.delete('/api/learning-goals/:id', async function (req, res) {
     res.json(learningGoal)
     res.status(200)
 })
+
+
+async function updateTasks(updatedTasks, learningGoal){
+    for (let i = 0; i < updatedTasks.length; i++) {
+        let updatedTask = updatedTasks[i]
+        if(!updatedTask.id){
+            const task = await Task.build({ name: updatedTask.name, completed: updatedTask.completed,
+                learningGoalId: learningGoal.id } )
+            console.log(task.toJSON())
+            await task.save()
+            console.log(task.toJSON())
+        } else if(updatedTask.id){
+            let task = await Task.findByPk(updatedTask.id)
+            task.name = updatedTask.name
+            task.completed = updatedTask.completed
+            await task.save()
+        }
+    }
+}
 
 module.exports = router

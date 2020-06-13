@@ -19,8 +19,8 @@ db.sync({ force: true }).then(() => {
 } )
 
 const app = express();
-const learningGoalsRoute = require('./routes/learning-goals');
-const tasksRoute = require('./routes/tasks');
+const learningGoalsRoute = require('./api/learning-goals');
+const tasksRoute = require('./api/tasks');
 
 const logger = (req, res, next) => {
     console.log(`${req.method} to url: ${req.protocol}://${req.get('host')}${req.originalUrl}`);

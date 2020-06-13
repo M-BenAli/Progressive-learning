@@ -5,8 +5,8 @@ import {LearningGoalDetailComponent} from "./learning-goals/learning-goal-detail
 import {LoginComponent} from "./components/login/login.component";
 import {AuthenticationGuard} from "./services/authentication.guard";
 import {LearningGoalsListComponent} from "./learning-goals/learning-goals-list/learning-goals-list.component";
-import {LearningGoalEditComponent} from "./components/forms/learning-goal-edit/learning-goal-edit.component";
-import {LearningGoalCreateComponent} from "./components/forms/learning-goal-create/learning-goal-create.component";
+import {LearningGoalEditComponent} from "./learning-goals/learning-goal-edit/learning-goal-edit.component";
+import {LearningGoalCreateComponent} from "./learning-goals/learning-goal-create/learning-goal-create.component";
 
 
 const routes: Routes = [

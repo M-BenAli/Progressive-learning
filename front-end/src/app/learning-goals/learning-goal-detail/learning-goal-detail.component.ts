@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
 import {LearningGoal} from "../../models/learning-goal";
 import {LearningGoalService} from "../../services/learning-goal.service";
-import {LearningGoalEditComponent} from "../../components/forms/learning-goal-edit/learning-goal-edit.component";
+import {LearningGoalEditComponent} from "../learning-goal-edit/learning-goal-edit.component";
 import {Subscription} from "rxjs";
 import {error} from "util";
 
@@ -13,9 +13,9 @@ import {error} from "util";
 })
 export class LearningGoalDetailComponent implements OnInit {
 
-
   learningGoal: LearningGoal;
   renderEdit: boolean;
+  queryParamSubscription: Subscription;
 
   @ViewChild(LearningGoalEditComponent) learningEdit: LearningGoalEditComponent
   @Input() selectedLearningGoal: LearningGoal;
@@ -31,7 +31,7 @@ export class LearningGoalDetailComponent implements OnInit {
     this.saved = new EventEmitter<LearningGoal>()
   }
 
-  onEdit() {
+  edit() {
     this.renderEdit = true
     this.editing.emit(true);
     this.router.navigate(['edit'], {
@@ -40,8 +40,9 @@ export class LearningGoalDetailComponent implements OnInit {
     })
   }
 
-  onSave() {
+  save() {
     this.learningGoal = this.learningEdit.editingLearningGoal
+    console.log(this.learningGoal, this.learningEdit.editingLearningGoal)
     this.learningGoalService.update(this.learningGoal.id, this.learningGoal)
       .subscribe((learningGoal: LearningGoal) => {
           this.learningGoal = LearningGoal.fromJSON(learningGoal)
@@ -53,6 +54,7 @@ export class LearningGoalDetailComponent implements OnInit {
           console.log(this.learningGoal)
           this.renderEdit = false
           this.saved.emit(this.learningGoal)
+          this.learningGoal.calculateProgress()
           this.router.navigate([''], {
             relativeTo: this.activatedRoute,
             queryParams: {id: this.learningGoal.id}
@@ -60,7 +62,7 @@ export class LearningGoalDetailComponent implements OnInit {
         });
   }
 
-  onDelete() {
+  delete() {
     this.learningGoalService.delete(this.selectedLearningGoal).subscribe(
       (learningGoal: LearningGoal) => {
       }, error => {
@@ -74,19 +76,9 @@ export class LearningGoalDetailComponent implements OnInit {
   }
 
   reloadTaskProgress() {
-    let completedTasks: number = 0
-    let tasks = this.learningGoal.tasks
-    tasks.forEach(task => {
-      console.log(task)
-      if (task.completed) {
-        completedTasks++
-      }
-    })
-
-    this.learningGoal.progress = (100 / tasks.length) * completedTasks
+    this.learningGoal.calculateProgress()
     this.learningGoalService.update(this.learningGoal.id, this.learningGoal)
       .subscribe((learningGoal: LearningGoal) => {
-        console.log(learningGoal)
         this.learningGoal = LearningGoal.fromJSON(learningGoal)
       }, error => {
         console.log(error)
@@ -96,11 +88,27 @@ export class LearningGoalDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.learningGoal = LearningGoal.deepCopy(this.selectedLearningGoal)
-    this.reloadTaskProgress();
+    this.queryParamSubscription = this.activatedRoute.queryParams.subscribe(
+      params => {
+        if (params.id) {
+          this.renderEdit = false
+          this.learningGoalService.get(params.id).subscribe(
+            (learningGoal: LearningGoal) => {
+              this.selectedLearningGoal = learningGoal
+            },
+            (err) => {
+              console.log(err)
+            }, () => {
+              this.learningGoal = LearningGoal.fromJSON(this.selectedLearningGoal)
+              console.log(this.learningGoal)
+            })
+        }
+      })
   }
 
   ngOnDestroy() {
+    this.queryParamSubscription.unsubscribe()
+    this.learningGoal = null
   }
 
 }
