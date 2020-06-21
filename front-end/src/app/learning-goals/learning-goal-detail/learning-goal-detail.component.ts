@@ -5,6 +5,8 @@ import {LearningGoalService} from "../../services/learning-goal.service";
 import {LearningGoalEditComponent} from "../learning-goal-edit/learning-goal-edit.component";
 import {Subscription} from "rxjs";
 import {error} from "util";
+import {Task} from "../../models/task";
+import {TaskService} from "../../services/task.service";
 
 @Component({
   selector: 'app-learning-goal-detail',
@@ -16,6 +18,7 @@ export class LearningGoalDetailComponent implements OnInit {
   learningGoal: LearningGoal;
   renderEdit: boolean;
   queryParamSubscription: Subscription;
+  deletedTasksReg: Task[];
 
   @ViewChild(LearningGoalEditComponent) learningEdit: LearningGoalEditComponent
   @Input() selectedLearningGoal: LearningGoal;
@@ -24,11 +27,13 @@ export class LearningGoalDetailComponent implements OnInit {
   @Output() saved: EventEmitter<LearningGoal>;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
-              private learningGoalService: LearningGoalService) {
+              private learningGoalService: LearningGoalService,
+              private taskService: TaskService) {
     this.renderEdit = false
     this.editing = new EventEmitter<boolean>()
     this.deleted = new EventEmitter<boolean>()
     this.saved = new EventEmitter<LearningGoal>()
+    this.deletedTasksReg = []
   }
 
   edit() {
@@ -42,7 +47,8 @@ export class LearningGoalDetailComponent implements OnInit {
 
   save() {
     this.learningGoal = this.learningEdit.editingLearningGoal
-    console.log(this.learningGoal, this.learningEdit.editingLearningGoal)
+    this.clearTasksReg()
+    this.learningGoal.calculateProgress()
     this.learningGoalService.update(this.learningGoal.id, this.learningGoal)
       .subscribe((learningGoal: LearningGoal) => {
           this.learningGoal = LearningGoal.fromJSON(learningGoal)
@@ -60,6 +66,7 @@ export class LearningGoalDetailComponent implements OnInit {
             queryParams: {id: this.learningGoal.id}
           })
         });
+    console.log(this.learningGoal, this.learningEdit.editingLearningGoal)
   }
 
   delete() {
@@ -85,6 +92,17 @@ export class LearningGoalDetailComponent implements OnInit {
       }, () => {
         this.selectedLearningGoal = this.learningGoal
       });
+  }
+
+  registerDeletedTask(task){
+    this.deletedTasksReg.push(task)
+  }
+
+  clearTasksReg(){
+    this.deletedTasksReg.forEach(task => {
+      this.taskService.delete(task).subscribe()
+    })
+    this.deletedTasksReg = []
   }
 
   ngOnInit() {

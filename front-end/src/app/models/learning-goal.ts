@@ -24,8 +24,8 @@ export class LearningGoal {
     this.tasks.push(task)
   }
 
-  public deleteTask(task: Task): void {
-    this.tasks = this.tasks.filter(t => t.id != task.id)
+  public deleteTask(task: Task, index: number): void {
+    this.tasks.splice(index, 1)
   }
 
   public calculateProgress(): void{

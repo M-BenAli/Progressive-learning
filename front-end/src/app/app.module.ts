@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { LearningGoalsModule } from './learning-goals/learning-goals.module';
+import {TasksModule} from "./tasks/tasks.module";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LearningGoalsModule } from './learning-goals/learning-goals.module';
         FormsModule,
         HttpClientModule,
         LearningGoalsModule,
+        TasksModule,
         AppRoutingModule
     ],
   providers: [],

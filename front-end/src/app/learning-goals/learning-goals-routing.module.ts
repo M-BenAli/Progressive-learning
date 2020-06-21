@@ -9,9 +9,8 @@ import {LearningGoalCreateComponent} from "./learning-goal-create/learning-goal-
 const learningGoalsRoutes: Routes = [
   {path: 'learning-goals', component: LearningGoalsListComponent , children: [
       {path: 'create', component: LearningGoalCreateComponent},
-      {path: 'edit', component: LearningGoalEditComponent}
-    ]},
-
+      {path: 'edit', component: LearningGoalEditComponent},
+    ]}
 ]
 
 @NgModule({

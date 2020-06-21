@@ -1,23 +1,34 @@
 <div id="learning-goal-detail" class="bg-light" *ngIf="learningGoal">
   <div id="selected-learning-goal" *ngIf="!renderEdit">
     <h1 class="text-center">{{learningGoal.goal}}</h1>
-    <div class="form-row p-3" *ngFor="let task of learningGoal.tasks">
-      <input class="mx-2 my-2" type="checkbox" [checked]="task.completed"
-             [(ngModel)]="task.completed" (change)="reloadTaskProgress()">
-      <span class="">{{task.name}}</span>
+    <div class="tasks-list">
+      <div class="form-row p-3" *ngFor="let task of learningGoal.tasks">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input mx-2 my-2" name="{{task.name}}"
+                 id="{{task.name}}"
+                 [checked]="task.completed" [(ngModel)]="task.completed"
+                 (change)="reloadTaskProgress()">
+          <label class="custom-control-label" for="{{task.name}}"></label>
+          <a routerLink="{{learningGoal.id}}/tasks/{{task.id}}"
+             class="">{{task.name}}</a>
+        </div>
+      </div>
     </div>
     <div class="progress">
       <div class="progress-bar" role="progressbar"
-           [style.width.%]="learningGoal.progress">{{learningGoal.progress}}%</div>
+           [style.width.%]="learningGoal.progress">{{learningGoal.progress}}%
+      </div>
     </div>
     <textarea class="form-control mt-2 mh-100" disabled>{{learningGoal.description}}</textarea>
   </div>
   <div id="editing-learning-goal" *ngIf="renderEdit">
-    <app-learning-goal-edit [editingLearningGoal]="learningGoal"></app-learning-goal-edit>
+    <app-learning-goal-edit [editingLearningGoal]="learningGoal"
+                            (deletedTasksReg)="registerDeletedTask($event)"
+    ></app-learning-goal-edit>
   </div>
-  <div class="btn-group mt-3" >
-    <button class="btn btn-info" [disabled]="renderEdit" (click)="edit()">Edit</button>
-    <button class="btn btn-danger" [disabled]="renderEdit" (click)="delete()">Delete</button>
-    <button class="btn btn-dark" [hidden]="!renderEdit" (click)="save()">Save</button>
+  <div class="mt-2">
+    <button class="btn btn-info mr-1" [disabled]="renderEdit" (click)="edit()">Edit</button>
+    <button class="btn btn-success" [hidden]="!renderEdit" (click)="save()">Save</button>
+    <button class="btn btn-danger float-right" [disabled]="renderEdit" (click)="delete()">Delete</button>
   </div>
 </div>

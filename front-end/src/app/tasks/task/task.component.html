@@ -1,0 +1,38 @@
+<div id="task-component" class="" *ngIf="task">
+  <div class="row p-1 justify-content-center mt-3 main-section">
+    <div class="col-sm-12 col-md-6 col-lg-5">
+      <h3 class="d-inline-flex w-75" *ngIf="!editTaskName">{{task.name}}</h3>
+      <input id="task_header-edit" type="text"
+             class="form-control d-inline-flex mr-2 w-75"
+             [(ngModel)]="task.name" *ngIf="editTaskName">
+      <a class="btn btn-light " (click)="editTaskName = !editTaskName">
+        <i class="fa fa-lg fa-pencil-alt" title="Edit task name"></i>
+      </a>
+    </div>
+    <div class="w-100 mb-2"></div>
+    <div class="col-sm-12 col-md-5 col-lg-5">
+      <div class="task_summary p-2">
+        <label for="summary">Summary</label>
+        <textarea name="summary" id="summary"
+                  class="form-control "
+                  [(ngModel)]="task.summary"
+                  placeholder="Summarize what you've learned in your own words"></textarea>
+        <div>
+          <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input mt-2 mr-3 mx-2 my-2"
+          name="{{task.name}}" id="{{task.name}}" [checked]="task.completed"
+                 [(ngModel)]="task.completed">
+            <label class="custom-control-label" for="{{task.name}}">Mark as complete</label>
+          </div>
+          <button class="btn btn-success mt-2" type="button" (click)="onSave()">
+            Save</button>
+        </div>
+      </div>
+    </div>
+    <div class="resources-component col-sm-12 col-md-3">
+      <app-resources></app-resources>
+    </div>
+  </div>
+
+</div>
+

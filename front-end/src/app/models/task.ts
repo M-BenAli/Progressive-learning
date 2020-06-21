@@ -1,17 +1,28 @@
+import {Resource} from "./resource";
+
 export class Task {
 
   id: number
   name: string
   completed: boolean
+  summary: string;
+  resources: Resource[];
 
-  constructor(name: string, completed?: boolean, id?: number) {
-    this.name = name
-    this.completed = completed
-    this.id = id
+  constructor(name: string, completed?: boolean, summary?: string, id?: number,
+              resources?: Resource[]) {
+    this.id = id;
+    this.name = name;
+    this.completed = completed;
+    this.summary = summary;
+    this.resources = resources;
+  }
+
+  public addResource(resource: Resource) {
+    this.resources.push(resource);
   }
 
   static fromJSON(data: Task){
-    return new Task(data.name, data.completed, data.id)
+    return new Task(data.name, data.completed, data.summary, data.id)
   }
 
 

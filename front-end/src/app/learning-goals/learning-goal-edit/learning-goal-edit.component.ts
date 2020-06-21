@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LearningGoal} from "../../models/learning-goal";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {LearningGoalService} from "../../services/learning-goal.service";
@@ -15,30 +15,34 @@ import {Form, FormArray, FormBuilder, FormControl, FormGroup} from "@angular/for
 export class LearningGoalEditComponent implements OnInit {
 
   @Input() editingLearningGoal: LearningGoal;
+  @Output() deletedTasksReg: EventEmitter<Task>;
   editingForm;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
               private learningGoalService: LearningGoalService,
               private taskService: TaskService,
               private formBuilder: FormBuilder) {
-
+    this.deletedTasksReg = new EventEmitter<Task>()
 
   }
 
-  get tasks(){
+  get tasks() {
     return this.editingForm.get('tasks') as FormArray
   }
 
-   addTask() {
+  addTask() {
     this.editingLearningGoal.addTask(new Task('', false))
   }
 
-  deleteTask(task: Task) {
-    this.taskService.delete(task).subscribe()
-    this.editingLearningGoal.deleteTask(task)
+  deleteTask(task: Task, index: number) {
+    // if (task.id) {
+    //   this.taskService.delete(task).subscribe()
+    // }
+    this.deletedTasksReg.emit(task)
+    this.editingLearningGoal.deleteTask(task, index)
   }
 
-  trackByIdx(index: number, obj: any){
+  trackByIdx(index: number, obj: any) {
     return index;
   }
 
@@ -46,7 +50,7 @@ export class LearningGoalEditComponent implements OnInit {
     let formGroupArray: FormGroup[] = []
     tasks.forEach(task => {
       formGroupArray.push(new FormGroup({
-        name:  new FormControl(task.name),
+        name: new FormControl(task.name),
         completed: new FormControl(task.completed),
         id: new FormControl(task.id)
       }))
