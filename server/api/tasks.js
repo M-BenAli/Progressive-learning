@@ -102,6 +102,10 @@ router.post('/api/tasks/:id/resources', async function (req, res) {
             where: {
                 url: url,
                 type: type
+            },
+            defaults: {
+                url: url,
+                type: type
             }
         });
 

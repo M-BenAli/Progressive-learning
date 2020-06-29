@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require('sequelize');
+const {DataTypes, Model} = require('sequelize');
 const sequelize = require('../config/database');
 
 class LearningGoal extends Model {
@@ -15,8 +15,10 @@ class LearningGoal extends Model {
         tasks.forEach(task => {
             task.completed ? completedTasks++ : null;
         });
-        progressPercentage = (100 / tasks.length) * completedTasks;
-        progressPercentage = Math.round((progressPercentage + Number.EPSILON) * 100 / 100);
+        if (tasks.length > 0) {
+            progressPercentage = (100 / tasks.length) * completedTasks;
+            progressPercentage = Math.round((progressPercentage + Number.EPSILON) * 100 / 100);
+        }
         this.progress = progressPercentage;
         console.log(this.progress);
         this.save();
@@ -32,7 +34,8 @@ module.exports = LearningGoal.init({
         type: DataTypes.STRING,
     },
     progress: {
-        type: DataTypes.DECIMAL(5, 2)
+        type: DataTypes.DECIMAL(5, 2),
+        defaultValue: 0
     }
 }, {
     sequelize,
