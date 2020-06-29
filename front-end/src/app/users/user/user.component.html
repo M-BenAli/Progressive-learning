@@ -1,0 +1,16 @@
+<div class="row justify-content-center main-section">
+  <div class="row p-2 row-container" *ngIf="currentUser">
+    <h3>Hello <span class="text-primary font-weight-bold">{{currentUser.username}}</span></h3>
+    <div class="w-100"></div>
+    <div class="col-12 d-block">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" name="isAdmin"
+        id="isAdmin" [(ngModel)]="currentUser.admin">
+        <label class="custom-control-label" for="isAdmin">Admin</label>
+      </div>
+    </div>
+    <div class="mt-2">
+      <button class="btn btn-success" (click)="this.updateUser()">Save</button>
+    </div>
+  </div>
+</div>

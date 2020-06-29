@@ -7,7 +7,6 @@ import { LearningGoalsListComponent } from "./learning-goals-list/learning-goals
 import { LearningGoalCreateComponent } from "./learning-goal-create/learning-goal-create.component";
 import { LearningGoalEditComponent } from "./learning-goal-edit/learning-goal-edit.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
 import {BrowserModule} from "@angular/platform-browser";
 import { LearningGoalFormComponent } from './learning-goal-form/learning-goal-form.component';
 
@@ -27,7 +26,6 @@ import { LearningGoalFormComponent } from './learning-goal-form/learning-goal-fo
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     LearningGoalsRoutingModule
   ]
 })

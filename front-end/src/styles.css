@@ -1,8 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import 'assets/stylesheets/custom.css';
+
 
 html, body {
   height: 100%;
 }
+
+body {
+  background-color: #151e21;
+}
+
+.row-container {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 10px;
+  background-color: #71c7c5;
+  min-width: 75%;
+  max-width: 75%;
+}
+
+.word-break {
+  word-break: break-word;
+}
+
 

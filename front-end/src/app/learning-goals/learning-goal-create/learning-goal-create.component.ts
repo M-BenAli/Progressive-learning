@@ -3,7 +3,8 @@ import {LearningGoal} from "../../models/learning-goal";
 import {LearningGoalService} from "../../services/learning-goal.service";
 import {Task} from "../../models/task";
 import {Router} from "@angular/router";
-import {FormBuilder, FormArray} from "@angular/forms";
+import {FormBuilder, FormArray, FormGroup} from "@angular/forms";
+import {SessionService} from "../../services/session/session.service";
 
 @Component({
   selector: 'app-learning-goal-create',
@@ -12,10 +13,12 @@ import {FormBuilder, FormArray} from "@angular/forms";
 })
 export class LearningGoalCreateComponent implements OnInit {
 
-  learningGoalForm;
+  learningGoalForm: FormGroup;
   @Output() createdLearningGoal = new EventEmitter<LearningGoal>()
+  @Output() cancel = new EventEmitter<boolean>()
 
   constructor(private learningGoalService: LearningGoalService,
+              private sessionService: SessionService,
               private router: Router,
               private formBuilder: FormBuilder) {
     this.learningGoalForm = this.formBuilder.group({
@@ -39,6 +42,7 @@ export class LearningGoalCreateComponent implements OnInit {
 
   onSubmit(learningGoalData) {
     console.log("Submitting learning goal creation form..")
+    //Create the learning goal which will contain the form information
     let learningGoal = new LearningGoal(learningGoalData.goal, [], 0,
       learningGoalData.description)
     learningGoalData.tasks.forEach(t => {
@@ -46,19 +50,31 @@ export class LearningGoalCreateComponent implements OnInit {
       learningGoal.tasks.push(task)
     })
     this.learningGoalForm.reset()
+    // Check if the client logged in, if so assign the current user to the learning-goal
+    if(this.sessionService.currentUser) {
+      learningGoal.user = this.sessionService.currentUser;
+    } else {
+      learningGoal.user = null;
+    }
     console.log(learningGoal)
-
-    let newLearningGoal: LearningGoal
+    //Create the new learningGoal and make a request to the server
+    let newLearningGoal: LearningGoal;
     this.learningGoalService.create(learningGoal).subscribe(
       (createdLearningGoal: LearningGoal) => {
         newLearningGoal = LearningGoal.fromJSON(createdLearningGoal);
       }, (error) => console.log(error),
       () => {
+        newLearningGoal.user = this.sessionService.currentUser;
         this.createdLearningGoal.emit(newLearningGoal);
         this.router.navigate([''], {
           queryParams: {id: newLearningGoal.id}
         });
       });
+  }
+
+  onCancel() {
+    this.learningGoalForm.reset();
+    this.cancel.emit(true);
   }
 
 

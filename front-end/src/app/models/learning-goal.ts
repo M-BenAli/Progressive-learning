@@ -1,4 +1,5 @@
-import { Task } from "./task";
+import {Task} from "./task";
+import {User} from "./user";
 
 export class LearningGoal {
 
@@ -7,29 +8,37 @@ export class LearningGoal {
   description: string;
   tasks: Task[];
   progress: number;
+  user: User;
 
-  constructor(goal: string, tasks: Task[], progress: number, description?: string, id?: number) {
+  constructor(goal: string, tasks: Task[], progress: number, user?: User, description?: string, id?: number) {
     this.goal = goal;
     this.tasks = tasks;
     this.progress = progress;
     this.description = description;
     this.id = id
+    this.user = user;
   }
 
-  public getId(): number{
+  public getId(): number {
     return this.id
   }
 
-  public addTask(task: Task): void{
+  public addTask(task: Task): void {
     this.tasks.push(task)
   }
 
-  public deleteTask(task: Task, index: number): void {
-    this.tasks.splice(index, 1)
+  public deleteTask(task: Task, index?: number): void {
+    if (index) {
+      this.tasks.splice(index, 1);
+    } else if(task.id) {
+      let taskIndex = this.tasks.findIndex(t => t.id === task.id);
+      this.tasks.splice(taskIndex, 1);
+    }
   }
 
-  public calculateProgress(): void{
-    let completedTasks: number = 0
+  public calculateProgress(): void {
+    let completedTasks: number = 0;
+    let percentage: number = 0;
     let tasks = this.tasks
     tasks.forEach(task => {
       if (task.completed) {
@@ -37,19 +46,21 @@ export class LearningGoal {
       }
     })
 
-    let percentage = (100 / tasks.length) * completedTasks
+    if (tasks.length > 0) {
+      percentage = (100 / tasks.length) * completedTasks
+    }
     this.progress = Math.round((percentage + Number.EPSILON) * 100) / 100
   }
 
-  static fromJSON(data: LearningGoal): LearningGoal{
+  static fromJSON(data: LearningGoal): LearningGoal {
     data.tasks = data.tasks.map(task => Task.fromJSON(task))
-    return new LearningGoal(data.goal, data.tasks, data.progress, data.description,
+    return new LearningGoal(data.goal, data.tasks, data.progress, data.user, data.description,
       data.id)
   }
 
   static deepCopy(learningGoal: LearningGoal) {
     return Object.assign(new LearningGoal(learningGoal.goal, learningGoal.tasks,
-      learningGoal.progress, learningGoal.description, learningGoal.id), learningGoal)
+      learningGoal.progress, learningGoal.user, learningGoal.description, learningGoal.id), learningGoal)
   }
 
 }

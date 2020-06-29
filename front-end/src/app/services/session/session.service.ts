@@ -1,30 +1,51 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
+import {environment} from "../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
+import {User} from "../../models/user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
+  public currentUser: User;
   public isAuthenticated: boolean;
-  private userLogin: Object;
-  private mockAccounts: Object[];
+  public token;
 
-  constructor(private router: Router) {
-    this.mockAccounts = [{username: "mohamed", password: "mohamed1234"},
-      {username: "test", password: "testing1234" }];
+  constructor(private router: Router,
+              private httpClient: HttpClient) {
     this.isAuthenticated = false;
-
   }
 
-  login(username: string, password: string){
-    let userLogin = {username: username, password: password}
-    console.log(userLogin, this.mockAccounts[0]);
-    if(this.mockAccounts.find(account => account['username'] == userLogin.username &&
-      account['password'] == userLogin.password)){
-      this.isAuthenticated = true;
-      this.router.navigate(['homepage']);
-    } else this.isAuthenticated = false;
+  authenticate(credentials) {
+    // console.log(credentials);
+    return this.httpClient.post(environment.apiUrl + '/api/authentication/login',
+      credentials, { observe: 'response' });
+  }
+
+  getAuthenticationToken() {
+    return this.token;
+  }
+
+  setToken(token): void{
+    this.token = token;
+    this.isAuthenticated = token ? true : false;
+  }
+
+  setCurrentUser(user: User) {
+    this.currentUser = user;
+    this.isAuthenticated = true;
+  }
+
+  public getCurrentUser() {
+    return this.currentUser;
+  }
+
+  logOut(){
+    this.currentUser = null;
+    this.isAuthenticated = false;
+    this.token = null;
   }
 
 }

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {SessionService} from "../../services/session/session.service";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-login',
@@ -9,16 +11,33 @@ import {SessionService} from "../../services/session/session.service";
 })
 export class LoginComponent implements OnInit {
 
-  username: string;
-  password: string;
+  loginForm: FormGroup;
 
-  constructor(private router: Router, private sessionService: SessionService) {
-    this.username = ""
-    this.password= ""
+  constructor(private router: Router, private sessionService: SessionService,
+              private formBuilder: FormBuilder) {
+    this.loginForm = formBuilder.group({
+      username: '',
+      password: ''
+    })
   }
 
-  onLogin(){
-      this.sessionService.login(this.username, this.password)
+  onLogin() {
+    // console.log(this.loginForm);
+    let credentials = this.loginForm.value;
+    let user;
+    this.sessionService.authenticate(credentials).subscribe(response => {
+        // console.log(response);
+        const token = response.headers.get('Authorization')
+        this.sessionService.setToken(token);
+        user = User.fromJSON(response.body);
+        this.sessionService.setCurrentUser(user);
+      }, error => {
+        console.log(error);
+      },
+      () => {
+      this.router.navigate(['users', user.id])
+        console.log("Completed authentication");
+      });
   }
 
   ngOnInit() {

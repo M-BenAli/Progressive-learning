@@ -1,34 +1,45 @@
-<div id="learning-goal-detail" class="bg-light" *ngIf="learningGoal">
+<div class="learning-goal-detail p-1" *ngIf="learningGoal">
   <div id="selected-learning-goal" *ngIf="!renderEdit">
-    <h1 class="text-center">{{learningGoal.goal}}</h1>
-    <div class="tasks-list">
-      <div class="form-row p-3" *ngFor="let task of learningGoal.tasks">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input mx-2 my-2" name="{{task.name}}"
-                 id="{{task.name}}"
-                 [checked]="task.completed" [(ngModel)]="task.completed"
-                 (change)="reloadTaskProgress()">
-          <label class="custom-control-label" for="{{task.name}}"></label>
-          <a routerLink="{{learningGoal.id}}/tasks/{{task.id}}"
-             class="">{{task.name}}</a>
+    <div class="">
+      <button class="btn btn-sm btn-dark float-right" (click)="onCancel()">
+        <span class="fa fa-times-circle"></span>
+      </button>
+      <h2 class="text-center overflow-hidden word-break">{{learningGoal.goal}}</h2>
+      <div class="tasks-list">
+        <div class="form-row p-3" *ngFor="let task of learningGoal.tasks">
+          <div *ngIf="permissionService.hasPermission(sessionService.currentUser)"
+            class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input mx-2 my-2" name="{{task.name}}"
+                   id="{{task.name}}"
+                   [checked]="task.completed" [(ngModel)]="task.completed"
+                   (change)="reloadTaskProgress()">
+            <label class="custom-control-label" for="{{task.name}}"></label>
+            <a routerLink="{{learningGoal.id}}/tasks/{{task.id}}"
+               class="">{{task.name}}</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar"
-           [style.width.%]="learningGoal.progress">{{learningGoal.progress}}%
+      <div class="progress">
+        <div class="progress-bar" role="progressbar"
+             [style.width.%]="learningGoal.progress">{{learningGoal.progress}}%
+        </div>
+      </div>
+      <textarea class="form-control mt-2 mh-100" disabled>{{learningGoal.description}}</textarea>
+      <div class="mt-2">
+        <label for="user">Created by user:</label>
+        <input type="text" id="user" class="form-control" disabled
+               [value]="learningGoal.user ? learningGoal.user.username : 'Guest'">
       </div>
     </div>
-    <textarea class="form-control mt-2 mh-100" disabled>{{learningGoal.description}}</textarea>
   </div>
   <div id="editing-learning-goal" *ngIf="renderEdit">
     <app-learning-goal-edit [editingLearningGoal]="learningGoal"
-                            (deletedTasksReg)="registerDeletedTask($event)"
-    ></app-learning-goal-edit>
+                            (deletedTasksReg)="registerDeletedTask($event)">
+    </app-learning-goal-edit>
   </div>
-  <div class="mt-2">
+  <div class="mt-2" *ngIf="permissionService.hasPermission(this.sessionService.getCurrentUser(), this.learningGoal)">
     <button class="btn btn-info mr-1" [disabled]="renderEdit" (click)="edit()">Edit</button>
     <button class="btn btn-success" [hidden]="!renderEdit" (click)="save()">Save</button>
-    <button class="btn btn-danger float-right" [disabled]="renderEdit" (click)="delete()">Delete</button>
+    <button class="btn btn-danger float-right" (click)="delete()">Delete</button>
   </div>
 </div>

@@ -1,12 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {LearningGoal} from "../../models/learning-goal";
 import {LearningGoalService} from "../../services/learning-goal.service";
 import {LearningGoalEditComponent} from "../learning-goal-edit/learning-goal-edit.component";
 import {Subscription} from "rxjs";
-import {error} from "util";
 import {Task} from "../../models/task";
 import {TaskService} from "../../services/task.service";
+import {PermissionService} from "../../services/permissions/permission.service";
+import {SessionService} from "../../services/session/session.service";
 
 @Component({
   selector: 'app-learning-goal-detail',
@@ -24,14 +25,18 @@ export class LearningGoalDetailComponent implements OnInit {
   @Input() selectedLearningGoal: LearningGoal;
   @Output() editing: EventEmitter<boolean>;
   @Output() deleted: EventEmitter<boolean>;
+  @Output() cancel: EventEmitter<boolean>;
   @Output() saved: EventEmitter<LearningGoal>;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
               private learningGoalService: LearningGoalService,
-              private taskService: TaskService) {
+              private taskService: TaskService,
+              public sessionService: SessionService,
+              public permissionService: PermissionService) {
     this.renderEdit = false
     this.editing = new EventEmitter<boolean>()
     this.deleted = new EventEmitter<boolean>()
+    this.cancel = new EventEmitter<boolean>()
     this.saved = new EventEmitter<LearningGoal>()
     this.deletedTasksReg = []
   }
@@ -46,9 +51,11 @@ export class LearningGoalDetailComponent implements OnInit {
   }
 
   save() {
+    this.renderEdit = false
     this.learningGoal = this.learningEdit.editingLearningGoal
-    this.clearTasksReg()
-    this.learningGoal.calculateProgress()
+    this.clearTasksReg();
+    this.learningGoal.calculateProgress();
+    console.log(this.learningGoal);
     this.learningGoalService.update(this.learningGoal.id, this.learningGoal)
       .subscribe((learningGoal: LearningGoal) => {
           this.learningGoal = LearningGoal.fromJSON(learningGoal)
@@ -57,29 +64,34 @@ export class LearningGoalDetailComponent implements OnInit {
           console.log(error)
         },
         () => {
-          console.log(this.learningGoal)
-          this.renderEdit = false
           this.saved.emit(this.learningGoal)
           this.learningGoal.calculateProgress()
+          console.log(this.learningGoal, this.learningEdit.editingLearningGoal)
           this.router.navigate([''], {
             relativeTo: this.activatedRoute,
             queryParams: {id: this.learningGoal.id}
           })
         });
-    console.log(this.learningGoal, this.learningEdit.editingLearningGoal)
   }
 
   delete() {
+    console.log("Deleting Learning goal..")
     this.learningGoalService.delete(this.selectedLearningGoal).subscribe(
-      (learningGoal: LearningGoal) => {
+      () => {
+        // console.log(learningGoal);
       }, error => {
         console.log(error)
       },
       () => {
-        console.log("Learning goal deleted")
         this.selectedLearningGoal = null;
         this.deleted.emit(true);
       });
+  }
+
+  onCancel() {
+    this.selectedLearningGoal = null;
+    this.renderEdit = false;
+    this.cancel.emit(true);
   }
 
   reloadTaskProgress() {
@@ -94,14 +106,22 @@ export class LearningGoalDetailComponent implements OnInit {
       });
   }
 
-  registerDeletedTask(task){
+  registerDeletedTask(task) {
     this.deletedTasksReg.push(task)
   }
 
-  clearTasksReg(){
-    this.deletedTasksReg.forEach(task => {
-      this.taskService.delete(task).subscribe()
-    })
+  clearTasksReg() {
+    for (let task of this.deletedTasksReg) {
+      console.log(task);
+      this.learningGoal.deleteTask(task);
+      if (task.id) this.taskService.delete(task).subscribe(() => {
+          console.log('Deleted task: ', task.id)
+        },
+        error => {
+          console.log(error);
+        });
+    }
+    console.log('Resolving this promise..');
     this.deletedTasksReg = []
   }
 

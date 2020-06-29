@@ -1,8 +1,10 @@
 export enum ResourceTypes {
   Wikipedia = "Wikipedia",
+  Youtube = "Youtube",
   Github = "Github",
   Book = "Book",
-  ScientificPaper = "Scientific paper"
+  ScientificPaper = "Scientific paper",
+  Article = "Article"
 }
 
 export class Resource {

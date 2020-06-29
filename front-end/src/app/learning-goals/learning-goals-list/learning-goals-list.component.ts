@@ -1,9 +1,8 @@
-import {Component, EventEmitter, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LearningGoalService} from "../../services/learning-goal.service";
 import {LearningGoal} from "../../models/learning-goal";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Observable} from "rxjs";
-import {LearningGoalDetailComponent} from "../learning-goal-detail/learning-goal-detail.component";
+import {SessionService} from "../../services/session/session.service";
 
 @Component({
   selector: 'app-learning-goal',
@@ -18,7 +17,7 @@ export class LearningGoalsListComponent implements OnInit {
 
   public isEditing: boolean;
 
-  constructor(private learningGoalService: LearningGoalService,
+  constructor(private learningGoalService: LearningGoalService, private sessionService: SessionService,
               private activatedRoute: ActivatedRoute, private router: Router) {
     this.learningGoals = [];
     this.selectedLearningGoal = null;
@@ -57,6 +56,19 @@ export class LearningGoalsListComponent implements OnInit {
     console.log(this.learningGoals)
   }
 
+  onCancelCreate(cancelled: boolean) {
+    if (cancelled) {
+      this.renderingCreate = false;
+    }
+  }
+
+  onCancel(cancelled: boolean) {
+    if (cancelled) {
+      this.selectedLearningGoal = null;
+      this.router.navigate(['./']);
+    }
+  }
+
   onEdit(editing: boolean) {
     this.isEditing = editing;
   }
@@ -67,19 +79,33 @@ export class LearningGoalsListComponent implements OnInit {
     this.learningGoals[index] = updatedLearningGoal;
   }
 
-  onDelete() {
-    this.learningGoals = this.learningGoals.filter(lg => lg.id != this.selectedLearningGoal.id)
-    this.selectedLearningGoal = null
-    this.router.navigate(['']);
+  onDelete(deleted: boolean) {
+    console.log('Deleting learning goal..');
+    if (deleted) {
+      let index = this.learningGoals.findIndex(lg => lg.id === this.selectedLearningGoal.id);
+      this.learningGoals.splice(index, 1)
+      this.selectedLearningGoal = null
+      this.router.navigate(['']);
+    }
   }
 
   ngOnInit() {
-    this.learningGoalService.getAll().subscribe((learningGoals: LearningGoal[]) => {
-        this.learningGoals = learningGoals.map(lg => LearningGoal.fromJSON(lg))
-      }, error => {
-        console.log(error)
-      }, () => console.log(this.learningGoals)
-    );
+    let currentUser = this.sessionService.getCurrentUser();
+    if (currentUser) {
+      this.learningGoalService.getUserLearningGoals(currentUser?.id).subscribe((learningGoals: LearningGoal[]) => {
+          this.learningGoals = learningGoals.map(lg => LearningGoal.fromJSON(lg))
+        }, error => {
+          console.log(error)
+        }, () => console.log(this.learningGoals)
+      );
+    } else {
+      this.learningGoalService.getAll().subscribe((learningGoals: LearningGoal[]) => {
+          this.learningGoals = learningGoals.map(lg => LearningGoal.fromJSON(lg))
+        }, error => {
+          console.log(error)
+        }, () => console.log(this.learningGoals)
+      );
+    }
   }
 
 }

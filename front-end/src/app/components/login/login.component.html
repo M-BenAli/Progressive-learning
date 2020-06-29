@@ -3,17 +3,20 @@
     <div class="col-md-6 mx-auto">
       <div class="card bg-info">
         <h5 class="card-title text-center">Login</h5>
-        <span class="text-center text-danger font-weight-bold">Not available yet
-        <i class="fa fa-exclamation-triangle"></i></span>
-<!--        <div class="card-body">
-          <label for="username">Username</label>
-          <input class="form-control" id="username" name="username" [(ngModel)]="username" disabled>
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" disabled>
-          <button class="btn btn-light float-right mt-3" (click)="onLogin()">Login</button>
-        </div>-->
+        <!--        <span class="text-center text-danger font-weight-bold">Not available yet-->
+        <!--        <i class="fa fa-exclamation-triangle"></i></span>-->
+        <div class="card-body">
+          <form [formGroup]="loginForm">
+            <label for="username">Username</label>
+            <input class="form-control" id="username" name="username" formControlName="username">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password"
+                   name="password">
+            <button class="btn btn-light float-right mt-3" (click)="onLogin()">Login</button>
+          </form>
+        </div>
       </div>
-      </div>
+    </div>
   </div>
 
 

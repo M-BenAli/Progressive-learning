@@ -1,19 +1,20 @@
 <div class="resources-list mb-3">
-<ul class="list-group">
-  <li class="list-group-item text-truncate" *ngFor="let resource of resources">
-    <a [href]="resource.url" target="_blank" >{{resource.url}}
-    <span class="float-right fa fa-arrow-circle-right"></span></a>
-  </li>
-</ul>
+  <ul class="list-group">
+    <li class="list-group-item text-truncate" *ngFor="let resource of resources">
+      <a [href]="resource.url" target="_blank">{{resource.url}}
+        <span class="float-right fa fa-arrow-circle-right"></span></a>
+    </li>
+  </ul>
 </div>
 <button class="btn btn-sm btn-primary" (click)="renderNewResource()"><span class="fa fa-xs fa-plus"></span>
-  Add resource link</button>
+  Add resource link
+</button>
 <div class="new_resource mt-4" *ngIf="newResource">
   <label for="new_resource-url">Resource URL</label>
   <input type="text" id="new_resource-url"
          [(ngModel)]="newResource.url" class="form-control"
-  placeholder="Resource URL">
-  <label for="new_resource-type"></label>
+         placeholder="Resource URL">
+  <label for="new_resource-type">Type</label>
   <select id="new_resource-type"
           [(ngModel)]="newResource.type" class="form-control">
     <option *ngFor="let resourceType of resourceTypes">{{resourceType}}
@@ -21,7 +22,8 @@
   </select>
   <div class="new_resource-buttons mt-1">
     <button class="btn btn-sm btn-success mr-2"
-            (click)="onCreateResource()">Create</button>
+            (click)="onCreateResource()">Create
+    </button>
     <button class="btn btn-sm btn-danger" (click)="onCancel()">Cancel</button>
   </div>
 </div>

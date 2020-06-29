@@ -13,11 +13,15 @@ export class LearningGoalService {
   }
 
   public get(id: number) {
-    return this.httpClient.get(environment.apiUrl + `/api/learning-goals/${id}`)
+    return this.httpClient.get(environment.apiUrl + `/api/learning-goals/${id}`);
   }
 
   public getAll() {
-    return this.httpClient.get(environment.apiUrl + '/api/learning-goals')
+    return this.httpClient.get(environment.apiUrl + `/api/learning-goals`);
+  }
+
+  public getUserLearningGoals(userID: number){
+    return this.httpClient.get(environment.apiUrl + `/api/users/${userID}/learning-goals`);
   }
 
   public create(learningGoal: LearningGoal) {

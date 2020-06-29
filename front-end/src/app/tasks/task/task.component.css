@@ -1,9 +1,10 @@
 .main-section {
   height: 100%;
+
 }
 .task_summary textarea {
-  max-height: 200px;
-  min-height: 50px;
+  max-height: 450px;
+  height: 300px;
 }
 
 /*.resources-component {*/

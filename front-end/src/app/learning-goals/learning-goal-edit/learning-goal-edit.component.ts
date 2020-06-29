@@ -35,15 +35,8 @@ export class LearningGoalEditComponent implements OnInit {
   }
 
   deleteTask(task: Task, index: number) {
-    // if (task.id) {
-    //   this.taskService.delete(task).subscribe()
-    // }
     this.deletedTasksReg.emit(task)
     this.editingLearningGoal.deleteTask(task, index)
-  }
-
-  trackByIdx(index: number, obj: any) {
-    return index;
   }
 
   renderFormTasks(tasks: Task[]) {
