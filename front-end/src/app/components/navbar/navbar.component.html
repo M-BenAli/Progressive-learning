@@ -10,7 +10,7 @@
        [routerLink]="['/users/' + this.sessionService.currentUser.id]"
        class="nav-link btn btn-dark"><span class="fa fa-user"></span> User Profile</a>
     <a *ngIf="this.sessionService.isAuthenticated"
-       [routerLink]="['login']" (click)="this.sessionService.logOut()"
+       [routerLink]="['login']" (click)="onLogOut()"
        class="nav-link btn btn-danger ">Log out</a>
     </div>
     </div>

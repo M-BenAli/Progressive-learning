@@ -99,7 +99,7 @@ export class LearningGoalsListComponent implements OnInit {
         }, () => console.log(this.learningGoals)
       );
     } else {
-      this.learningGoalService.getAll().subscribe((learningGoals: LearningGoal[]) => {
+      this.learningGoalService.getAll('createdby=Guest').subscribe((learningGoals: LearningGoal[]) => {
           this.learningGoals = learningGoals.map(lg => LearningGoal.fromJSON(lg))
         }, error => {
           console.log(error)

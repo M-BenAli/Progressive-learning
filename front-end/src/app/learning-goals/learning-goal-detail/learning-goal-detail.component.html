@@ -7,8 +7,7 @@
       <h2 class="text-center overflow-hidden word-break">{{learningGoal.goal}}</h2>
       <div class="tasks-list">
         <div class="form-row p-3" *ngFor="let task of learningGoal.tasks">
-          <div *ngIf="permissionService.hasPermission(sessionService.currentUser)"
-            class="custom-control custom-checkbox">
+          <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input mx-2 my-2" name="{{task.name}}"
                    id="{{task.name}}"
                    [checked]="task.completed" [(ngModel)]="task.completed"

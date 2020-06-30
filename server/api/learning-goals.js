@@ -8,9 +8,19 @@ const db = require('../config/database');
 
 // CRUD Learning-goal routes
 router.get('/api/learning-goals', async function (req, res) {
-    const learningGoals = await LearningGoal.findAll({
-        include: [Task]
-    });
+    let learningGoals;
+    if (req.query.createdby && req.query.createdby === 'Guest') {
+        learningGoals = await LearningGoal.findAll({
+            where: {
+                userId: null
+            },
+            include: [Task]
+        });
+    } else {
+        learningGoals = await LearningGoal.findAll({
+            include: [Task]
+        });
+    }
     res.status(200).json(learningGoals);
 });
 

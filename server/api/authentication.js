@@ -20,6 +20,7 @@ router.post('/api/authentication/login', async function (req, res) {
         });
     } else {
         const token = user.generateJWToken();
+        req.session.token = token;
         res.set({
             'Authorization': `Bearer ${token}`
         });
@@ -31,14 +32,40 @@ router.post('/api/authentication/login', async function (req, res) {
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
         });
+        res.end(req.session.token + ' token');
     }
 });
 
+router.post('/api/authentication/logout', function (req, res) {
+    req.session = null;
+    res.status(200).end();
+});
 
+//todo create sign-up
 router.post('/api/authentication/sign-up', async function (req, res) {
     res.status(400).json({
         message: 'In development'
     });
+});
+
+router.get('/api/authentication/session-token', async function (req, res) {
+    const token = req.session.token;
+    if (token) {
+        res.set({
+            'Authorization': `Bearer ${token}`
+        });
+        res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+        const payload = helpers.decodeJWToken(token);
+        let user = { id: payload.id, username: payload.username, admin: payload.admin };
+        user = await User.findByPk(user.id, {
+            attributes: {
+                exclude: ['password', 'password_salt']
+            }
+        });
+        res.status(200).json({ user: user });
+    } else if (!token || req.session.token === null) {
+        res.json(null);
+    }
 });
 
 

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SessionService} from "../../services/session/session.service";
-import {User} from "../../models/user";
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +10,17 @@ export class NavbarComponent implements OnInit {
 
 
   constructor(public sessionService: SessionService) {
+  }
+
+  onLogOut() {
+    this.sessionService.logOut().subscribe(next => {
+      console.log(next);
+    }, error => {
+      console.log(error);
+    }, () => {
+      console.log('Logged out!');
+
+    });
   }
 
   ngOnInit() {

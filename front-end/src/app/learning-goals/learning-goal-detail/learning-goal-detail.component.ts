@@ -66,7 +66,7 @@ export class LearningGoalDetailComponent implements OnInit {
         () => {
           this.saved.emit(this.learningGoal)
           this.learningGoal.calculateProgress()
-          console.log(this.learningGoal, this.learningEdit.editingLearningGoal)
+          console.log(this.learningGoal)
           this.router.navigate([''], {
             relativeTo: this.activatedRoute,
             queryParams: {id: this.learningGoal.id}

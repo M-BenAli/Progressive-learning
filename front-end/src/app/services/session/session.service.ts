@@ -21,7 +21,12 @@ export class SessionService {
   authenticate(credentials) {
     // console.log(credentials);
     return this.httpClient.post(environment.apiUrl + '/api/authentication/login',
-      credentials, { observe: 'response' });
+      credentials, { observe: 'response', withCredentials: true });
+  }
+
+  getSessionToken() {
+    return this.httpClient.get(environment.apiUrl + '/api/authentication/session-token',
+      { observe: 'response', withCredentials: true });
   }
 
   getAuthenticationToken() {
@@ -46,6 +51,8 @@ export class SessionService {
     this.currentUser = null;
     this.isAuthenticated = false;
     this.token = null;
+    return this.httpClient.post(environment.apiUrl + `/api/authentication/logout`, {},
+      { withCredentials: true });
   }
 
 }

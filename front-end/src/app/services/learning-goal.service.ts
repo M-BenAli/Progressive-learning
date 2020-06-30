@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {LearningGoal} from "../models/learning-goal";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {environment} from "../../environments/environment";
 
@@ -16,8 +16,11 @@ export class LearningGoalService {
     return this.httpClient.get(environment.apiUrl + `/api/learning-goals/${id}`);
   }
 
-  public getAll() {
-    return this.httpClient.get(environment.apiUrl + `/api/learning-goals`);
+  public getAll(createdBy?: string) {
+    const params = new HttpParams({fromString: createdBy});
+    return this.httpClient.get(environment.apiUrl + `/api/learning-goals`, {
+      params: params
+    });
   }
 
   public getUserLearningGoals(userID: number){
