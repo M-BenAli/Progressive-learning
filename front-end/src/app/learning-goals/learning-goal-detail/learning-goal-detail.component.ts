@@ -50,10 +50,10 @@ export class LearningGoalDetailComponent implements OnInit {
     })
   }
 
-  save() {
+ async save() {
     this.renderEdit = false
     this.learningGoal = this.learningEdit.editingLearningGoal
-    this.clearTasksReg();
+    await this.clearTasksReg();
     this.learningGoal.calculateProgress();
     console.log(this.learningGoal);
     this.learningGoalService.update(this.learningGoal.id, this.learningGoal)
@@ -64,8 +64,8 @@ export class LearningGoalDetailComponent implements OnInit {
           console.log(error)
         },
         () => {
-          this.saved.emit(this.learningGoal)
           this.learningGoal.calculateProgress()
+          this.saved.emit(this.learningGoal)
           console.log(this.learningGoal)
           this.router.navigate([''], {
             relativeTo: this.activatedRoute,
@@ -110,18 +110,14 @@ export class LearningGoalDetailComponent implements OnInit {
     this.deletedTasksReg.push(task)
   }
 
-  clearTasksReg() {
+  async clearTasksReg() {
     for (let task of this.deletedTasksReg) {
       console.log(task);
       this.learningGoal.deleteTask(task);
-      if (task.id) this.taskService.delete(task).subscribe(() => {
-          console.log('Deleted task: ', task.id)
-        },
-        error => {
-          console.log(error);
-        });
+      if (task.id) {
+        await this.taskService.delete(task).toPromise();
+      }
     }
-    console.log('Resolving this promise..');
     this.deletedTasksReg = []
   }
 

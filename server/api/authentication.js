@@ -4,11 +4,11 @@ const User = require('../models/User');
 const helpers = require('../utils/helpers');
 
 router.post('/api/authentication/login', async function (req, res) {
-    const {username, password} = req.body;
+    const {email, password} = req.body;
     let passwordCorrect;
     let user = await User.findOne({
         where: {
-            username: username,
+            email: email,
         }
     });
 
@@ -43,7 +43,7 @@ router.post('/api/authentication/logout', function (req, res) {
 
 //todo create sign-up
 router.post('/api/authentication/sign-up', async function (req, res) {
-    res.status(400).json({
+    res.status(404).json({
         message: 'In development'
     });
 });

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {SessionService} from "../../services/session/session.service";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {User} from "../../models/user";
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private sessionService: SessionService,
               private formBuilder: FormBuilder) {
     this.loginForm = formBuilder.group({
-      username: '',
+      email: '',
       password: ''
     })
   }

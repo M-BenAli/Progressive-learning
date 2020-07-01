@@ -1,16 +1,27 @@
 <div class="row justify-content-center main-section">
   <div class="row p-2 row-container" *ngIf="currentUser">
-    <h3>Hello <span class="text-primary font-weight-bold">{{currentUser.username}}</span></h3>
+    <h3>Hello <span class="text-primary font-weight-bold">{{currentUser.email}}</span></h3>
+    <div class="email col-9 form-inline">
+      <label for="userEmail">Email:</label>
+      <input type="text" id="userEmail" name="userEmail"
+             class="form-control d-inline ml-1 col-8" [formControl]="userEmail"
+             [email]="true">
+      <button class="btn btn-sm btn-dark d-inline ml-1" (click)="userEmail.disabled ? userEmail.enable() :
+      userEmail.disable()"><span class="fa fa-edit"></span></button>
+    </div>
+    <div class="custom-control custom-checkbox d-block col-2" *ngIf="currentUser.admin">
+      <input type="checkbox" class="custom-control-input" name="isAdmin"
+             id="isAdmin" [(ngModel)]="currentUser.admin" disabled>
+      <label class="custom-control-label" for="isAdmin">Admin</label>
+    </div>
     <div class="w-100"></div>
-    <div class="col-12 d-block">
-      <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" name="isAdmin"
-        id="isAdmin" [(ngModel)]="currentUser.admin">
-        <label class="custom-control-label" for="isAdmin">Admin</label>
+    <div class="col-6 mt-2">
+      <div class="validation-errors d-inline" *ngIf="userEmail.errors">
+        <p class="text-danger font-weight-bold">Invalid email</p>
       </div>
+      <button class="btn btn-success d-inline" (click)="updateUser()"
+              [disabled]="userEmail.errors">Save</button>
     </div>
-    <div class="mt-2">
-      <button class="btn btn-success" (click)="this.updateUser()">Save</button>
-    </div>
+
   </div>
 </div>

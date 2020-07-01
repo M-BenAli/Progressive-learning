@@ -41,7 +41,7 @@ app.use(bodyParser.json());
 app.use(cookieSession({
   name: 'session',
   keys: ['secretsessionkey'],
-    maxAge: 24 * 60 * 60 * 100
+    maxAge: 24 * 60 * 60 * 1000
 }));
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');

@@ -39,12 +39,17 @@ router.get('/api/learning-goals/:id', async function (req, res) {
         res.end();
     } else
         console.log(learningGoal.toJSON());
-    res.status(200).json(learningGoal);
+        res.status(200).json(learningGoal);
 });
 
 router.put('/api/learning-goals/:id', async function (req, res) {
     let learningGoal = await LearningGoal.findByPk(req.params.id, {
-        include: [Task]
+        include: [Task, {
+            model: User,
+            attributes: {
+                exclude: ['password', 'password_salt']
+            }
+        }]
     });
 
     if (!learningGoal || learningGoal.goal == null) {
@@ -114,12 +119,13 @@ router.delete('/api/learning-goals/:id', async function (req, res) {
 // User-learning goal routes
 router.get('/api/users/:id/learning-goals', helpers.isAuth, async function (req, res) {
     const user = await User.findByPk(req.params.id, {
-        attributes: ['id', 'username', 'admin', 'createdAt', 'updatedAt']
+        attributes: ['id', 'email', 'admin', 'createdAt', 'updatedAt']
     });
 
     if (user) {
-        const learningGoals = await user.getLearningGoals(
-            {include: Task});
+        const learningGoals = await user.getLearningGoals({
+                include: Task
+            });
         res.status(200).json(learningGoals);
     } else {
         res.status(404).json({

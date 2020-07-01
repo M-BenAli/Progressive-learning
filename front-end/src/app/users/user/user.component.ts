@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute, ParamMap, Params} from "@angular/router";
+import {ActivatedRoute, ParamMap} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/user";
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-user',
@@ -12,24 +13,29 @@ import {User} from "../../models/user";
 export class UserComponent implements OnInit {
 
   currentUser: User;
+  userEmail: FormControl;
 
   constructor(private activatedRoute: ActivatedRoute,
               private httpClient: HttpClient,
               private userService: UserService) {
     this.currentUser = null;
+    this.userEmail = new FormControl({value: '', disabled: true}, [
+      Validators.email
+    ])
   }
 
   updateUser() {
-    console.log(this.currentUser);
-    this.userService.update(this.currentUser.id, this.currentUser).subscribe(userData => {
+    let reqUser = User.deepCopy(this.currentUser);
+    reqUser.email = this.userEmail.value
+    this.userService.update(reqUser.id, reqUser).subscribe(userData => {
       this.currentUser = User.fromJSON(userData)
     }, error => {
-      console.log(error)
-    }, () => {
-
-    })
+      console.log(error);
+      this.userEmail.setErrors(error['error']['message']);
+      }, () => {
+      console.log(this.currentUser);
+    });
   }
-
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
@@ -39,7 +45,7 @@ export class UserComponent implements OnInit {
       }, error => {
         console.log(error)
       }, () => {
-
+        this.userEmail.setValue(this.currentUser.email);
       });
     }).unsubscribe();
   }

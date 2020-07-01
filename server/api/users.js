@@ -3,12 +3,12 @@ const router = express.Router();
 const User = require('../models/User');
 const helpers = require('../utils/helpers');
 
-router.get('/api/users', helpers.isAuth, async function(req, res) {
+router.get('/api/users', helpers.isAuth, async function (req, res) {
     const users = User.findAll();
     res.status(200).json(users);
 });
 
-router.get('/api/users/:id', helpers.isAuth, async function(req, res) {
+router.get('/api/users/:id', helpers.isAuth, async function (req, res) {
     const id = req.params.id;
     const user = await User.findByPk(id, {
         attributes: {
@@ -27,14 +27,23 @@ router.get('/api/users/:id', helpers.isAuth, async function(req, res) {
 
 });
 
-router.put('/api/users/:id', helpers.isAuth, async function(req, res) {
-    const { username, admin } = req.body;
+router.put('/api/users/:id', helpers.isAuth, async function (req, res) {
+    const {email, admin} = req.body;
     let user = await User.findByPk(req.params.id);
     if (user) {
         user.admin = admin;
-        user.username = username;
-        await user.save();
-        res.status(200).json(user);
+        user.email = email;
+        await user.save().then((r) => {
+            console.log(r);
+            res.status(200).json(user);
+        }).catch((e) => {
+            console.log(e);
+            res.status(400).json({
+                status: 400,
+                name: `${e.name}`,
+                message: `${e.errors[0].message}`
+            });
+        });
     } else {
         res.status(400).json({
             message: 'No user found with given ID'
@@ -42,8 +51,8 @@ router.put('/api/users/:id', helpers.isAuth, async function(req, res) {
     }
 });
 
-router.post('/api/users', async function(req, res) {
-    const { username, password, admin } = req.body;
+router.post('/api/users', async function (req, res) {
+    const {username, password, admin} = req.body;
     const passwordHash = User.hashPassword(password);
     const newUser = await User.create({
         username: username,
@@ -52,7 +61,7 @@ router.post('/api/users', async function(req, res) {
         admin: admin
     });
 
-    if(newUser) {
+    if (newUser) {
         res.status(201).json(newUser);
     } else res.status(400).json({
         message: 'No user created'

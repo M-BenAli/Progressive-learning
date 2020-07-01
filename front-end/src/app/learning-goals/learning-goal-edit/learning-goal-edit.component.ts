@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LearningGoal} from "../../models/learning-goal";
-import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {LearningGoalService} from "../../services/learning-goal.service";
 import {TaskService} from "../../services/task.service";
 import {Task} from "../../models/task";
-import {Form, FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 
 @Component({
@@ -60,7 +60,6 @@ export class LearningGoalEditComponent implements OnInit {
         [this.renderFormTasks(this.editingLearningGoal.tasks)]
       )
     })
-
   }
 
 }

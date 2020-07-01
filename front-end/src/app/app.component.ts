@@ -9,26 +9,31 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
   title = 'progressive-learning';
+  loading: boolean;
 
   constructor(private sessionService: SessionService,
               private router: Router) {
-
+    this.loading = false;
   }
 
 
   ngOnInit(): void {
+    this.loading = true;
     this.sessionService.getSessionToken().subscribe(response => {
-        if (response) {
-          console.log(response);
+        if (response.headers.has('Authorization') && response.body) {
+          // console.log(response);
           this.sessionService.setToken(response.headers.get('Authorization'));
           this.sessionService.setCurrentUser(response.body['user']);
           this.router.navigate(['learning-goals']);
+        } else {
+          this.router.navigate(['login']);
         }
       },
       error => {
         console.log(error);
       },
       () => {
+        this.loading = false;
       }
     )
   }

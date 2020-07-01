@@ -3,7 +3,7 @@ import {LearningGoal} from "../../models/learning-goal";
 import {LearningGoalService} from "../../services/learning-goal.service";
 import {Task} from "../../models/task";
 import {Router} from "@angular/router";
-import {FormBuilder, FormArray, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {SessionService} from "../../services/session/session.service";
 
 @Component({
@@ -44,7 +44,7 @@ export class LearningGoalCreateComponent implements OnInit {
     console.log("Submitting learning goal creation form..")
     //Create the learning goal which will contain the form information
     let learningGoal = new LearningGoal(learningGoalData.goal, [], 0,
-      learningGoalData.description)
+      this.sessionService.currentUser, learningGoalData.description)
     learningGoalData.tasks.forEach(t => {
       let task = new Task(t, false)
       learningGoal.tasks.push(task)
