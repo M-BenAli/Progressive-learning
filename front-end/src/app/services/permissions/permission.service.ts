@@ -2,14 +2,6 @@ import {Injectable} from '@angular/core';
 import {User} from "../../models/user";
 import {LearningGoal} from "../../models/learning-goal";
 
-/*
-export enum Roles {
-  Admin = 'Admin',
-  User = 'User',
-  Guest = 'Guest'
-}
-*/
-
 //TODO work on a better permission system
 @Injectable({
   providedIn: 'root'

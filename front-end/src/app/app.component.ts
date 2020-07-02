@@ -24,7 +24,7 @@ export class AppComponent {
           // console.log(response);
           this.sessionService.setToken(response.headers.get('Authorization'));
           this.sessionService.setCurrentUser(response.body['user']);
-          this.router.navigate(['learning-goals']);
+          // this.router.navigate(['']);
         } else {
           this.router.navigate(['login']);
         }

@@ -1,10 +1,9 @@
 const express = require('express');
-const Resource = require('../models/Resource');
 const router = express.Router();
+const Resource = require('../models/Resource');
 
 router.get('/api/resources', async function (req, res) {
     const resources = await Resource.findAll();
-
     res.status(200).json(resources);
 });
 

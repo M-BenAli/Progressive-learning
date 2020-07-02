@@ -22,7 +22,8 @@ export class Task {
   }
 
   static fromJSON(data: Task){
-    return new Task(data.name, data.completed, data.summary, data.id)
+    if (data.resources) data.resources = data.resources.map(r => Resource.fromJSON(r));
+    return new Task(data.name, data.completed, data.summary, data.id, data.resources);
   }
 
 

@@ -1,6 +1,6 @@
 <div class="row justify-content-center main-section">
   <div class="row p-2 row-container">
-    <div class="col-md-6 col-lg-6">
+    <div class="col-md-6 col-lg-5">
       <div class="spinner-border" role="status" *ngIf="learningGoals.length === 0">
         <span class="sr-only">Loading..</span>
       </div>
@@ -24,12 +24,12 @@
     <div class="" *ngIf="!selectedLearningGoal && !renderingCreate">
       <p>Select a learning-goal or create one</p>
     </div>
-    <div class="learning-goal-detail col-md-6 col-lg-6" *ngIf="selectedLearningGoal">
+    <div class="learning_goal-detail col-md-6 col-lg-5" *ngIf="selectedLearningGoal">
       <app-learning-goal-detail (editing)="onEdit($event)" (deleted)="onDelete($event)"
                                 (saved)="onSave($event)" (cancel)="onCancel($event)">
       </app-learning-goal-detail>
     </div>
-    <div class="col-md-6 col-lg-6" *ngIf="renderingCreate">
+    <div class="learning_goal-create col-md-6 col-lg-6" *ngIf="renderingCreate">
       <app-learning-goal-create (createdLearningGoal)="onCreate($event)"
                                 (cancel)="onCancelCreate($event)"></app-learning-goal-create>
     </div>

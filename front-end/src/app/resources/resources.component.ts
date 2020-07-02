@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Resource, ResourceTypes} from "../models/resource";
-import {FormControl, FormGroup} from "@angular/forms";
 import {TaskService} from "../services/task.service";
 import {ActivatedRoute} from "@angular/router";
+import {ResourceService} from "../services/resource.service";
 
 @Component({
   selector: 'app-resources',
@@ -11,15 +11,25 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ResourcesComponent implements OnInit {
 
+  readonly RESOURCE_ICONS: object = {
+    Wikipedia: 'fab fa-wikipedia-w',
+    Github: 'fab fa-github',
+    Youtube: 'fab fa-youtube',
+    Article: 'far fa-newspaper',
+    Book: 'fas fa-book',
+    ScientificPaper: 'fa fa-pager'
+  }
+
   resources: Resource[];
   newResource: Resource;
   resourceTypes: string[];
+  @Output() deletedResource: EventEmitter<Resource>;
 
-  constructor(private taskService: TaskService,
+  constructor(private taskService: TaskService, private resourceService: ResourceService,
               private activatedRoute: ActivatedRoute) {
     this.resources = [];
     this.resourceTypes = Object.values(ResourceTypes)
-
+    this.deletedResource = new EventEmitter();
   }
 
   renderNewResource() {
@@ -30,7 +40,11 @@ export class ResourcesComponent implements OnInit {
     this.newResource = new Resource('', ResourceTypes.Wikipedia);
   }
 
-  onCreateResource() {
+  getResourceKeyFromValue(enumValue){
+   return Object.keys(ResourceTypes).find(type => ResourceTypes[type] === enumValue);
+  }
+
+  onCreate() {
     let taskID;
     this.activatedRoute.paramMap.subscribe(next => {
       taskID = next.get('id');
@@ -49,6 +63,12 @@ export class ResourcesComponent implements OnInit {
           console.log(this.resources)
         });
     }
+  }
+
+  onDelete(resource: Resource, index: number){
+    this.resources.splice(index, 1);
+    this.resourceService.delete(resource.id).subscribe();
+    this.deletedResource.emit(resource);
   }
 
   onCancel() {

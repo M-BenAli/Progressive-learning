@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Task} from "../models/task";
 import {environment} from "../../environments/environment";
@@ -17,23 +17,23 @@ export class TaskService {
   // }
 
   update(task: Task){
-    return this.httpClient.put(environment.apiUrl + `/api/tasks/${task.id}`, task);
+    return this.httpClient.put(environment.apiUrl + `/tasks/${task.id}`, task);
   }
 
   get(id: number){
-    return this.httpClient.get(environment.apiUrl + `/api/tasks/${id}`);
+    return this.httpClient.get(environment.apiUrl + `/tasks/${id}`);
   }
 
   delete(task: Task){
-    return this.httpClient.delete(environment.apiUrl + `/api/tasks/${task.id}`);
+    return this.httpClient.delete(environment.apiUrl + `/tasks/${task.id}`);
   }
 
   getResources(taskID: number){
-    return this.httpClient.get(environment.apiUrl + `/api/tasks/${taskID}/resources`);
+    return this.httpClient.get(environment.apiUrl + `/tasks/${taskID}/resources`);
   }
 
   addResource(taskID: number, resource: Resource){
-    return this.httpClient.post(environment.apiUrl + `/api/tasks/${taskID}/resources`,
+    return this.httpClient.post(environment.apiUrl + `/tasks/${taskID}/resources`,
       resource);
   }
 

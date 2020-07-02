@@ -5,7 +5,14 @@
         <span class="fa fa-times-circle"></span>
       </button>
       <h2 class="text-center overflow-hidden word-break">{{learningGoal.goal}}</h2>
-      <div class="tasks-list">
+      <div class="mb-3">
+        <label for="description">Description</label>
+        <textarea class="form-control mt-2 mh-100" placeholder="Initial topic description and introduction"
+                id="description" [(ngModel)]="learningGoal.description">
+        {{learningGoal.description}}</textarea>
+      </div>
+        <div class="tasks-list">
+        <h4 class="">Tasks</h4>
         <div class="form-row p-3" *ngFor="let task of learningGoal.tasks">
           <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input mx-2 my-2" name="{{task.name}}"
@@ -23,7 +30,6 @@
              [style.width.%]="learningGoal.progress">{{learningGoal.progress}}%
         </div>
       </div>
-      <textarea class="form-control mt-2 mh-100" disabled>{{learningGoal.description}}</textarea>
       <div class="mt-2">
         <label for="user">Created by user:</label>
         <input type="text" id="user" class="form-control" disabled

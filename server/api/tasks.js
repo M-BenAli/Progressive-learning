@@ -5,7 +5,9 @@ const Resource = require('../models/Resource');
 const LearningGoal = require('../models/Learning-goal');
 
 router.get('/api/tasks/:id', async function (req, res) {
-    const task = await Task.findByPk(req.params.id);
+    const task = await Task.findByPk(req.params.id, {
+        include: Resource
+    });
 
     if (task) {
         return res.status(200).json(task);

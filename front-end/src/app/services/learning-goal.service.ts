@@ -13,30 +13,30 @@ export class LearningGoalService {
   }
 
   public get(id: number) {
-    return this.httpClient.get(environment.apiUrl + `/api/learning-goals/${id}`);
+    return this.httpClient.get(environment.apiUrl + `/learning-goals/${id}`);
   }
 
   public getAll(createdBy?: string) {
     const params = new HttpParams({fromString: createdBy});
-    return this.httpClient.get(environment.apiUrl + `/api/learning-goals`, {
+    return this.httpClient.get(environment.apiUrl + `/learning-goals`, {
       params: params
     });
   }
 
   public getUserLearningGoals(userID: number){
-    return this.httpClient.get(environment.apiUrl + `/api/users/${userID}/learning-goals`);
+    return this.httpClient.get(environment.apiUrl + `/users/${userID}/learning-goals`);
   }
 
   public create(learningGoal: LearningGoal) {
-    return this.httpClient.post(environment.apiUrl + '/api/learning-goals', learningGoal);
+    return this.httpClient.post(environment.apiUrl + '/learning-goals', learningGoal);
   }
 
   public update(id: number, learningGoal: LearningGoal) {
-    return this.httpClient.put(environment.apiUrl + `/api/learning-goals/${id}`, learningGoal)
+    return this.httpClient.put(environment.apiUrl + `/learning-goals/${id}`, learningGoal)
   }
 
   public delete(learningGoal: LearningGoal) {
-    return this.httpClient.delete(environment.apiUrl + `/api/learning-goals/${learningGoal.id}`);
+    return this.httpClient.delete(environment.apiUrl + `/learning-goals/${learningGoal.id}`);
   }
 
 }

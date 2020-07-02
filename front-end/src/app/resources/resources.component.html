@@ -1,8 +1,13 @@
 <div class="resources-list mb-3">
   <ul class="list-group">
-    <li class="list-group-item text-truncate" *ngFor="let resource of resources">
+    <li class="list-group-item text-truncate" *ngFor="let resource of resources; let i = index">
+      <span class="mr-2" [title]="resource.type"
+            [ngClass]="RESOURCE_ICONS[getResourceKeyFromValue(resource.type)]"></span>
       <a [href]="resource.url" target="_blank">{{resource.url}}
         <span class="float-right fa fa-arrow-circle-right"></span></a>
+      <a class="btn btn-sm btn-danger float-right mr-2" (click)="onDelete(resource, i)">
+        <i class="fa fa-minus"></i>
+      </a>
     </li>
   </ul>
 </div>
@@ -22,12 +27,9 @@
   </select>
   <div class="new_resource-buttons mt-1">
     <button class="btn btn-sm btn-success mr-2"
-            (click)="onCreateResource()">Create
+            (click)="onCreate()">Create
     </button>
     <button class="btn btn-sm btn-danger" (click)="onCancel()">Cancel</button>
   </div>
 </div>
-<!--  <span *ngIf="resourceType === 'Github'" class="fa fa-github"></span>-->
-<!--  <span *ngIf="resourceType === 'Wikipedia'" class="fa fa-wikipedia-w"></span>-->
-<!--  <span *ngIf="resourceType === 'Book'" class="fa fa-book"></span>-->
 
