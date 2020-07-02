@@ -1,12 +1,3 @@
-.main-section {
-  overflow-y: auto;
-}
-
-.create-button {
-  /*position: relative;*/
-  /*top: 370px;*/
-}
-
 .learning_goal-list {
   max-height: 370px;
   overflow: auto;

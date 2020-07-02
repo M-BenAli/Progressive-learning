@@ -15,12 +15,14 @@ export class LearningGoalsListComponent implements OnInit {
   public selectedLearningGoal: LearningGoal;
   public renderingCreate: boolean;
 
+  public searchQuery: string;
   public isEditing: boolean;
 
   constructor(private learningGoalService: LearningGoalService, private sessionService: SessionService,
               private activatedRoute: ActivatedRoute, private router: Router) {
     this.learningGoals = [];
     this.selectedLearningGoal = null;
+    this.searchQuery = null;
     this.renderingCreate = false;
   }
 

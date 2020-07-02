@@ -8,9 +8,8 @@
     <button class="btn btn-dark fa fa-plus float-right" (click)="addTask()"></button>
     <div *ngFor="let task of this.editingLearningGoal.tasks; index as i;">
       <div class="form-row p-3" id="tasks">
-        <input [(ngModel)]="task.completed" type="checkbox" name="completed"
-               [checked]="task.completed"
-               class="form-check-label mx-2 my-3 col-auto">
+        <input type="checkbox" name="taskCompletion" id="taskCompletion" [checked]="task.completed"
+               class="form-check-label mx-2 my-3 col-auto" (change)="task.completed = !task.completed">
         <input [(ngModel)]="task.name"
                class="form-control mt-1 w-75 col-md-9"
                [id]="'task' + i" name="task{{i}}" placeholder="Task">

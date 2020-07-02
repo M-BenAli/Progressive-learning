@@ -4,10 +4,17 @@
       <div class="spinner-border" role="status" *ngIf="learningGoals.length === 0">
         <span class="sr-only">Loading..</span>
       </div>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><span class="fa fa-search"></span></div>
+        </div>
+        <input type="text" class="form-control col-6" id="searchBar" placeholder="Search"
+        [(ngModel)]="searchQuery">
+      </div>
       <div class="learning_goal-list list-group" *ngIf="learningGoals">
         <button class="list-group-item list-group-item-action"
                 [ngClass]="learningGoal.id === selectedLearningGoal?.id ? 'active' : ''"
-                *ngFor="let learningGoal of learningGoals"
+                *ngFor="let learningGoal of learningGoals | learningGoal : searchQuery"
                 (click)="renderLearningGoal(learningGoal)">{{learningGoal.goal}}</button>
       </div>
       <div class="btn-group mt-4 float-left pt-1 create-button">
