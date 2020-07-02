@@ -57,7 +57,7 @@ router.put('/api/learning-goals/:id', async function (req, res) {
     } else {
         let updatedTasks = req.body.tasks;
         updatedTasks.forEach(task => console.log(task));
-        await updateTasks(updatedTasks, learningGoal);
+        await learningGoal.updateTasks(updatedTasks);
         console.log(learningGoal.toJSON());
         await learningGoal.reload();
         learningGoal.goal = req.body.goal;
@@ -109,7 +109,7 @@ router.delete('/api/learning-goals/:id', async function (req, res) {
     if (learningGoal) {
         await learningGoal.destroy();
         res.status(204).json({
-            message: 'Succesfully deleted learningGoal!'
+            message: 'Successfully deleted learningGoal'
         });
     } else {
         res.status(400).json({message: 'No learning goal found to delete'});
@@ -135,24 +135,5 @@ router.get('/api/users/:id/learning-goals', helpers.isAuth, async function (req,
     }
 });
 
-
-async function updateTasks(updatedTasks, learningGoal) {
-    for (let updatedTask of updatedTasks) {
-        if (!updatedTask.id) {
-            const task = await Task.build({
-                name: updatedTask.name, completed: updatedTask.completed,
-                learningGoalId: learningGoal.id
-            });
-            console.log(task.toJSON());
-            await task.save();
-            console.log(task.toJSON());
-        } else if (updatedTask.id) {
-            let task = await Task.findByPk(updatedTask.id);
-            task.name = updatedTask.name;
-            task.completed = updatedTask.completed;
-            await task.save();
-        }
-    }
-}
 
 module.exports = router;

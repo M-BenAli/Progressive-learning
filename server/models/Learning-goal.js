@@ -1,4 +1,5 @@
 const {DataTypes, Model} = require('sequelize');
+const Task = require('./Task');
 const sequelize = require('../config/database');
 
 class LearningGoal extends Model {
@@ -22,6 +23,24 @@ class LearningGoal extends Model {
         this.progress = progressPercentage;
         console.log(this.progress);
         this.save();
+    }
+
+    async updateTasks(updatedTasks) {
+        for (let updatedTask of updatedTasks) {
+            if (!updatedTask.id) {
+                const task = await Task.build({
+                    name: updatedTask.name, completed: updatedTask.completed,
+                    learningGoalId: this.id
+                });
+                await task.save();
+                console.log(task.toJSON());
+            } else if (updatedTask.id) {
+                let task = await Task.findByPk(updatedTask.id);
+                task.name = updatedTask.name;
+                task.completed = updatedTask.completed;
+                await task.save();
+            }
+        }
     }
 }
 
