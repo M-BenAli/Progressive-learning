@@ -19,7 +19,6 @@ db.sync({}).then(() => {
 });
 // End database connection
 
-
 // Start express app
 const app = express();
 const learningGoalsRoute = require('./api/learning-goals');

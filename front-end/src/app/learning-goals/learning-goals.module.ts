@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {LearningGoalFormComponent} from './learning-goal-form/learning-goal-form.component';
 import {LearningGoalPipe} from "../pipes/learning-goal.pipe";
+import {TasksModule} from "../tasks/tasks.module";
 
 @NgModule({
   declarations: [
@@ -23,12 +24,13 @@ import {LearningGoalPipe} from "../pipes/learning-goal.pipe";
   exports: [
     LearningGoalDetailComponent
   ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    LearningGoalsRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        LearningGoalsRoutingModule,
+        TasksModule
+    ]
 })
 export class LearningGoalsModule { }

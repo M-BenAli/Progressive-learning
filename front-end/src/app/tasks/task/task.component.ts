@@ -13,6 +13,8 @@ import {Resource} from "../../models/resource";
 })
 export class TaskComponent implements OnInit {
 
+
+  readonly DESCRIPTION_PLACEHOLDER: string = 'Summarize the most important points(preferably in your own words).';
   public task: Task;
   public editTaskName: boolean;
   public saving: boolean;

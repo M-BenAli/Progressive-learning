@@ -18,7 +18,7 @@
           <textarea name="summary" id="summary"
                     class="form-control "
                     [(ngModel)]="task.summary"
-                    placeholder="Summarize what you've learned in your own words"></textarea>
+                    [placeholder]="DESCRIPTION_PLACEHOLDER"></textarea>
           <div>
             <div class="custom-control custom-checkbox" *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser())">
               <input type="checkbox" class="custom-control-input mt-2 mr-3 mx-2 my-2"

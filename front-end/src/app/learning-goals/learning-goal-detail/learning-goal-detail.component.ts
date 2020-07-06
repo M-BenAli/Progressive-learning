@@ -41,7 +41,7 @@ export class LearningGoalDetailComponent implements OnInit {
     this.deletedTasksReg = []
   }
 
-  edit() {
+  onEdit() {
     this.renderEdit = true
     this.editing.emit(true);
     this.router.navigate(['edit'], {
@@ -50,7 +50,7 @@ export class LearningGoalDetailComponent implements OnInit {
     })
   }
 
- async save() {
+ async onSave() {
     this.renderEdit = false
     this.learningGoal = this.learningEdit.editingLearningGoal
     await this.clearTasksReg();
@@ -74,7 +74,7 @@ export class LearningGoalDetailComponent implements OnInit {
         });
   }
 
-  delete() {
+  onDelete() {
     console.log("Deleting Learning goal..")
     this.learningGoalService.delete(this.selectedLearningGoal).subscribe(
       () => {
@@ -94,18 +94,6 @@ export class LearningGoalDetailComponent implements OnInit {
     this.cancel.emit(true);
   }
 
-  reloadTaskProgress() {
-    this.learningGoal.calculateProgress()
-    this.learningGoalService.update(this.learningGoal.id, this.learningGoal)
-      .subscribe((learningGoal: LearningGoal) => {
-        this.learningGoal = LearningGoal.fromJSON(learningGoal)
-      }, error => {
-        console.log(error)
-      }, () => {
-        this.selectedLearningGoal = this.learningGoal
-      });
-  }
-
   registerDeletedTask(task) {
     this.deletedTasksReg.push(task)
   }
@@ -120,6 +108,28 @@ export class LearningGoalDetailComponent implements OnInit {
     }
     this.deletedTasksReg = []
   }
+
+  onUpdatedLearningGoal(learningGoal: LearningGoal) {
+    this.learningGoal = learningGoal;
+    this.selectedLearningGoal = learningGoal;
+    console.log(this.learningGoal);
+  }
+
+
+/*  reloadTaskProgress() {
+    this.learningGoal.calculateProgress()
+    this.learningGoalService.update(this.learningGoal.id, this.learningGoal)
+      .subscribe((learningGoal: LearningGoal) => {
+        this.learningGoal = LearningGoal.fromJSON(learningGoal)
+      }, error => {
+        console.log(error)
+      }, () => {
+        this.selectedLearningGoal = this.learningGoal
+        // this.updatedLearningGoal.emit(this.learningGoal)
+        // console.log(this.learningGoal);
+      });
+  }*/
+
 
   ngOnInit() {
     this.queryParamSubscription = this.activatedRoute.queryParams.subscribe(

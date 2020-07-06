@@ -60,6 +60,7 @@ export class ResourcesComponent implements OnInit {
         }, error => {
           console.log(error);
         }, () => {
+          this.newResource = null;
           console.log(this.resources)
         });
     }
