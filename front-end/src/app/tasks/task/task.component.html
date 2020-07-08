@@ -14,11 +14,12 @@
       <div class="w-100 mb-2"></div>
       <div class="col-sm-12 col-md-8 col-lg-7">
         <div class="task_summary p-2">
-          <label for="summary">Summary</label>
-          <textarea name="summary" id="summary"
-                    class="form-control "
-                    [(ngModel)]="task.summary"
-                    [placeholder]="DESCRIPTION_PLACEHOLDER"></textarea>
+<!--          <label for="summary">Summary</label>-->
+<!--          <textarea name="summary" id="summary"-->
+<!--                    class="form-control "-->
+<!--                    [(ngModel)]="task.summary"-->
+<!--                    [placeholder]="DESCRIPTION_PLACEHOLDER"></textarea>-->
+          <app-task-summary [summary]="this.task.summary" (updatedSummary)="updateSummary($event)"></app-task-summary>
           <div>
             <div class="custom-control custom-checkbox" *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser())">
               <input type="checkbox" class="custom-control-input mt-2 mr-3 mx-2 my-2"

@@ -14,15 +14,16 @@ import {Resource} from "../../models/resource";
 export class TaskComponent implements OnInit {
 
 
-  readonly DESCRIPTION_PLACEHOLDER: string = 'Summarize the most important points(preferably in your own words).';
   public task: Task;
   public editTaskName: boolean;
+  // public summaryCopy: string;
   public saving: boolean;
 
   constructor(private taskService: TaskService, public permissionsService: PermissionService,
               public sessionService: SessionService,
               private activatedRoute: ActivatedRoute) {
     this.editTaskName = false;
+
   }
 
   onSave(){
@@ -42,6 +43,11 @@ export class TaskComponent implements OnInit {
     this.task.resources.splice(index, 1);
   }
 
+  updateSummary(updatedSummary: string){
+    console.log(updatedSummary);
+    this.task.summary = updatedSummary;
+  }
+
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -49,6 +55,8 @@ export class TaskComponent implements OnInit {
         this.task = Task.fromJSON(task);
       }, (error) => {
         console.log(error);
+      }, () => {
+        // this.summaryCopy = this.task.summary;
       });
     });
   }

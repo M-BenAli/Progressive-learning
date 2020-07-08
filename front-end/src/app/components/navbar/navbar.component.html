@@ -1,18 +1,36 @@
-<nav class="navbar navbar-dark bg-primary">
-  <a routerLink="/" class="navbar-brand">Progressive learning</a>
-  <div class="d-flex">
-    <a [routerLink]="['learning-goals']" class="nav-link btn btn-dark mr-3">
-      Learning goals</a>
+<nav class="navbar navbar-expand-md bg-dark">
+  <a routerLink="/" class="navbar-brand text-white order-0 w-75">Progressive learning</a>
+  <ul class="navbar-nav order-1 w-25 ml-auto">
+    <li class="nav-item">
+      <a [routerLink]="['learning-goals']" class="nav-link btn-dark">Learning goals</a>
+    </li>
+    <li class="nav-item">
     <a *ngIf="!this.sessionService.isAuthenticated"
        [routerLink]="['login']" class="nav-link btn btn-dark mr-3">Login</a>
-    <div class="btn-group">
-    <a *ngIf="this.sessionService.isAuthenticated"
-       [routerLink]="['/users/' + this.sessionService.currentUser.id]"
-       class="nav-link btn btn-dark"><span class="fa fa-user"></span> User Profile</a>
-    <a *ngIf="this.sessionService.isAuthenticated"
-       [routerLink]="['login']" (click)="onLogOut()"
-       class="nav-link btn btn-danger ">Log out</a>
-    </div>
-    </div>
+    </li>
+    <li class="nav-item">
+      <div class="btn-group">
+        <a *ngIf="this.sessionService.isAuthenticated"
+           [routerLink]="['/users/' + this.sessionService.currentUser.id]"
+           class="nav-link btn btn-dark"><span class="fa fa-user"></span> User Profile</a>
+        <a *ngIf="this.sessionService.isAuthenticated"
+           [routerLink]="['login']" (click)="onLogOut()"
+           class="nav-link ml-1 btn btn-danger">Log out</a>
+      </div>
+    </li>
+  </ul>
+  <!--  <a routerLink="/" class="navbar-brand">Progressive learning</a>-->
+  <!--    <div class="d-flex">-->
+  <!--      <a *ngIf="!this.sessionService.isAuthenticated"-->
+  <!--         [routerLink]="['login']" class="nav-link btn btn-dark mr-3">Login</a>-->
+  <!--      <div class="btn-group">-->
+  <!--      <a *ngIf="this.sessionService.isAuthenticated"-->
+  <!--         [routerLink]="['/users/' + this.sessionService.currentUser.id]"-->
+  <!--         class="nav-link btn btn-dark"><span class="fa fa-user"></span> User Profile</a>-->
+  <!--      <a *ngIf="this.sessionService.isAuthenticated"-->
+  <!--         [routerLink]="['login']" (click)="onLogOut()"-->
+  <!--         class="nav-link btn btn-danger ">Log out</a>-->
+  <!--      </div>-->
+  <!--  </div>-->
 </nav>
 

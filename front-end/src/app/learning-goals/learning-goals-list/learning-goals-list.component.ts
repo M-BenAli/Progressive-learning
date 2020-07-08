@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {LearningGoalService} from "../../services/learning-goal.service";
 import {LearningGoal} from "../../models/learning-goal";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -11,6 +11,7 @@ import {SessionService} from "../../services/session/session.service";
 })
 export class LearningGoalsListComponent implements OnInit {
 
+  @Input() inputLearningGoal: LearningGoal[];
   public learningGoals: LearningGoal[];
   public selectedLearningGoal: LearningGoal;
   public renderingCreate: boolean;
@@ -29,7 +30,7 @@ export class LearningGoalsListComponent implements OnInit {
   renderLearningGoal(learningGoal: LearningGoal) {
     this.renderingCreate = false
     this.selectedLearningGoal = learningGoal
-    this.router.navigate([''], {
+    this.router.navigate([], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedLearningGoal.id}
     })
@@ -93,7 +94,7 @@ export class LearningGoalsListComponent implements OnInit {
 
   ngOnInit() {
     let currentUser = this.sessionService.getCurrentUser();
-    if (currentUser) {
+    if (currentUser && !this.inputLearningGoal) {
       this.learningGoalService.getUserLearningGoals(currentUser?.id).subscribe((learningGoals: LearningGoal[]) => {
           this.learningGoals = learningGoals.map(lg => LearningGoal.fromJSON(lg))
         }, error => {
@@ -107,6 +108,10 @@ export class LearningGoalsListComponent implements OnInit {
           console.log(error)
         }, () => console.log(this.learningGoals)
       );
+    }
+
+    if(this.inputLearningGoal) {
+      this.learningGoals = this.inputLearningGoal
     }
   }
 

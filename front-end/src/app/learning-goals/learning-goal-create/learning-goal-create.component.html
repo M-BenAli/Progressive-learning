@@ -4,7 +4,7 @@
     <input class="form-control" id="goal" name="goal" formControlName="goal"
            placeholder="Enter your learning goal">
     <div id="task-section" class="mt-3" formArrayName="tasks">
-      <label for="tasks">Tasks</label>
+      <h4>Tasks</h4>
       <button type="button" class="btn btn-dark fa fa-plus float-right" (click)="addTask()"></button>
       <div *ngFor="let task of tasks.controls; index as i">
         <div class="form-group" id="tasks">

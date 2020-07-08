@@ -4,10 +4,10 @@
   <input [(ngModel)]="this.editingLearningGoal.goal" class="form-control" id="goal" name="goal"
          placeholder="Enter your learning goal">
   <div id="task-section" class="mt-3">
-    <label for="tasks">Tasks</label>
+    <h4 class="d-inline">Tasks</h4>
     <button class="btn btn-dark fa fa-plus float-right" (click)="addTask()"></button>
-    <div *ngFor="let task of this.editingLearningGoal.tasks; index as i;">
-      <div class="form-row p-3" id="tasks">
+    <div class="mt-1" *ngFor="let task of this.editingLearningGoal.tasks; index as i;">
+      <div class="form-row task-item p-1 mb-2" id="tasks">
         <input type="checkbox" name="taskCompletion" id="taskCompletion" [checked]="task.completed"
                class="form-check-label mx-2 my-3 col-auto" (change)="task.completed = !task.completed">
         <input [(ngModel)]="task.name"

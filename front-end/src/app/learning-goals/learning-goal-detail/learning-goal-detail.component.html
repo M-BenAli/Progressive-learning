@@ -6,37 +6,25 @@
       </button>
       <h2 class="text-center overflow-hidden word-break">{{learningGoal.goal}}</h2>
       <div class="mb-3">
-        <label for="description">Description</label>
-        <textarea class="form-control mt-2 mh-100" placeholder="Initial topic description and introduction"
-                id="description" [(ngModel)]="learningGoal.description">
-        {{learningGoal.description}}</textarea>
+        <div class="description bg-dark p-1">
+          <p>{{learningGoal.description}}</p>
+        </div>
       </div>
         <div class="tasks-list">
         <h4 class="">Tasks</h4>
           <app-task-list [learningGoal]="learningGoal"
         (updatedLearningGoal)="onUpdatedLearningGoal($event)"></app-task-list>
-<!--        <div class="form-row p-3" *ngFor="let task of learningGoal.tasks">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input mx-2 my-2" name="{{task.name}}"
-                   id="{{task.name}}"
-                   [checked]="task.completed" [(ngModel)]="task.completed"
-                   (change)="reloadTaskProgress()">
-            <label class="custom-control-label" for="{{task.name}}"></label>
-            <a routerLink="{{learningGoal.id}}/tasks/{{task.id}}"
-               class="">{{task.name}}</a>
-          </div>
-        </div>-->
       </div>
       <div class="progress">
         <div class="progress-bar" role="progressbar"
              [style.width.%]="learningGoal.progress">{{learningGoal.progress}}%
         </div>
       </div>
-      <div class="mt-2">
-        <label for="user">Created by user:</label>
-        <input type="text" id="user" class="form-control" disabled
-               [value]="learningGoal.user ? learningGoal.user.email : 'Guest'">
-      </div>
+<!--      <div class="mt-2">-->
+<!--        <label for="user">Created by user:</label>-->
+<!--        <input type="text" id="user" class="form-control" disabled-->
+<!--               [value]="learningGoal.user ? learningGoal.user.email : 'Guest'">-->
+<!--      </div>-->
     </div>
   </div>
   <div id="editing-learning-goal" *ngIf="renderEdit">
@@ -44,7 +32,8 @@
                             (deletedTasksReg)="registerDeletedTask($event)">
     </app-learning-goal-edit>
   </div>
-  <div class="mt-2" *ngIf="permissionService.hasPermission(this.sessionService.getCurrentUser(), this.learningGoal)">
+  <div class="mt-2"
+       *ngIf="permissionService.hasPermission(this.sessionService.getCurrentUser(), this.learningGoal)">
     <button class="btn btn-info mr-1" [disabled]="renderEdit" (click)="onEdit()">Edit</button>
     <button class="btn btn-success" [hidden]="!renderEdit" (click)="onSave()">Save</button>
     <button class="btn btn-danger float-right" (click)="onDelete()">Delete</button>

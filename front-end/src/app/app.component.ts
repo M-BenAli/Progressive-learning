@@ -33,6 +33,7 @@ export class AppComponent {
         console.log(error);
       },
       () => {
+        console.log(this.sessionService.getAuthenticationToken());
         this.loading = false;
       }
     )

@@ -25,8 +25,9 @@
       <p>Select a learning-goal or create one</p>
     </div>
     <div class="learning_goal-detail col-md-6 col-lg-5" *ngIf="selectedLearningGoal">
-      <app-learning-goal-detail (editing)="onEdit($event)" (deleted)="onDelete($event)"
-                                (saved)="onSave($event)" (cancel)="onCancel($event)">
+      <app-learning-goal-detail [selectedLearningGoal]="selectedLearningGoal"
+        (editing)="onEdit($event)" (deleted)="onDelete($event)"
+        (saved)="onSave($event)" (cancel)="onCancel($event)">
       </app-learning-goal-detail>
     </div>
     <div class="learning_goal-create col-md-6 col-lg-6" *ngIf="renderingCreate">

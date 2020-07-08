@@ -16,6 +16,8 @@ import {UsersModule} from "./users/users.module";
 import {httpInterceptors} from "./http-interceptors";
 import {PageNotFoundComponent} from './error-pages/page-not-found/page-not-found.component';
 import {ForbiddenComponent} from './error-pages/forbidden/forbidden.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {SubjectsModule} from "./subjects/subjects.module";
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import {ForbiddenComponent} from './error-pages/forbidden/forbidden.component';
     UserComponent,
     PageNotFoundComponent,
     ForbiddenComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,8 +38,9 @@ import {ForbiddenComponent} from './error-pages/forbidden/forbidden.component';
     LearningGoalsModule,
     TasksModule,
     UsersModule,
+    SubjectsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [httpInterceptors],
   exports: [],

@@ -2,13 +2,13 @@
 <!--     [style]="task.completed ? 'background-color: lightgreen' : null">-->
 
 <div class="task-list" *ngFor="let task of learningGoal.tasks">
-  <div class="form-row p-2 task mb-2" [@taskCompletion]="task.completed ? 'completed' : 'incomplete'">
+  <div class="form-row task-item p-2 mb-2" [@taskCompletion]="task.completed ? 'completed' : 'incomplete'">
     <div class="custom-control custom-checkbox">
       <input type="checkbox" class="custom-control-input mx-2 my-2" name="{{task.name}}"
-             id="{{task.name}}"
+             id="{{task.id}}"
              [checked]="task.completed" [(ngModel)]="task.completed"
              (change)="reloadTaskProgress()">
-      <label class="custom-control-label" for="{{task.name}}"></label>
+      <label class="custom-control-label" for="{{task.id}}"></label>
       <a routerLink="{{learningGoal.id}}/tasks/{{task.id}}"
          class="">{{task.name}}</a>
     </div>

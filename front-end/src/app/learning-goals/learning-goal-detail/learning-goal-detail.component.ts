@@ -132,27 +132,10 @@ export class LearningGoalDetailComponent implements OnInit {
 
 
   ngOnInit() {
-    this.queryParamSubscription = this.activatedRoute.queryParams.subscribe(
-      params => {
-        if (params.id) {
-          this.renderEdit = false
-          this.learningGoalService.get(params.id).subscribe(
-            (learningGoal: LearningGoal) => {
-              this.selectedLearningGoal = learningGoal
-            },
-            (err) => {
-              console.log(err)
-            }, () => {
-              this.learningGoal = LearningGoal.fromJSON(this.selectedLearningGoal)
-              console.log(this.learningGoal)
-            })
-        }
-      })
+    this.learningGoal = this.selectedLearningGoal;
   }
 
   ngOnDestroy() {
-    this.queryParamSubscription.unsubscribe()
-    this.learningGoal = null
   }
 
 }

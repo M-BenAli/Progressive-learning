@@ -22,7 +22,8 @@ import {TasksModule} from "../tasks/tasks.module";
     LearningGoalPipe
   ],
   exports: [
-    LearningGoalDetailComponent
+    LearningGoalDetailComponent,
+    LearningGoalsListComponent
   ],
     imports: [
         CommonModule,

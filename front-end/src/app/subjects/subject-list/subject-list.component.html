@@ -1,0 +1,16 @@
+<div class="col-4 mt-2" *ngFor="let subject of subjects">
+  <div class="card category-item"
+  (click)="someFunction()">
+    <div class="card-body">
+      <h5 class="card-title text-center">
+        {{subject.name}}</h5>
+      <p class="card-text">{{subject.description}}</p>
+<!--      <p>Amount of learning goals: {{subject.learningGoals.length}}</p>-->
+      <a [routerLink]="['/subjects', subject.id, 'learning-goals']" class="stretched-link"></a>
+    </div>
+  </div>
+</div>
+<span class="col-3 mt-2 align-self-center"><a [routerLink]="['/learning-goals']">All learning goals
+<span class="fa fa-arrow-right"></span></a>
+</span>
+

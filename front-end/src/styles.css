@@ -2,6 +2,8 @@
 
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import 'assets/stylesheets/custom.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
 
 
 html, body {
@@ -30,5 +32,11 @@ body {
 .word-break {
   word-break: break-word;
 }
+
+
+.ql-editor ol, .ql-editor ul {
+  padding-left: 0 !important;
+}
+
 
 

@@ -51,7 +51,7 @@ export class SessionService {
     this.currentUser = null;
     this.isAuthenticated = false;
     this.token = null;
-    return this.httpClient.post(environment.apiUrl + `/api/authentication/logout`, {},
+    return this.httpClient.post(environment.apiUrl + `/authentication/logout`, {},
       { withCredentials: true });
   }
 
