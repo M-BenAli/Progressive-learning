@@ -38,13 +38,14 @@ module.exports = User.init({
         allowNull: false,
         unique: true
     },
-    admin: {
-        type: DataTypes.BOOLEAN
-    },
     password_salt: {
         type: DataTypes.STRING,
         unique: true
-    }
+    },
+    admin: {
+    type: DataTypes.BOOLEAN
+}
+
 }, {
     sequelize,
     modelName: 'user'

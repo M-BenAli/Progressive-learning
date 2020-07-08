@@ -33,17 +33,18 @@ router.put('/api/tasks/:id', async function (req, res) {
         }
     });
     let learningGoal = await task.getLearningGoal();
-    console.log(learningGoal);
-    console.log(await learningGoal.getTasks({
-        where: {
-            learningGoalId: learningGoal.id
-        }
-    }));
+    // console.log(learningGoal);
+    // console.log(await learningGoal.getTasks({
+    //     where: {
+    //         learningGoalId: learningGoal.id
+    //     }
+    // }));
     if (task) {
         task.name = req.body.name;
         task.completed = req.body.completed;
         task.summary = req.body.summary;
         await task.save();
+        console.log(task.toJSON());
         await learningGoal.updateProgress();
         return res.status(200).json(task);
     } else {

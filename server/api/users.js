@@ -52,10 +52,10 @@ router.put('/api/users/:id', helpers.isAuth, async function (req, res) {
 });
 
 router.post('/api/users', async function (req, res) {
-    const {username, password, admin} = req.body;
+    const {email, password, admin} = req.body;
     const passwordHash = User.hashPassword(password);
     const newUser = await User.create({
-        username: username,
+        email: email,
         password: passwordHash.hash.toString('hex'),
         password_salt: passwordHash.salt,
         admin: admin

@@ -12,7 +12,7 @@ class LearningGoal extends Model {
                 learningGoalId: this.id
             }
         });
-        console.log(tasks);
+        // console.log(tasks);
         tasks.forEach(task => {
             task.completed ? completedTasks++ : null;
         });

@@ -11,6 +11,7 @@ const LearningGoal = require('../models/Learning-goal');
 const Task = require('../models/Task');
 const Resource = require('../models/resource');
 const User = require('../models/User');
+const Subject = require('../models/Subject');
 
 // Sequelize associations
 LearningGoal.tasks = LearningGoal.hasMany(Task);
@@ -19,3 +20,6 @@ Task.resources = Task.belongsToMany(Resource, { through: 'TaskResources' });
 Resource.belongsToMany(Task, { through: 'TaskResources' });
 User.learningGoals = User.hasMany(LearningGoal);
 LearningGoal.user = LearningGoal.belongsTo(User);
+Subject.learningGoals = Subject.hasMany(LearningGoal);
+User.subjects = User.hasMany(Subject);
+Subject.user = Subject.belongsTo(User);

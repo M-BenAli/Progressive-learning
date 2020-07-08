@@ -42,7 +42,16 @@ router.post('/api/authentication/logout', function (req, res) {
 });
 
 //todo create sign-up
-router.post('/api/authentication/sign-up', async function (req, res) {
+router.post('/api/sign-up', async function (req, res) {
+/*
+    const { email, password } = req.body;
+    if(!email || !password) {
+        res.status(400).json({
+            message: 'No email or password provided'
+        });
+    }
+
+*/
     res.status(404).json({
         message: 'In development'
     });

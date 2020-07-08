@@ -24,8 +24,9 @@ const app = express();
 const learningGoalsRoute = require('./api/learning-goals');
 const tasksRoute = require('./api/tasks');
 const resourcesRoute = require('./api/resources');
-const authenticationRoute = require('./api/authentication');
+const subjectsRoute = require('./api/subjects');
 const usersRoute = require('./api/users');
+const authenticationRoute = require('./api/authentication');
 
 /* Logger
 const logger = (req, res, next) => {
@@ -50,8 +51,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(learningGoalsRoute, tasksRoute, resourcesRoute, authenticationRoute,
-    usersRoute);
+app.use(learningGoalsRoute, tasksRoute, resourcesRoute, subjectsRoute,
+    authenticationRoute, usersRoute);
 
 app.get('/', function (req, res) {
     // req.session.views = (req.session.views || 0) + 1;
