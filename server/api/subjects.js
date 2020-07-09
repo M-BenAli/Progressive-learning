@@ -7,7 +7,7 @@ const User = require('../models/User');
 const helpers = require('../utils/helpers');
 
 router.post('/api/subjects', async function (req, res) {
-    const {name, userId} = req.body;
+    const {name, description, userId} = req.body;
     if (!name || !userId) {
         res.status(400).json({
             message: 'No name or userID included'
@@ -16,7 +16,10 @@ router.post('/api/subjects', async function (req, res) {
 
     const subject = await Subject.create({
         name: name,
-        userId: userId
+        description: description,
+        userId: userId,
+    }, {
+        include: [ Subject.learningGoals ]
     });
 
     res.status(200).json(subject);
@@ -27,7 +30,7 @@ router.get('/api/subjects/:id', async function (req, res) {
     const subjectID = req.params.id;
     const subject = await Subject.findByPk(subjectID, {
         include: [
-            { model: LearningGoal, include: [Task] }
+            { model: LearningGoal, include: [Task, Subject] }
             ]
     });
 

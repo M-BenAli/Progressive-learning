@@ -5,6 +5,8 @@ import {Task} from "../../models/task";
 import {Router} from "@angular/router";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {SessionService} from "../../services/session/session.service";
+import {SubjectService} from "../../services/subject.service";
+import {Subject} from "../../models/subject";
 
 @Component({
   selector: 'app-learning-goal-create',
@@ -14,24 +16,28 @@ import {SessionService} from "../../services/session/session.service";
 export class LearningGoalCreateComponent implements OnInit {
 
   learningGoalForm: FormGroup;
+  subjects: Subject[];
   @Output() createdLearningGoal = new EventEmitter<LearningGoal>()
   @Output() cancel = new EventEmitter<boolean>()
 
   constructor(private learningGoalService: LearningGoalService,
+              private subjectService: SubjectService,
               private sessionService: SessionService,
               private router: Router,
               private formBuilder: FormBuilder) {
+    this.subjects = [];
     this.learningGoalForm = this.formBuilder.group({
       goal: '',
       tasks: this.formBuilder.array([
         this.formBuilder.control('')
       ]),
-      description: ''
-    })
+      description: '',
+      subjectID: ''
+    });
   }
 
   get tasks() {
-    return this.learningGoalForm.get('tasks') as FormArray
+    return this.learningGoalForm.get('tasks') as FormArray;
   }
 
   addTask() {
@@ -40,22 +46,19 @@ export class LearningGoalCreateComponent implements OnInit {
     this.tasks.push(this.formBuilder.control(''))
   }
 
+  //Create the learning goal which will contain the form information
   onSubmit(learningGoalData) {
     console.log("Submitting learning goal creation form..")
-    //Create the learning goal which will contain the form information
+
+    let subject = this.subjects.find(s => s.id === parseInt(learningGoalData.subjectID));
     let learningGoal = new LearningGoal(learningGoalData.goal, [], 0,
-      this.sessionService.currentUser, learningGoalData.description)
+      this.sessionService.currentUser, subject, learningGoalData.description)
     learningGoalData.tasks.forEach(t => {
       let task = new Task(t, false)
       learningGoal.tasks.push(task)
     })
+
     this.learningGoalForm.reset()
-    // Check if the client logged in, if so assign the current user to the learning-goal
-    if(this.sessionService.currentUser) {
-      learningGoal.user = this.sessionService.currentUser;
-    } else {
-      learningGoal.user = null;
-    }
     console.log(learningGoal)
     //Create the new learningGoal and make a request to the server
     let newLearningGoal: LearningGoal;
@@ -64,11 +67,7 @@ export class LearningGoalCreateComponent implements OnInit {
         newLearningGoal = LearningGoal.fromJSON(createdLearningGoal);
       }, (error) => console.log(error),
       () => {
-        newLearningGoal.user = this.sessionService.currentUser;
         this.createdLearningGoal.emit(newLearningGoal);
-        this.router.navigate([''], {
-          queryParams: {id: newLearningGoal.id}
-        });
       });
   }
 
@@ -79,32 +78,16 @@ export class LearningGoalCreateComponent implements OnInit {
 
 
   ngOnInit() {
-    // console.log("Rendering create..")
+    const user = this.sessionService.getCurrentUser();
+    if (user) {
+      this.subjectService.getUserSubjects(user.id).subscribe((subjects: []) => {
+          subjects.forEach(s => this.subjects.push(Subject.fromJSON(s)));
+        }, (error) => console.log(error),
+        () => {
+
+        })
+    }
+
   }
 
 }
-
-// Some old/back-up functions
-/*
-createLearningGoal() {
-  this.learningGoalService.create(new LearningGoal(this.learningGoalInput, this.taskInputs,
-    0, this.descriptionInput)).subscribe(
-    (newLearningGoal: LearningGoal) => {
-      this.newLearningGoal = LearningGoal.fromJSON(newLearningGoal);
-    }, (error) => console.log(error),
-    () => {
-      this.createdLearningGoal.emit(this.newLearningGoal);
-      this.router.navigate([''], {
-        queryParams: {id: this.newLearningGoal.id}
-      });
-    });
-
-addTaskInput() {
-    console.log("Adding a task")
-    this.taskInputs.push(new Task(''))
-}
-
-trackByIdx(index: number, obj: any) {
-    return index;
-}
-}*/

@@ -10,19 +10,6 @@ import {SessionService} from "../../services/session/session.service";
 })
 export class DashboardComponent implements OnInit {
 
-  mockSubjects: object[] = [
-    {name: 'subject1'},
-    {name: 'subject2'},
-    {name: 'subject3'},
-    {name: 'subject4'},
-    {name: 'subject5'},
-    {name: 'subject6'},
-    {name: 'subject7'},
-    {name: 'subject8'},
-    {name: 'subject9'},
-    {name: 'subject10'},
-  ]
-
   subjects: Subject[];
   constructor(private subjectService: SubjectService,
               private sessionService: SessionService) {

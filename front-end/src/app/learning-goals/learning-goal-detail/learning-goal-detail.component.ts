@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {LearningGoal} from "../../models/learning-goal";
 import {LearningGoalService} from "../../services/learning-goal.service";
 import {LearningGoalEditComponent} from "../learning-goal-edit/learning-goal-edit.component";
-import {Subscription} from "rxjs";
 import {Task} from "../../models/task";
 import {TaskService} from "../../services/task.service";
 import {PermissionService} from "../../services/permissions/permission.service";
@@ -18,15 +17,16 @@ export class LearningGoalDetailComponent implements OnInit {
 
   learningGoal: LearningGoal;
   renderEdit: boolean;
-  queryParamSubscription: Subscription;
   deletedTasksReg: Task[];
 
   @ViewChild(LearningGoalEditComponent) learningEdit: LearningGoalEditComponent
-  @Input() selectedLearningGoal: LearningGoal;
   @Output() editing: EventEmitter<boolean>;
   @Output() deleted: EventEmitter<boolean>;
   @Output() cancel: EventEmitter<boolean>;
   @Output() saved: EventEmitter<LearningGoal>;
+  @Input() set selectedLGoal(learningGoal: LearningGoal) {
+    this.learningGoal = learningGoal;
+  }
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
               private learningGoalService: LearningGoalService,
@@ -46,7 +46,7 @@ export class LearningGoalDetailComponent implements OnInit {
     this.editing.emit(true);
     this.router.navigate(['edit'], {
       relativeTo: this.activatedRoute,
-      queryParams: {id: this.selectedLearningGoal.id}
+      queryParams: {id: this.learningGoal.id}
     })
   }
 
@@ -67,7 +67,7 @@ export class LearningGoalDetailComponent implements OnInit {
           this.learningGoal.calculateProgress()
           this.saved.emit(this.learningGoal)
           console.log(this.learningGoal)
-          this.router.navigate([''], {
+          this.router.navigate(['./'], {
             relativeTo: this.activatedRoute,
             queryParams: {id: this.learningGoal.id}
           })
@@ -76,20 +76,20 @@ export class LearningGoalDetailComponent implements OnInit {
 
   onDelete() {
     console.log("Deleting Learning goal..")
-    this.learningGoalService.delete(this.selectedLearningGoal).subscribe(
+    this.learningGoalService.delete(this.learningGoal).subscribe(
       () => {
         // console.log(learningGoal);
       }, error => {
         console.log(error)
       },
       () => {
-        this.selectedLearningGoal = null;
+        this.learningGoal = null;
         this.deleted.emit(true);
       });
   }
 
   onCancel() {
-    this.selectedLearningGoal = null;
+    this.learningGoal = null;
     this.renderEdit = false;
     this.cancel.emit(true);
   }
@@ -111,9 +111,17 @@ export class LearningGoalDetailComponent implements OnInit {
 
   onUpdatedLearningGoal(learningGoal: LearningGoal) {
     this.learningGoal = learningGoal;
-    this.selectedLearningGoal = learningGoal;
     console.log(this.learningGoal);
   }
+
+  ngOnInit() {
+  }
+
+  ngOnDestroy() {
+  }
+
+}
+
 
 
 /*  reloadTaskProgress() {
@@ -129,13 +137,3 @@ export class LearningGoalDetailComponent implements OnInit {
         // console.log(this.learningGoal);
       });
   }*/
-
-
-  ngOnInit() {
-    this.learningGoal = this.selectedLearningGoal;
-  }
-
-  ngOnDestroy() {
-  }
-
-}

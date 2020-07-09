@@ -1,0 +1,17 @@
+<div class="row justify-content-center main-section">
+  <div class="row row-container justify-content-center p-2 w-50">
+    <div class="col-md-12 col-lg-5">
+      <form class="" [formGroup]="subjectForm" (ngSubmit)="onSubmit(subjectForm.value)">
+        <h2>New subject</h2>
+        <label for="subjectName">Name</label>
+        <input class="form-control" id="subjectName" formControlName="name">
+        <label for="subjectDescription">Description</label>
+        <textarea class="form-control" id="subjectDescription" formControlName="description"
+                  placeholder="Description"></textarea>
+        <div class="mt-2">
+          <button class="btn btn-primary mt-1" type="submit">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

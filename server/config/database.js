@@ -14,12 +14,15 @@ const User = require('../models/User');
 const Subject = require('../models/Subject');
 
 // Sequelize associations
+User.learningGoals = User.hasMany(LearningGoal);
+User.subjects = User.hasMany(Subject);
 LearningGoal.tasks = LearningGoal.hasMany(Task);
+LearningGoal.user = LearningGoal.belongsTo(User);
+LearningGoal.subject = LearningGoal.belongsTo(Subject, {
+    allowNull: true
+});
 Task.learningGoal = Task.belongsTo(LearningGoal);
 Task.resources = Task.belongsToMany(Resource, { through: 'TaskResources' });
 Resource.belongsToMany(Task, { through: 'TaskResources' });
-User.learningGoals = User.hasMany(LearningGoal);
-LearningGoal.user = LearningGoal.belongsTo(User);
 Subject.learningGoals = Subject.hasMany(LearningGoal);
-User.subjects = User.hasMany(Subject);
 Subject.user = Subject.belongsTo(User);

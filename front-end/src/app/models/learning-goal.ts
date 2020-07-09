@@ -1,5 +1,6 @@
 import {Task} from "./task";
 import {User} from "./user";
+import {Subject} from "./subject";
 
 export class LearningGoal {
 
@@ -8,15 +9,19 @@ export class LearningGoal {
   description: string;
   tasks: Task[];
   progress: number;
+  subject: Subject;
   user: User;
 
-  constructor(goal: string, tasks: Task[], progress: number, user?: User, description?: string, id?: number) {
+  constructor(goal: string, tasks: Task[], progress: number,
+              user?: User, subject?: Subject,
+              description?: string, id?: number) {
     this.goal = goal;
     this.tasks = tasks;
     this.progress = progress;
     this.description = description;
     this.id = id
     this.user = user;
+    this.subject = subject;
   }
 
   public getId(): number {
@@ -53,14 +58,15 @@ export class LearningGoal {
   }
 
   static fromJSON(data: LearningGoal): LearningGoal {
-    data.tasks = data.tasks.map(task => Task.fromJSON(task))
-    return new LearningGoal(data.goal, data.tasks, data.progress, data.user, data.description,
-      data.id)
+    data.tasks = data.tasks ? data.tasks.map(task => Task.fromJSON(task)) : null;
+    return new LearningGoal(data.goal, data.tasks, data.progress, data.user, data.subject,
+      data.description, data.id)
   }
 
   static deepCopy(learningGoal: LearningGoal) {
     return Object.assign(new LearningGoal(learningGoal.goal, learningGoal.tasks,
-      learningGoal.progress, learningGoal.user, learningGoal.description, learningGoal.id), learningGoal)
+      learningGoal.progress, learningGoal.user, learningGoal.subject, learningGoal.description,
+      learningGoal.id), learningGoal)
   }
 
 }

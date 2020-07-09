@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SubjectService} from "../../services/subject.service";
 import {ActivatedRoute} from "@angular/router";
+import {Subject} from "../../models/subject";
 
 @Component({
   selector: 'app-subject',
@@ -9,6 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SubjectComponent implements OnInit {
 
+  public subject: Subject;
 
   constructor(private subjectService: SubjectService,
               private activatedRoute: ActivatedRoute) {
@@ -18,10 +20,10 @@ export class SubjectComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       const subjectID: number = parseInt(params.get('id'));
       this.subjectService.get(subjectID).subscribe((subject) => {
-          console.log(subject);
+          this.subject = Subject.fromJSON(subject);
         }, (error) => console.log(error),
         () => {
-
+          // console.log(this.subject);
         });
 
     });

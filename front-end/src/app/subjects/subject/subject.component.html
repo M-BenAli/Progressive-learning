@@ -1,6 +1,4 @@
-<div class="row justify-content-center main-section">
-  <div class="row p-2 row-container">
-<!--  <app-learning-goal ></app-learning-goal>-->
-
-  </div>
+<div *ngIf="subject">
+  <h2 class="text-white">{{subject.name}}</h2>
+  <app-learning-goal [inputLearningGoals]="subject.learningGoals"></app-learning-goal>
 </div>

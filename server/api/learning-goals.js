@@ -3,6 +3,7 @@ const router = express.Router();
 const helpers = require('../utils/helpers');
 const LearningGoal = require('../models/Learning-goal');
 const Task = require('../models/Task');
+const Subject = require('../models/Subject');
 const User = require('../models/User');
 const db = require('../config/database');
 
@@ -14,11 +15,11 @@ router.get('/api/learning-goals', async function (req, res) {
             where: {
                 userId: null
             },
-            include: [Task]
+            include: [Task, Subject]
         });
     } else {
         learningGoals = await LearningGoal.findAll({
-            include: [Task]
+            include: [Task, Subject]
         });
     }
     res.status(200).json(learningGoals);
@@ -26,7 +27,7 @@ router.get('/api/learning-goals', async function (req, res) {
 
 router.get('/api/learning-goals/:id', async function (req, res) {
     const learningGoal = await LearningGoal.findByPk(req.params.id, {
-        include: [Task, {
+        include: [Task, Subject, {
             model: User,
             attributes: {
                 exclude: ['password', 'password_salt']
@@ -39,12 +40,12 @@ router.get('/api/learning-goals/:id', async function (req, res) {
         res.end();
     } else
         console.log(learningGoal.toJSON());
-        res.status(200).json(learningGoal);
+    res.status(200).json(learningGoal);
 });
 
 router.put('/api/learning-goals/:id', async function (req, res) {
     let learningGoal = await LearningGoal.findByPk(req.params.id, {
-        include: [Task, {
+        include: [Task, Subject, {
             model: User,
             attributes: {
                 exclude: ['password', 'password_salt']
@@ -70,26 +71,31 @@ router.put('/api/learning-goals/:id', async function (req, res) {
 });
 
 router.post('/api/learning-goals', async function (req, res) {
+    const {goal, progress, description, tasks, subject, user} = req.body;
     console.log(req.body);
-    const user = req.body.user;
-    const learningGoal = await LearningGoal.build({
-        goal: req.body.goal,
-        progress: req.body.progress,
-        description: req.body.description,
-        tasks: req.body.tasks,
+
+    if (!goal) {
+        return res.status(400).json({message: 'No learning goal has been specified!'});
+    }
+
+    let learningGoal = await LearningGoal.create({
+        goal: goal,
+        progress: progress,
+        description: description,
+        tasks: tasks,
+        subjectId: subject ? subject.id : null,
         userId: user ? user.id : null
     }, {
-        include: [Task, User]
+        include: [Task]
     });
 
-    console.log(learningGoal.toJSON());
-    if (!learningGoal.goal) {
-        return res.status(400).json({message: 'No learning goal has been specified!'});
-    } else {
-        await learningGoal.save();
-        res.json(learningGoal.toJSON());
-        res.status(200);
-    }
+    learningGoal = await LearningGoal.findByPk(learningGoal.id, {
+        include: [ Task, Subject, User]
+    });
+
+    console.log(learningGoal.toJSON(), await learningGoal.getSubject());
+    res.json(learningGoal.toJSON());
+    res.status(200);
 });
 
 
@@ -124,8 +130,8 @@ router.get('/api/users/:id/learning-goals', helpers.isAuth, async function (req,
 
     if (user) {
         const learningGoals = await user.getLearningGoals({
-                include: Task
-            });
+            include: [Task, Subject]
+        });
         res.status(200).json(learningGoals);
     } else {
         res.status(404).json({
