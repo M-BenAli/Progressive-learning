@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {LearningGoal} from "../../models/learning-goal";
 import {LearningGoalService} from "../../services/learning-goal.service";
 import {Task} from "../../models/task";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {SessionService} from "../../services/session/session.service";
 import {SubjectService} from "../../services/subject.service";
@@ -17,6 +17,7 @@ export class LearningGoalCreateComponent implements OnInit {
 
   learningGoalForm: FormGroup;
   subjects: Subject[];
+  selectedSubjectID: number;
   @Output() createdLearningGoal = new EventEmitter<LearningGoal>()
   @Output() cancel = new EventEmitter<boolean>()
 
@@ -24,6 +25,7 @@ export class LearningGoalCreateComponent implements OnInit {
               private subjectService: SubjectService,
               private sessionService: SessionService,
               private router: Router,
+              private activatedRoute: ActivatedRoute,
               private formBuilder: FormBuilder) {
     this.subjects = [];
     this.learningGoalForm = this.formBuilder.group({
@@ -34,6 +36,7 @@ export class LearningGoalCreateComponent implements OnInit {
       description: '',
       subjectID: ''
     });
+
   }
 
   get tasks() {
@@ -78,6 +81,9 @@ export class LearningGoalCreateComponent implements OnInit {
 
 
   ngOnInit() {
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.selectedSubjectID = parseInt(params.get('subject-id'));
+    }).unsubscribe();
     const user = this.sessionService.getCurrentUser();
     if (user) {
       this.subjectService.getUserSubjects(user.id).subscribe((subjects: []) => {

@@ -1,7 +1,7 @@
 <div class="row justify-content-center main-section">
   <div class="row row-container p-2">
     <div class="col-md-6 col-lg-5">
-      <div class="spinner-border" role="status" *ngIf="learningGoals.length === 0">
+      <div class="spinner-border" role="status" *ngIf="this.loading">
         <span class="sr-only">Loading..</span>
       </div>
       <div class="input-group mb-2">

@@ -10,12 +10,12 @@ import {User} from "../../models/user";
 export class SessionService {
 
   public currentUser: User;
-  public isAuthenticated: boolean;
+  public authenticated: boolean;
   public token;
 
   constructor(private router: Router,
               private httpClient: HttpClient) {
-    this.isAuthenticated = false;
+    this.authenticated = false;
   }
 
   authenticate(credentials) {
@@ -35,21 +35,25 @@ export class SessionService {
 
   setToken(token): void{
     this.token = token;
-    this.isAuthenticated = true;
+    this.authenticated = true;
   }
 
   setCurrentUser(user: User) {
     this.currentUser = user;
-    this.isAuthenticated = true;
+    this.authenticated = true;
   }
 
   public getCurrentUser() {
     return this.currentUser;
   }
 
+  isAuthenticated(): boolean {
+    return this.authenticated
+  }
+
   logOut(){
     this.currentUser = null;
-    this.isAuthenticated = false;
+    this.authenticated = false;
     this.token = null;
     return this.httpClient.post(environment.apiUrl + `/authentication/logout`, {},
       { withCredentials: true });

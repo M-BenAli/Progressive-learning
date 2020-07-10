@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {SessionService} from "../../services/session/session.service";
 import {Subject} from "../../models/subject";
 import {SubjectService} from "../../services/subject.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-subject-create',
@@ -14,6 +15,7 @@ export class SubjectCreateComponent implements OnInit {
   public subjectForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
+              private router: Router,
               private sessionService: SessionService,
               private subjectService: SubjectService) {
     this.subjectForm = this.formBuilder.group({
@@ -31,6 +33,7 @@ export class SubjectCreateComponent implements OnInit {
     }, (error) => {
       console.log(error);
     }, () => {
+      this.router.navigate(['dashboard']);
 
     });
 

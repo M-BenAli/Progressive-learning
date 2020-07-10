@@ -18,14 +18,13 @@ export class SubjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
-      const subjectID: number = parseInt(params.get('id'));
+      const subjectID: number = parseInt(params.get('subject-id'));
       this.subjectService.get(subjectID).subscribe((subject) => {
           this.subject = Subject.fromJSON(subject);
         }, (error) => console.log(error),
         () => {
           // console.log(this.subject);
         });
-
     });
   }
 

@@ -20,15 +20,14 @@
   </div>
   <div class="subject-options">
     <label for="subjects">Subject</label>
-    <select id="subjects" class="form-control" formControlName="subjectID">
-<!--      <option value="0" selected="selected">None</option>-->
-      <option *ngFor="let subject of subjects; index as i"
-      [value]="subject.id">
+    <select id="subjects" class="form-control" formControlName="subjectID"
+     [ngModel]="selectedSubjectID">
+      <option *ngFor="let subject of subjects; index as i" [value]="subject.id">
         {{subject.name}}
       </option>
     </select>
   </div>
-    <div class="btn-group mt-1">
+    <div class="btn-group mb-1 mt-3">
       <button class="btn btn-dark mr-2" type="submit">Learn</button>
       <button class="btn btn-danger" type="button" (click)="onCancel()">Cancel</button>
     </div>

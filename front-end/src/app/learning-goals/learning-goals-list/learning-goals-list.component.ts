@@ -125,6 +125,7 @@ export class LearningGoalsListComponent implements OnInit {
 
     if (this.inputLearningGoals) {
       this.learningGoals = this.inputLearningGoals
+      this.loading = false;
     }
   }
 

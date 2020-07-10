@@ -13,8 +13,8 @@
         <input [(ngModel)]="task.name"
                class="form-control mt-1 w-75 col-md-9"
                [id]="'task' + i" name="task{{i}}" placeholder="Task">
-        <a class="btn btn-outline-danger btn-sm m-2 col-auto" title="Delete task" (click)="deleteTask(task, i)">
-          <span class="fa fa-minus"></span>
+        <a class="btn btn-danger btn-sm m-2 col-auto" title="Delete task" (click)="deleteTask(task, i)">
+          <span class="fa fa-times"></span>
         </a>
       </div>
     </div>

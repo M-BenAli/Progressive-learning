@@ -19,24 +19,25 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.loading = true;
-    this.sessionService.getSessionToken().subscribe(response => {
-        if (response.headers.has('Authorization') && response.body) {
-          // console.log(response);
-          this.sessionService.setToken(response.headers.get('Authorization'));
-          this.sessionService.setCurrentUser(response.body['user']);
-          // this.router.navigate(['']);
-        } else {
-          this.router.navigate(['login']);
+    if (!this.sessionService.getAuthenticationToken()) {
+      this.sessionService.getSessionToken().subscribe(response => {
+          if (response.headers.has('Authorization') && response.body) {
+            // console.log(response);
+            this.sessionService.setToken(response.headers.get('Authorization'));
+            this.sessionService.setCurrentUser(response.body['user']);
+          } else {
+            // console.log("Routing back to login page..");
+            this.router.navigate(['login']);
+          }
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          this.loading = false;
         }
-      },
-      error => {
-        console.log(error);
-      },
-      () => {
-        console.log(this.sessionService.getAuthenticationToken());
-        this.loading = false;
-      }
-    )
+      );
+    }
   }
 
 

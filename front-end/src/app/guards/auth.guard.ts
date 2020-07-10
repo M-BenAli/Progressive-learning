@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {SessionService} from "../services/session/session.service";
+import {User} from "../models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,32 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.sessionService.getAuthenticationToken()) {
+    if (this.sessionService.isAuthenticated()) {
+      console.log("Authenticated with current session");
       return true;
     } else {
-      this.router.navigate(['login']);
-      return false;
+      this.sessionService.getSessionToken().subscribe(resp => {
+          const token = resp.headers.get('Authorization');
+          const user = resp.body['user'] || null;
+          this.sessionService.setToken(token);
+          this.sessionService.setCurrentUser(User.fromJSON(user));
+        }
+        , (error) => {
+          console.log(error);
+        }, () => {
+          if (this.sessionService.getAuthenticationToken()) {
+            console.log("Authenticated with token");
+            console.log(state, next);
+            this.router.navigate([state.url])
+            return true;
+          } else {
+            console.log("No authentication");
+            this.router.navigate(['login']);
+            return false
+          }
+        });
     }
   }
-
 }
+
+

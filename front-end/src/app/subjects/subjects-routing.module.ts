@@ -8,7 +8,7 @@ import {SubjectCreateComponent} from "./subject-create/subject-create.component"
 
 const subjectsRoutes: Routes = [
   {path: 'subjects/create', component: SubjectCreateComponent },
-  {path: 'subjects/:id/learning-goals', component: SubjectComponent, children: [
+  {path: 'subjects/:subject-id/learning-goals', component: SubjectComponent, children: [
       {path: 'create', component: LearningGoalCreateComponent},
       {path: 'edit', component: LearningGoalEditComponent},
     ]}

@@ -26,6 +26,7 @@ export class TaskListComponent implements OnInit {
 
   @Input() learningGoal: LearningGoal;
   @Output() updatedLearningGoal: EventEmitter<LearningGoal>;
+  tasksBaseURL: string;
 
   constructor(private learningGoalService: LearningGoalService) {
     this.updatedLearningGoal = new EventEmitter<LearningGoal>();
@@ -46,6 +47,7 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.learningGoal);
+    this.tasksBaseURL = `/learning-goals/${this.learningGoal.id}/tasks/`
   }
 
 }

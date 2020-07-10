@@ -1,11 +1,6 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
-} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {SessionService} from "./services/session/session.service";
 
 @Injectable()
@@ -25,10 +20,10 @@ export class AuthInterceptor implements HttpInterceptor {
     const routePath = request.url.split('api')[1];
     let token;
     for(let securedPath of this.securedPaths) {
-      // console.log(securedPath);
+      // console.log(securedPath, routePath);
       if(routePath.match(securedPath)) {
         token = this.sessionService.getAuthenticationToken();
-        console.log('Matched url with secured route path!');
+        // console.log('Matched url with secured route path!');
       }
     }
 
