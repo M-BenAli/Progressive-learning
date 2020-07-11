@@ -24,7 +24,6 @@ router.post('/api/authentication/login', async function (req, res) {
         res.set({
             'Authorization': `Bearer ${token}`
         });
-        res.setHeader('Access-Control-Expose-Headers', 'Authorization');
         res.status(200).json({
             id: user.id,
             username: user.username,
@@ -41,21 +40,41 @@ router.post('/api/authentication/logout', function (req, res) {
     res.status(200).end();
 });
 
-//todo create sign-up
-router.post('/api/sign-up', async function (req, res) {
-/*
-    const { email, password } = req.body;
-    if(!email || !password) {
+router.post('/api/authentication/sign-up', async function (req, res) {
+    const {email, password} = req.body;
+    if (!email || !password) {
         res.status(400).json({
             message: 'No email or password provided'
         });
     }
-
-*/
-    res.status(404).json({
-        message: 'In development'
-    });
+    const passwordHash = User.hashPassword(password);
+    try {
+        const newUser = await User.create({
+            email: email,
+            password: passwordHash.hash.toString('hex'),
+            password_salt: passwordHash.salt,
+        });
+        if (newUser) {
+            const token = newUser.generateJWToken();
+            req.session.token = token;
+            res.set({
+                'Authorization': `Bearer ${token}`
+            });
+            res.status(201).json({
+                id: newUser.id,
+                email: newUser.email,
+                admin: false,
+                updatedAt: newUser.updatedAt,
+                createdAt: newUser.createdAt,
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
+            message: `Error occurred while creating a user: ${error}`
+        });
+    }
 });
+
 
 router.get('/api/authentication/session-token', async function (req, res) {
     const token = req.session.token;
@@ -65,13 +84,13 @@ router.get('/api/authentication/session-token', async function (req, res) {
         });
         res.setHeader('Access-Control-Expose-Headers', 'Authorization');
         const payload = helpers.decodeJWToken(token);
-        let user = { id: payload.id, username: payload.username, admin: payload.admin };
+        let user = {id: payload.id, username: payload.username, admin: payload.admin};
         user = await User.findByPk(user.id, {
             attributes: {
                 exclude: ['password', 'password_salt']
             }
         });
-        res.status(200).json({ user: user });
+        res.status(200).json({user: user});
     } else if (!token || req.session.token === null) {
         res.json(null);
     }

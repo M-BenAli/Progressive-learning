@@ -51,6 +51,7 @@ router.put('/api/users/:id', helpers.isAuth, async function (req, res) {
     }
 });
 
+/*
 router.post('/api/users', async function (req, res) {
     const {email, password, admin} = req.body;
     const passwordHash = User.hashPassword(password);
@@ -67,5 +68,6 @@ router.post('/api/users', async function (req, res) {
         message: 'No user created'
     });
 });
+*/
 
 module.exports = router;

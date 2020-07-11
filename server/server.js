@@ -48,6 +48,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, HEAD');
     res.setHeader('Access-Control-Allow-Headers', ['Content-Type', 'Authorization']);
     res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Expose-Headers', 'Authorization');
     next();
 });
 
