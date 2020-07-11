@@ -17,7 +17,7 @@
                 *ngFor="let learningGoal of learningGoals | learningGoal : searchQuery"
                 (click)="renderLearningGoal(learningGoal)">{{learningGoal.goal}}</button>
       </div>
-      <div class="btn-group mt-4 float-left pt-1 create-button">
+      <div class="btn-group mt-4 mb-2 float-left pt-1 create-button">
         <button class="btn btn-primary" (click)="renderCreate()">Create learning goal</button>
       </div>
     </div>

@@ -29,6 +29,11 @@ body {
   width: 100%;
 }
 
+.aqua-box {
+  background-color: #71c7c5;
+  border-radius: 10px;
+}
+
 .word-break {
   word-break: break-word;
 }

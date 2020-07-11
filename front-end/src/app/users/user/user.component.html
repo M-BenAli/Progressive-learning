@@ -1,18 +1,18 @@
 <div class="row justify-content-center main-section">
-  <div class="row p-2 row-container" *ngIf="currentUser">
-    <h3>Hello <span class="text-primary font-weight-bold">{{currentUser.email}}</span></h3>
-    <div class="email col-9 form-inline">
+  <div class="col-sm-12 col-md-7 aqua-box p-1" *ngIf="currentUser">
+    <h3 class="text-truncate">Hello <span class="text-primary font-weight-bold">{{currentUser.email}}</span></h3>
+    <div class="form-group">
       <label for="userEmail">Email:</label>
       <input type="text" id="userEmail" name="userEmail"
-             class="form-control d-inline ml-1 col-8" [formControl]="userEmail"
-             [email]="true">
+             class="form-control d-inline ml-1 col-sm-12 col-md-7 col-lg-4"
+             [formControl]="userEmail" [email]="true">
       <button class="btn btn-sm btn-dark d-inline ml-1" (click)="userEmail.disabled ? userEmail.enable() :
       userEmail.disable()"><span class="fa fa-edit"></span></button>
-    </div>
-    <div class="custom-control custom-checkbox d-block col-2" *ngIf="currentUser.admin">
-      <input type="checkbox" class="custom-control-input" name="isAdmin"
-             id="isAdmin" [(ngModel)]="currentUser.admin" disabled>
-      <label class="custom-control-label" for="isAdmin">Admin</label>
+      <div class="custom-control custom-checkbox d-block col-2" *ngIf="currentUser.admin">
+        <input type="checkbox" class="custom-control-input" name="isAdmin"
+               id="isAdmin" [(ngModel)]="currentUser.admin" disabled>
+        <label class="custom-control-label" for="isAdmin">Admin</label>
+      </div>
     </div>
     <div class="w-100"></div>
     <div class="col-6 mt-2">

@@ -1,8 +1,16 @@
-.category-item {
+.subject-item {
   border-radius: 10px;
   background-color: aquamarine;
 }
 
 .card {
   min-height: 100%;
+}
+
+.subject-item:hover {
+  box-shadow: 3px 3px black;
+}
+
+.subject-del-btn {
+  border-top-right-radius: 5px;
 }

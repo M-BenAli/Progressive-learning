@@ -18,6 +18,7 @@ import {PageNotFoundComponent} from './error-pages/page-not-found/page-not-found
 import {ForbiddenComponent} from './error-pages/forbidden/forbidden.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {SubjectsModule} from "./subjects/subjects.module";
+import {SignUpComponent} from './components/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {SubjectsModule} from "./subjects/subjects.module";
     PageNotFoundComponent,
     ForbiddenComponent,
     DashboardComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,

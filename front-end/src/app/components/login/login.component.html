@@ -2,7 +2,9 @@
   <div class="row justify-content-center">
     <div class="col-md-6 mx-auto">
       <div class="card bg-info">
-        <h5 class="card-title text-center">Login</h5>
+        <div class="card-header">
+          <h4 class="card-title text-center">Login</h4>
+        </div>
         <!--        <span class="text-center text-danger font-weight-bold">Not available yet-->
         <!--        <i class="fa fa-exclamation-triangle"></i></span>-->
         <div class="card-body">
@@ -14,6 +16,9 @@
                    name="password">
             <button class="btn btn-light float-right mt-3" (click)="onLogin()">Login</button>
           </form>
+        </div>
+        <div class="card-footer">
+          <a class="text-white" [routerLink]="['/sign-up']">No account? Sign-up</a>
         </div>
       </div>
     </div>

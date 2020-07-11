@@ -23,9 +23,10 @@ export class AuthGuard implements CanActivate {
     } else {
       this.sessionService.getSessionToken().subscribe(resp => {
           const token = resp.headers.get('Authorization');
-          const user = resp.body['user'] || null;
-          this.sessionService.setToken(token);
-          this.sessionService.setCurrentUser(User.fromJSON(user));
+          if (token) {
+            this.sessionService.setToken(token);
+            this.sessionService.setCurrentUser(User.fromJSON(resp.body['user']));
+          }
         }
         , (error) => {
           console.log(error);
@@ -36,7 +37,7 @@ export class AuthGuard implements CanActivate {
             this.router.navigate([state.url])
             return true;
           } else {
-            console.log("No authentication");
+            console.log("Not authenticated");
             this.router.navigate(['login']);
             return false
           }

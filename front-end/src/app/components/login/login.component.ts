@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         console.log(error);
       },
       () => {
-      this.router.navigate(['learning-goals'])
+      this.router.navigate(['dashboard'])
         console.log("Completed authentication");
       });
   }

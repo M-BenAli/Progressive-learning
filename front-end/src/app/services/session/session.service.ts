@@ -21,26 +21,30 @@ export class SessionService {
   authenticate(credentials) {
     // console.log(credentials);
     return this.httpClient.post(environment.apiUrl + '/authentication/login',
-      credentials, { observe: 'response', withCredentials: true });
+      credentials, {observe: 'response', withCredentials: true});
+  }
+
+  signUp(credentials) {
+    return this.httpClient.post(environment.apiUrl + '/authentication/sign-up', credentials,
+      {observe: 'response', withCredentials: true})
   }
 
   getSessionToken() {
     return this.httpClient.get(environment.apiUrl + '/authentication/session-token',
-      { observe: 'response', withCredentials: true });
+      {observe: 'response', withCredentials: true});
   }
 
   getAuthenticationToken() {
     return this.token;
   }
 
-  setToken(token): void{
+  setToken(token): void {
     this.token = token;
     this.authenticated = true;
   }
 
   setCurrentUser(user: User) {
     this.currentUser = user;
-    this.authenticated = true;
   }
 
   public getCurrentUser() {
@@ -51,12 +55,12 @@ export class SessionService {
     return this.authenticated
   }
 
-  logOut(){
+  logOut() {
     this.currentUser = null;
     this.authenticated = false;
     this.token = null;
     return this.httpClient.post(environment.apiUrl + `/authentication/logout`, {},
-      { withCredentials: true });
+      {withCredentials: true});
   }
 
 }
