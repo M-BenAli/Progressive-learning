@@ -16,7 +16,7 @@ module.exports = new Sequelize('progressive_learning', process.env.DB_USER,
 
 const LearningGoal = require('../models/Learning-goal');
 const Task = require('../models/Task');
-const Resource = require('../models/resource');
+const Resource = require('../models/Resource');
 const User = require('../models/User');
 const Subject = require('../models/Subject');
 
