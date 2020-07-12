@@ -16,7 +16,7 @@ router.post('/api/authentication/login', async function (req, res) {
 
     if (!user || !passwordCorrect) {
         res.status(400).json({
-            message: 'Invalid credentials or create an account.'
+            message: 'Invalid credentials, enter the right credentials or create an account.'
         });
     } else {
         const token = user.generateJWToken();

@@ -14,6 +14,7 @@ try {
 } catch (error) {
     console.log('Unable to connect to database');
 }
+
 db.sync({}).then(() => {
     console.log('Creating tables..', db.models);
 });
@@ -39,8 +40,8 @@ app.use(logger);
 // Add bodyparser
 app.use(bodyParser.json());
 app.use(cookieSession({
-  name: 'session',
-  keys: ['secretsessionkey'],
+    name: 'session',
+    keys: ['secretsessionkey'],
     maxAge: 24 * 60 * 60 * 1000
 }));
 app.use(function (req, res, next) {
