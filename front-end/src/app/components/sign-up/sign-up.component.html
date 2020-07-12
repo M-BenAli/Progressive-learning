@@ -11,6 +11,9 @@
               <label for="email">Email *</label>
               <input class="form-control" id="email" name="email" formControlName="email">
               <div class="error-box mt-1" *ngIf="email.errors?.email">
+                <div class="mr-3 warning-icon">
+                  <span class="fa fa-exclamation-circle"></span>
+                </div>
                 <span class="text-dark">Email is incorrect</span>
               </div>
             </div>
@@ -25,7 +28,10 @@
                      name="password" formControlName="confirmPassword">
             </div>
             <div class="error-box" *ngIf="signUpForm.errors?.mismatch">
-              Passwords don't match
+              <div class="mr-3 warning-icon">
+                <span class="fa fa-exclamation-circle"></span>
+              </div>
+              <span>Passwords don't match</span>
             </div>
             <button class="btn btn-light float-right mt-3" type="submit">Sign-up</button>
           </form>

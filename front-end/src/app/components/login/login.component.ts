@@ -12,6 +12,7 @@ import {User} from "../../models/user";
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  errorMessage: string;
 
   constructor(private router: Router, private sessionService: SessionService,
               private formBuilder: FormBuilder) {
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
         user = User.fromJSON(response.body);
         this.sessionService.setCurrentUser(user);
       }, error => {
-        console.log(error);
+        // console.log(error);
+        this.errorMessage = error.error.message;
       },
       () => {
       this.router.navigate(['dashboard'])

@@ -14,6 +14,12 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" formControlName="password"
                    name="password">
+            <div class="error-box mt-1" *ngIf="errorMessage">
+              <div class="mr-3 warning-icon">
+                <span class="fa fa-exclamation-circle"></span>
+              </div>
+              <span>{{errorMessage}}</span>
+            </div>
             <button class="btn btn-light float-right mt-3" (click)="onLogin()">Login</button>
           </form>
         </div>

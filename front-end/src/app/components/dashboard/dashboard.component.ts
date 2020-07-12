@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }, () => {
-        console.log(this.subjects);
+        // console.log(this.subjects);
       })
   }
 

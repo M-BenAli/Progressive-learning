@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.sessionService.isAuthenticated()) {
-      console.log("Authenticated with current session");
+      // console.log("Authenticated with current session");
       return true;
     } else {
       this.sessionService.getSessionToken().subscribe(resp => {
@@ -32,12 +32,12 @@ export class AuthGuard implements CanActivate {
           console.log(error);
         }, () => {
           if (this.sessionService.getAuthenticationToken()) {
-            console.log("Authenticated with token");
-            console.log(state, next);
+            // console.log("Authenticated with token");
+            // console.log(state, next);
             this.router.navigate([state.url])
             return true;
           } else {
-            console.log("Not authenticated");
+            // console.log("Not authenticated");
             this.router.navigate(['login']);
             return false
           }

@@ -34,6 +34,21 @@ body {
   border-radius: 10px;
 }
 
+.error-box {
+  display: flex;
+  flex-direction: row;
+  background-color: lightcoral;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.error-box .warning-icon {
+  border-right: solid 2px;
+  padding: 5px;
+  color: #6d0000;
+}
+
+
 .word-break {
   word-break: break-word;
 }
