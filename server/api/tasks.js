@@ -3,29 +3,30 @@ let router = express.Router();
 const Task = require('../models/Task');
 const Resource = require('../models/Resource');
 const LearningGoal = require('../models/Learning-goal');
+const User = require('../models/User');
+const helpers = require('../utils/helpers');
 
 router.get('/api/tasks/:id', async function (req, res) {
     const task = await Task.findByPk(req.params.id, {
-        include: Resource
+        include: [{model: LearningGoal, include: [User]}, Resource]
     });
 
-    if (task) {
-        return res.status(200).json(task);
-    } else if (!task) {
+    const authorized = helpers.isAuthorized(task.learningGoal.userId, req.headers.authorization);
+
+    if (!task) {
         return res.status(404).json({
             message: 'No task found with that given ID'
         });
-    }
-
+    } else if (!authorized) {
+        return res.status(401).json({
+            message: 'You are not authorized to access this resource'
+        });
+    } else return res.status(200).json(task);
 });
 
 
 router.put('/api/tasks/:id', async function (req, res) {
-    if (!req.body.name) {
-        return res.status(400).json({
-            message: 'No name included in the task object!'
-        });
-    }
+    const {name, completed, summary} = req.body;
 
     let task = await Task.findByPk(req.params.id, {
         include: {
@@ -33,52 +34,49 @@ router.put('/api/tasks/:id', async function (req, res) {
         }
     });
     let learningGoal = await task.getLearningGoal();
-    // console.log(learningGoal);
-    // console.log(await learningGoal.getTasks({
-    //     where: {
-    //         learningGoalId: learningGoal.id
-    //     }
-    // }));
+
     if (task) {
-        task.name = req.body.name;
-        task.completed = req.body.completed;
-        task.summary = req.body.summary;
+        task.name = name;
+        task.completed = completed;
+        task.summary = summary;
         await task.save();
         console.log(task.toJSON());
         await learningGoal.updateProgress();
         return res.status(200).json(task);
     } else {
-        return res.status(404).json({message: 'Task not found'});
+        return res.status(404).json({message: 'Task with given ID not found'});
     }
 
 });
 
 router.post('/api/tasks', async function (req, res) {
-    if (!req.body.name) {
+    const {name, completed, summary} = req.body;
+
+    try {
+        let task = await Task.create({
+            name: name,
+            completed: completed,
+            summary: summary
+        });
+        return res.status(200).json(task);
+    } catch (e) {
         return res.status(400).json({
-            message: 'No name included in the task object!'
+            message: `Error occurred when creating a task: ${e}`
         });
     }
 
-    let task = await Task.create({
-        name: req.body.name,
-        completed: req.body.completed
-    });
-
-    res.json(task);
-    res.status(200);
 });
 
 router.delete('/api/tasks/:id', async function (req, res) {
     const task = await Task.findByPk(req.params.id);
 
     if (!task) {
-        res.status(404).json({
+        return res.status(404).json({
             message: 'No task found with given id.'
         });
     } else {
         await task.destroy();
-        res.status(204).json('Deleted task');
+        return res.status(204).json('Deleted task');
     }
 
 });
@@ -116,7 +114,7 @@ router.post('/api/tasks/:id/resources', async function (req, res) {
     await task.reload({
         include: Resource
     });
-    res.status(200).json(task.resources);
+    return res.status(200).json(task.resources);
 });
 
 router.get('/api/tasks/:id/resources', async function (req, res) {
@@ -132,7 +130,7 @@ router.get('/api/tasks/:id/resources', async function (req, res) {
         include: Resource
     });
 
-    if(!task) {
+    if (!task) {
         return res.status(404).json({
             message: 'No task found with given ID'
         });

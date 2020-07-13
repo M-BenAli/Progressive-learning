@@ -20,8 +20,8 @@ function isAuth(req, res, next) {
 
     if (token) {
         const decodedJWToken = decodeJWToken(token);
-        if (decodedJWToken.id === parseInt(req.params.id)) {
-            console.log(decodedJWToken.id, req.params.id);
+        if (decodedJWToken.id === parseInt(req.params.userId)) {
+            console.log(decodedJWToken.id, req.params.userId);
             next();
         } else {
             res.status(401).json({
@@ -43,8 +43,15 @@ function isPasswordCorrect(passwordAttempt, savedHash, savedSalt) {
     return savedHash == crypto.pbkdf2Sync(passwordAttempt, savedSalt, iterations, 64, 'sha512').toString('hex');
 }
 
+function isAuthorized(userId, jwToken) {
+    const decodedToken = jwt.decode(jwToken.split(' ')[1]);
+    console.log(decodedToken, userId);
+    return userId === parseInt(decodedToken.id) ;
+}
+
 module.exports = {
     decodeJWToken,
     isAuth,
-    isPasswordCorrect
+    isPasswordCorrect,
+    isAuthorized
 };

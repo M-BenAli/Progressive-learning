@@ -8,8 +8,8 @@ router.get('/api/users', helpers.isAuth, async function (req, res) {
     res.status(200).json(users);
 });
 
-router.get('/api/users/:id', helpers.isAuth, async function (req, res) {
-    const id = req.params.id;
+router.get('/api/users/:userId', helpers.isAuth, async function (req, res) {
+    const id = req.params.userId;
     const user = await User.findByPk(id, {
         attributes: {
             exclude: ['password', 'password_salt']

@@ -121,7 +121,7 @@ router.delete('/api/learning-goals/:id', async function (req, res) {
 });
 
 // User-learning goal routes
-router.get('/api/users/:id/learning-goals', helpers.isAuth, async function (req, res) {
+router.get('/api/users/:userId/learning-goals', helpers.isAuth, async function (req, res) {
     const user = await User.findByPk(req.params.id, {
         attributes: ['id', 'email', 'admin', 'createdAt', 'updatedAt']
     });

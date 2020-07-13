@@ -8,12 +8,6 @@ const { Sequelize } = require('sequelize');
 //     logging: console.log
 // });
 
-// Sqlite database
-module.exports = new Sequelize({
-    dialect: 'sqlite',
-    logging: true
-});
-
 const LearningGoal = require('../models/Learning-goal');
 const Task = require('../models/Task');
 const Resource = require('../models/Resource');
