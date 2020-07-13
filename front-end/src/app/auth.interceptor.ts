@@ -9,15 +9,16 @@ export class AuthInterceptor implements HttpInterceptor {
   securedPaths: string[];
 
   constructor(private sessionService: SessionService) {
-    let matchAnyNumber  = '([0-9]{0,})';
+    // let matchAnyNumber  = '([0-9]{0,})';
+    //Todo add regexp to securedPaths
     this.securedPaths = [
-      '/users/' + matchAnyNumber
+      'users/'
     ]
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    const routePath = request.url.split('api')[1];
+    const routePath = request.url.split('/api/')[1];
     let token;
     for(let securedPath of this.securedPaths) {
       // console.log(securedPath, routePath);

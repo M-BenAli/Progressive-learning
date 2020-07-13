@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {SessionService} from "../../services/session/session.service";
 
 @Component({
-  selector: 'app-learning-goal',
+  selector: 'app-learning-goal-list',
   templateUrl: './learning-goals-list.component.html',
   styleUrls: ['./learning-goals-list.component.css']
 })
