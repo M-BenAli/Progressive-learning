@@ -30,7 +30,9 @@ router.get('/api/subjects/:id', async function (req, res) {
     const subjectID = req.params.id;
     const subject = await Subject.findByPk(subjectID, {
         include: [
-            { model: LearningGoal, include: [Task, Subject] }
+            { model: LearningGoal, include: [Task, Subject, {
+                model: User, attributes: ['id', 'email', 'admin', 'createdAt', 'updatedAt']
+                }] }
             ]
     });
 

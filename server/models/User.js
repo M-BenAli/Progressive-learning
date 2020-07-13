@@ -43,8 +43,9 @@ module.exports = User.init({
         unique: true
     },
     admin: {
-    type: DataTypes.BOOLEAN
-}
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    }
 
 }, {
     sequelize,

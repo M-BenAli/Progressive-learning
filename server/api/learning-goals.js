@@ -39,7 +39,6 @@ router.get('/api/learning-goals/:id', async function (req, res) {
         res.status(400).json({message: 'No learning goal found with that ID'});
         res.end();
     } else
-        console.log(learningGoal.toJSON());
     res.status(200).json(learningGoal);
 });
 
@@ -64,7 +63,6 @@ router.put('/api/learning-goals/:id', async function (req, res) {
         learningGoal.goal = req.body.goal;
         learningGoal.progress = req.body.progress;
         learningGoal.description = req.body.description;
-        console.log(learningGoal.toJSON());
         await learningGoal.save();
         res.status(200).json(learningGoal);
     }
@@ -94,8 +92,8 @@ router.post('/api/learning-goals', async function (req, res) {
     });
 
     console.log(learningGoal.toJSON(), await learningGoal.getSubject());
-    res.json(learningGoal.toJSON());
-    res.status(200);
+    res.json(learningGoal);
+    res.status(200).end();
 });
 
 
