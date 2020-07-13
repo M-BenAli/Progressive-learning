@@ -1,18 +1,18 @@
 const { Sequelize } = require('sequelize');
 
 //Mysql database
-module.exports = new Sequelize('progressive_learning', process.env.DB_USER,
-    process.env.DB_PASS, {
-    host: 'localhost',
-    dialect: 'mysql',
+// module.exports = new Sequelize('progressive_learning', process.env.DB_USER,
+//     process.env.DB_PASS, {
+//     host: 'localhost',
+//     dialect: 'mysql',
+//     logging: console.log
+// });
+
+// Sqlite database
+module.exports = new Sequelize({
+    dialect: 'sqlite',
     logging: true
 });
-
-//Sqlite database
-// module.exports = new Sequelize({
-//     dialect: 'sqlite',
-//     logging: true
-// });
 
 const LearningGoal = require('../models/Learning-goal');
 const Task = require('../models/Task');
