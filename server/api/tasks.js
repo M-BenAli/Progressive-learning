@@ -11,7 +11,11 @@ router.get('/api/tasks/:id', async function (req, res) {
         include: [{model: LearningGoal, include: [User]}, Resource]
     });
 
-    const authorized = helpers.isAuthorized(task.learningGoal.userId, req.headers.authorization);
+    let authorized;
+    if (!task.learningGoal.userId) {
+        authorized = true;
+    } else authorized = helpers.isAuthorized(task.learningGoal.userId, req.headers.authorization);
+
 
     if (!task) {
         return res.status(404).json({
