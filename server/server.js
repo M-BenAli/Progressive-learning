@@ -49,7 +49,7 @@ app.use(cookieSession({
 
 const corsWhiteList = [
     'http://localhost:4200',
-    'https://api-progressive-learning.herokuapp.com'
+    'https://progressive-learning.netlify.app'
 ];
 app.use(function (req, res, next) {
     if (corsWhiteList.includes(req.headers.origin)) {
