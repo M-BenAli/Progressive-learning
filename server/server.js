@@ -39,13 +39,23 @@ app.use(logger);
 
 // Add bodyparser
 app.use(bodyParser.json());
+
+//Configure cookie-session
 app.use(cookieSession({
     name: 'session',
     keys: ['secretsessionkey'],
     maxAge: 24 * 60 * 60 * 1000
 }));
+
+const corsWhiteList = [
+    'http://localhost:4200',
+    'https://api-progressive-learning.herokuapp.com'
+];
 app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+    if (corsWhiteList.includes(req.headers.origin)) {
+        console.log(`Matching with a whitelisted origin: ${req.headers.origin}`);
+        res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, HEAD');
     res.setHeader('Access-Control-Allow-Headers', ['Content-Type', 'Authorization']);
     res.setHeader('Access-Control-Allow-Credentials', 'true');
