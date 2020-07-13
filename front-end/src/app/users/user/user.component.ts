@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/user";
 import {FormControl, Validators} from "@angular/forms";
@@ -15,7 +15,7 @@ export class UserComponent implements OnInit {
   currentUser: User;
   userEmail: FormControl;
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(private activatedRoute: ActivatedRoute, private router: Router,
               private httpClient: HttpClient,
               private userService: UserService) {
     this.currentUser = null;
@@ -44,6 +44,7 @@ export class UserComponent implements OnInit {
         this.currentUser = User.fromJSON(userData);
       }, error => {
         console.log(error)
+        this.router.navigate(['**']);
       }, () => {
         this.userEmail.setValue(this.currentUser.email);
       });

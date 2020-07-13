@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TaskService} from "../../services/task.service";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Task} from 'src/app/models/task';
 import {PermissionService} from "../../services/permissions/permission.service";
 import {SessionService} from "../../services/session/session.service";
@@ -21,7 +21,7 @@ export class TaskComponent implements OnInit {
 
   constructor(private taskService: TaskService, public permissionsService: PermissionService,
               public sessionService: SessionService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute, private router: Router) {
     this.editTaskName = false;
 
   }
@@ -55,6 +55,7 @@ export class TaskComponent implements OnInit {
         this.task = Task.fromJSON(task);
       }, (error) => {
         console.log(error);
+        this.router.navigate(['**']);
       }, () => {
         // this.summaryCopy = this.task.summary;
       });

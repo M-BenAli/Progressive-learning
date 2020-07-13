@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SubjectService} from "../../services/subject.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subject} from "../../models/subject";
 
 @Component({
@@ -13,7 +13,8 @@ export class SubjectComponent implements OnInit {
   public subject: Subject;
 
   constructor(private subjectService: SubjectService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -21,7 +22,10 @@ export class SubjectComponent implements OnInit {
       const subjectID: number = parseInt(params.get('subject-id'));
       this.subjectService.get(subjectID).subscribe((subject) => {
           this.subject = Subject.fromJSON(subject);
-        }, (error) => console.log(error),
+        }, (error) => {
+          // console.log(error)
+          this.router.navigate(['**']);
+        },
         () => {
           // console.log(this.subject);
         });

@@ -6,13 +6,15 @@ import {SessionService} from "./services/session/session.service";
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  securedPaths: string[];
+  readonly SECURED_PATHS: string[];
 
   constructor(private sessionService: SessionService) {
     // let matchAnyNumber  = '([0-9]{0,})';
     //Todo add regexp to securedPaths
-    this.securedPaths = [
-      'users/'
+    this.SECURED_PATHS = [
+      'users/',
+      'subjects/',
+      'tasks/'
     ]
   }
 
@@ -20,8 +22,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const routePath = request.url.split('/api/')[1];
     let token;
-    for(let securedPath of this.securedPaths) {
-      // console.log(securedPath, routePath);
+    for(let securedPath of this.SECURED_PATHS) {
+      console.log(securedPath, routePath);
       if(routePath.match(securedPath)) {
         token = this.sessionService.getAuthenticationToken();
         // console.log('Matched url with secured route path!');
