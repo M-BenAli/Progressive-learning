@@ -27,9 +27,9 @@
                      [(ngModel)]="task.completed">
               <label class="custom-control-label" for="{{task.name}}">Mark as completed</label>
             </div>
-            <button *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser(),
-            task.learningGoal) &&
-            !saving" class="btn btn-success mt-2" type="button"
+            <button *ngIf="!saving" class="btn btn-success mt-2" type="button"
+                    [disabled]="!permissionsService.hasPermission(sessionService.getCurrentUser(),
+            task.learningGoal)"
                     (click)="onSave()">Save</button>
             <button *ngIf="saving" class="btn btn-success mt-2" type="button" disabled>
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -39,8 +39,7 @@
           </div>
         </div>
       </div>
-      <div class="resources-component col-sm-12 col-md-4 col-lg-4"
-           *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser(), task.learningGoal)">
+      <div class="resources-component col-sm-12 col-md-4 col-lg-4">
         <app-resources (deletedResource)="deleteResource($event)"></app-resources>
       </div>
     </div>

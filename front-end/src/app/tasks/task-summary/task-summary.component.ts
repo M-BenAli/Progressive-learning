@@ -29,7 +29,7 @@ export class TaskSummaryComponent implements OnInit {
   }
 
   updateSummary() {
-    console.log(this.summary);
+    // console.log(this.summary);
     this.updatedSummary.emit(this.summary);
   }
 

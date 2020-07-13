@@ -11,9 +11,13 @@
     </li>
   </ul>
 </div>
-<button class="btn btn-sm btn-primary" (click)="renderNewResource()"><span class="fa fa-xs fa-plus"></span>
+<button class="btn btn-sm btn-primary" [disabled]="!permissionService.hasPermission(sessionService.getCurrentUser())"
+        (click)="renderNewResource()"><span class="fa fa-xs fa-plus"></span>
   Add resource link
 </button>
+<div class="border border-danger bg-danger mt-5 p-2" *ngIf="!permissionService.hasPermission(sessionService.getCurrentUser())">
+  <p class="text-white">A demo learning-goal can not have resource URLs, create an account or login.</p>
+</div>
 <div class="new_resource mt-4" *ngIf="newResource">
   <label for="new_resource-url">Resource URL</label>
   <input type="text" id="new_resource-url"

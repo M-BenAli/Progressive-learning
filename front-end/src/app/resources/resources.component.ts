@@ -3,6 +3,8 @@ import {Resource, ResourceTypes} from "../models/resource";
 import {TaskService} from "../services/task.service";
 import {ActivatedRoute} from "@angular/router";
 import {ResourceService} from "../services/resource.service";
+import {SessionService} from "../services/session/session.service";
+import {PermissionService} from "../services/permissions/permission.service";
 
 @Component({
   selector: 'app-resources',
@@ -26,6 +28,8 @@ export class ResourcesComponent implements OnInit {
   @Output() deletedResource: EventEmitter<Resource>;
 
   constructor(private taskService: TaskService, private resourceService: ResourceService,
+              public permissionService: PermissionService,
+              public sessionService: SessionService,
               private activatedRoute: ActivatedRoute) {
     this.resources = [];
     this.resourceTypes = Object.values(ResourceTypes)

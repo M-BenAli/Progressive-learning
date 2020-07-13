@@ -44,7 +44,6 @@ export class TaskComponent implements OnInit {
   }
 
   updateSummary(updatedSummary: string){
-    console.log(updatedSummary);
     this.task.summary = updatedSummary;
   }
 
