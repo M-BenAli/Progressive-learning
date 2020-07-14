@@ -12,7 +12,7 @@ module.exports = Task.init({
         type: DataTypes.BOOLEAN,
     },
     summary: {
-        type: DataTypes.TEXT('long')
+        type: DataTypes.TEXT({length: 'long'})
     }
     }, {
     sequelize,
