@@ -40,10 +40,12 @@ app.use(logger);
 // Add bodyparser
 app.use(bodyParser.json());
 
+app.set('trust proxy', 1);
+
 //Configure cookie-session
 app.use(cookieSession({
     name: 'session',
-    keys: ['secretsessionkey'],
+    keys: [process.env.COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 1000
 }));
 

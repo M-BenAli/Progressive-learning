@@ -5,7 +5,7 @@ const crypto = require('crypto');
 
 class User extends Model {
     generateJWToken() {
-        const expirationTime = '2h';
+        const expirationTime = process.env.JWT_EXPIRATION;
         return jwt.sign({
             id: this.id,
             username: this.username,
