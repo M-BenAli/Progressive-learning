@@ -1,30 +1,27 @@
 <div class="learning-goal-detail p-1" *ngIf="learningGoal">
   <div id="selected-learning-goal" *ngIf="!renderEdit">
     <div class="">
-      <button class="btn btn-sm btn-dark float-right" (click)="onCancel()">
-        <span class="fa fa-times-circle"></span>
-      </button>
-      <h2 class="text-center overflow-hidden word-break">{{learningGoal.goal}}</h2>
+      <h2 class="text-center overflow-hidden word-break border-dark border-bottom pb-1">
+        {{learningGoal.goal}}</h2>
       <div class="mb-3">
+        <label>Description</label>
         <div class="description bg-dark p-1">
           <p>{{learningGoal.description}}</p>
         </div>
       </div>
-        <div class="tasks-list">
-        <h4 class="">Tasks</h4>
-          <app-task-list [learningGoal]="learningGoal"
-        (updatedLearningGoal)="onUpdatedLearningGoal($event)"></app-task-list>
+      <div class="tasks-list">
+        <h5>Tasks</h5>
+        <app-task-list [learningGoal]="learningGoal"
+                       (updatedLearningGoal)="onUpdatedLearningGoal($event)"></app-task-list>
       </div>
-      <div class="progress">
-        <div class="progress-bar" role="progressbar"
-             [style.width.%]="learningGoal.progress">{{learningGoal.progress}}%
+      <div class="progress-section">
+        <h5>Progress</h5>
+        <div class="progress mt-3">
+          <div class="progress-bar" role="progressbar"
+               [style.width.%]="learningGoal.progress">{{learningGoal.progress}}%
+          </div>
         </div>
       </div>
-<!--      <div class="mt-2">-->
-<!--        <label for="user">Created by user:</label>-->
-<!--        <input type="text" id="user" class="form-control" disabled-->
-<!--               [value]="learningGoal.user ? learningGoal.user.email : 'Guest'">-->
-<!--      </div>-->
     </div>
   </div>
   <div id="editing-learning-goal" *ngIf="renderEdit">
@@ -32,10 +29,13 @@
                             (deletedTasksReg)="registerDeletedTask($event)">
     </app-learning-goal-edit>
   </div>
-  <div class="mt-2"
-       *ngIf="permissionService.hasPermission(this.sessionService.getCurrentUser(), this.learningGoal)">
+  <div class="mt-2 border-dark border-top pt-3"
+       *ngIf="permissionService.hasPermission(this.sessionService.getCurrentUser())">
     <button class="btn btn-info mr-1" [disabled]="renderEdit" (click)="onEdit()">Edit</button>
+    <button class="btn btn-danger mr-1" (click)="onCancel()">
+      Cancel</button>
     <button class="btn btn-success" [hidden]="!renderEdit" (click)="onSave()">Save</button>
-    <button class="btn btn-danger float-right" (click)="onDelete()">Delete</button>
+    <button class="btn btn-danger float-right" (click)="onDelete()">
+      <i class="fa fa-trash"></i> Delete</button>
   </div>
 </div>

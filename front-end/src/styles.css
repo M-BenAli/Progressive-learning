@@ -12,6 +12,7 @@ html, body {
 
 body {
   background-color: #151e21;
+  background-image: linear-gradient(to bottom right, black, gray);
 }
 
 .main-section {

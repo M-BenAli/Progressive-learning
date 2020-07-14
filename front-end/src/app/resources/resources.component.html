@@ -16,7 +16,7 @@
   Add resource link
 </button>
 <div class="border border-danger bg-danger mt-5 p-2" *ngIf="!permissionService.hasPermission(sessionService.getCurrentUser())">
-  <p class="text-white">A demo learning-goal can not have resource URLs, create an account or login.</p>
+  <p class="text-white">As a guest user you do not have access to some of the feature, create an account or login.</p>
 </div>
 <div class="new_resource mt-4" *ngIf="newResource">
   <label for="new_resource-url">Resource URL</label>

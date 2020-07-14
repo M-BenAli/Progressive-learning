@@ -1,5 +1,8 @@
 <nav class="navbar navbar-expand-md bg-dark">
-  <a routerLink="/" class="navbar-brand text-white order-0">Progressive learning</a>
+  <a routerLink="/" class="navbar-brand text-white order-0">
+    <img alt="Up-arrow" src="assets/images/Blue_growth_arrow.png"
+         class="mr-2"
+         style="width: 30px; height: 30px;">Progressive learning</a>
   <ul class="navbar-nav order-1 ml-auto">
     <li class="nav-item mr-1" *ngIf="this.sessionService.isAuthenticated()">
       <a [routerLink]="['dashboard']" class="nav-link btn btn-dark 1">Dashboard</a>

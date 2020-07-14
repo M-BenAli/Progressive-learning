@@ -28,8 +28,7 @@
               <label class="custom-control-label" for="{{task.name}}">Mark as completed</label>
             </div>
             <button *ngIf="!saving" class="btn btn-success mt-2" type="button"
-                    [disabled]="!permissionsService.hasPermission(sessionService.getCurrentUser(),
-            task.learningGoal)"
+                    [disabled]="!permissionsService.hasPermission(sessionService.getCurrentUser())"
                     (click)="onSave()">Save</button>
             <button *ngIf="saving" class="btn btn-success mt-2" type="button" disabled>
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
