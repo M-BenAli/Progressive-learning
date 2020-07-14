@@ -60,7 +60,3 @@ module.exports = LearningGoal.init({
     sequelize,
     modelName: 'learningGoal',
 });
-
-
-
-

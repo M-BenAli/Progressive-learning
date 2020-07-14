@@ -1,7 +1,8 @@
-const { DataTypes, Model } =  require('sequelize');
+const {DataTypes, Model} = require('sequelize');
 const sequelize = require('../config/database');
 
-class Task extends Model {}
+class Task extends Model {
+}
 
 module.exports = Task.init({
     name: {
@@ -14,9 +15,7 @@ module.exports = Task.init({
     summary: {
         type: DataTypes.TEXT({length: 'long'})
     }
-    }, {
+}, {
     sequelize,
     modelName: 'task'
 });
-
-
