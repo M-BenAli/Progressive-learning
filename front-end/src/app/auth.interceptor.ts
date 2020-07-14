@@ -23,11 +23,12 @@ export class AuthInterceptor implements HttpInterceptor {
     const routePath = request.url.split('/api/')[1];
     let token;
     for(let securedPath of this.SECURED_PATHS) {
-      console.log(securedPath, routePath);
+      // console.log(securedPath, routePath);
       if(routePath.match(securedPath)) {
         token = this.sessionService.getAuthenticationToken();
         // console.log('Matched url with secured route path!');
       }
+      // console.log('No url matched with secured route path');
     }
 
     if(token) {
@@ -36,6 +37,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }});
       return next.handle(authReq)
     } else
-      return next.handle(request);
+      // console.log('No authentication token found', request);
+    return next.handle(request);
   }
 }
