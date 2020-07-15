@@ -7,7 +7,7 @@ The main features of the app are:
 
 The app is developed using the SEAN(Sequelize, Express, Angular, Node) stack
 and with MYSQL as the database. It consists of a server and front-end module
-which are run separately. 
+which are run separately. **Note that this project is still in its initial stages**.
 
 ## Features
 
@@ -42,7 +42,7 @@ In order to build the app yourself follow these steps:
     
 ## Contribution
 
-I'm open to pull requests make sure to follow the follow git commit message conventions
+I'm open to pull requests, just make sure to follow the follow git commit message conventions.
 
 
 

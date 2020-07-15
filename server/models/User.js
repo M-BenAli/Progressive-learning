@@ -36,7 +36,10 @@ module.exports = User.init({
     password: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+            min: 6
+        }
     },
     password_salt: {
         type: DataTypes.STRING,
