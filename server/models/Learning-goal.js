@@ -22,7 +22,7 @@ class LearningGoal extends Model {
         }
         this.progress = progressPercentage;
         console.log(this.progress);
-        this.save();
+        await this.save();
     }
 
     async updateTasks(updatedTasks) {

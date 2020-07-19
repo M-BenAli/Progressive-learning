@@ -7,7 +7,7 @@ The main features of the app are:
 
 The app is developed using the SEAN(Sequelize, Express, Angular, Node) stack
 and with MYSQL as the database. It consists of a server and front-end module
-which are run separately. **Note that this project is still in its initial stages**.
+which are run separately. **NOTE**: This project is still in its initial stages and under development**.
 
 ## Features
 
@@ -19,7 +19,7 @@ which are run separately. **Note that this project is still in its initial stage
 
 ## Usage
 
-The recommended way to run the application is to build it but there is also
+The recommended way to run the application(for now) is to build it but there is also
 an online version of the app online at this url: https://progressive-learning.netlify.app/.
 **NOTE**: The online version is only intended for testing and demo purposes, there are 
 frequent data-wipes and it's unstable.
@@ -34,15 +34,31 @@ In order to build the app yourself follow these steps:
 5. Navigate to the `front-end` folder and enter the following command: 
 ``ng serve``.
 6. Navigate in your browser to the following URL: `localhost:4200`.
-7. The app is now ready to use.
+7. The app is now ready for use.
 
 ## Screenshots
 
-    
+Dashboard:
+![Dashboard](screenshots/dashboard-pl.png "Dashboard")
+
+Learning-goal examples:
+![LearningGoal](screenshots/lg-view-1.png "Learning-goal 1")  
+
+![LearningGoal](screenshots/lg-view-2.png "Learning-goal 2")  
+
+![LearningGoal](screenshots/lg-view-3.png "Learning-goal 3")
+
+Task summary examples: 
+
+![Task](screenshots/task-view-1.png "Task 1")
+
+![Task](screenshots/task-view-2.png "Task 2")
     
 ## Contribution
 
-I'm open to pull requests, just make sure to follow the follow git commit message conventions.
+Besides the fact that I needed a tool like this, I started this project also to learn more about Node and express.
+I encourage pull requests and feel free to correct me on mistakes that I've made in the code. 
+Make sure to follow the git commit message conventions.
 
 
 
