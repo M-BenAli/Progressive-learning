@@ -3,7 +3,7 @@
 Progressive learning is a general purpose knowledge management system.
 The main features of the app are: 
 * Enable users to create learning-goals and categorize them.
-* Users can store and manage their resource URL's in a central place instead of constantly looking them up.
+* Users can store, manage and refer to their their resource link URL's in a central place instead of constantly looking them up.
 
 The app is developed using the SEAN(Sequelize, Express, Angular, Node) stack
 and with MYSQL as the database. It consists of a server and front-end module
@@ -38,17 +38,19 @@ In order to build the app yourself follow these steps:
 
 ## Screenshots
 
-Dashboard:
+**Dashboard:**
+
 ![Dashboard](screenshots/dashboard-pl.png "Dashboard")
 
-Learning-goal examples:
+**Learning-goal examples:**
+
 ![LearningGoal](screenshots/lg-view-1.png "Learning-goal 1")  
 
 ![LearningGoal](screenshots/lg-view-2.png "Learning-goal 2")  
 
 ![LearningGoal](screenshots/lg-view-3.png "Learning-goal 3")
 
-Task summary examples: 
+**Task summary examples:**
 
 ![Task](screenshots/task-view-1.png "Task 1")
 
@@ -56,8 +58,8 @@ Task summary examples:
     
 ## Contribution
 
-Besides the fact that I needed a tool like this, I started this project also to learn more about Node and express.
-I encourage pull requests and feel free to correct me on mistakes that I've made in the code. 
+Besides the fact that I needed a tool like this, I started this project also to learn about Node and express.
+I encourage pull requests, feel free to correct me on mistakes that I've made in the code. 
 Make sure to follow the git commit message conventions.
 
 
