@@ -4,7 +4,7 @@
 }
 
 .learning_goal-detail, .learning_goal-create {
-  background-color: rgba(0, 180, 255, 0.5);
+  background-color: rgb(70 176 224);
   border: 1px solid black;
   border-radius: 5px;
 }

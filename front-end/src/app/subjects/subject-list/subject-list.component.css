@@ -1,14 +1,15 @@
-.subject-item {
+.subject-box {
   border-radius: 10px;
   background-color: aquamarine;
+  border: solid 2px black;
 }
 
 .card {
   min-height: 100%;
 }
 
-.subject-item:hover {
-  box-shadow: 3px 3px black;
+.subject-box:hover {
+  box-shadow: 3px 3px 10px black;
 }
 
 .subject-del-btn {
