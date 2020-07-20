@@ -1,13 +1,15 @@
 <div class="resources-list mb-3">
   <ul class="list-group">
     <li class="list-group-item text-truncate" *ngFor="let resource of resources; let i = index">
+      <a class="btn btn-sm btn-danger mr-2" (click)="onDelete(resource, i)"
+         title="Delete resource">
+        <i class="fa fa-times"></i>
+      </a>
       <span class="mr-2" [title]="resource.type"
             [ngClass]="RESOURCE_ICONS[getResourceKeyFromValue(resource.type)]"></span>
       <a [href]="resource.url" target="_blank">{{resource.url}}
         <span class="float-right fa fa-arrow-circle-right"></span></a>
-      <a class="btn btn-sm btn-danger float-right mr-2" (click)="onDelete(resource, i)">
-        <i class="fa fa-minus"></i>
-      </a>
+
     </li>
   </ul>
 </div>
@@ -15,7 +17,8 @@
         (click)="renderNewResource()"><span class="fa fa-xs fa-plus"></span>
   Add resource link
 </button>
-<div class="border border-danger bg-danger mt-5 p-2" *ngIf="!permissionService.hasPermission(sessionService.getCurrentUser())">
+<div class="border border-danger bg-danger mt-5 p-2"
+     *ngIf="!permissionService.hasPermission(sessionService.getCurrentUser())">
   <p class="text-white">As a guest user you do not have access to some of the feature, create an account or login.</p>
 </div>
 <div class="new_resource mt-4" *ngIf="newResource">

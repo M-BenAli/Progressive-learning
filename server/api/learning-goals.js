@@ -5,7 +5,6 @@ const LearningGoal = require('../models/Learning-goal');
 const Task = require('../models/Task');
 const Subject = require('../models/Subject');
 const User = require('../models/User');
-const db = require('../config/database');
 
 // CRUD Learning-goal routes
 router.get('/api/learning-goals', async function (req, res) {
