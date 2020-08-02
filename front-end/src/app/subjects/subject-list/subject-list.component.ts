@@ -16,8 +16,11 @@ export class SubjectListComponent implements OnInit {
   }
 
   onDelete(subject: Subject, index: number) {
-    this.subjectService.delete(subject).subscribe();
-    this.subjects.splice(index, 1);
+    let confirmed = confirm("Are you sure you would like to delete this subject?")
+    if (confirmed) {
+      this.subjectService.delete(subject).subscribe();
+      this.subjects.splice(index, 1);
+    }
   }
 
   onNewSubject() {
