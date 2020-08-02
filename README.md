@@ -29,7 +29,7 @@ In order to build the app yourself follow these steps:
 1. Clone the repository. 
 2. Add a `.env` file and configure the following environment variables: 
     * `DB_USER`, `DB_PASS`, `PORT`, `JWT_SECRET`, `JWT_EXPIRATION`, `COOKIE_SECRET`
-3. By default the `sqlite` database is used, `mysql` or `postgresql` is recommended to persist data.        
+3. By default the `sqlite` database is used, enable `mysql` to persist data.        
 4. Navigate to the `server` folder and enter the following command: `node start`.
 5. Navigate to the `front-end` folder and enter the following command: 
 ``ng serve``.
