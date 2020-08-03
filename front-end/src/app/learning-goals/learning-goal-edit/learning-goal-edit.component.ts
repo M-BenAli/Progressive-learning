@@ -2,8 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LearningGoal} from "../../models/learning-goal";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LearningGoalService} from "../../services/learning-goal.service";
-import {TaskService} from "../../services/task.service";
-import {Task} from "../../models/task";
+import {UnitService} from "../../services/unit.service";
+import {Unit} from "../../models/unit";
 import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 
@@ -15,37 +15,37 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 export class LearningGoalEditComponent implements OnInit {
 
   @Input() editingLearningGoal: LearningGoal;
-  @Output() deletedTasksReg: EventEmitter<Task>;
+  @Output() deletedTasksReg: EventEmitter<Unit>;
   editingForm;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
               private learningGoalService: LearningGoalService,
-              private taskService: TaskService,
+              private taskService: UnitService,
               private formBuilder: FormBuilder) {
-    this.deletedTasksReg = new EventEmitter<Task>()
+    this.deletedTasksReg = new EventEmitter<Unit>()
 
   }
 
-  get tasks() {
-    return this.editingForm.get('tasks') as FormArray
+  get units() {
+    return this.editingForm.get('units') as FormArray
   }
 
-  addTask() {
-    this.editingLearningGoal.addTask(new Task('', false))
+  addUnit() {
+    this.editingLearningGoal.addUnit(new Unit('', false))
   }
 
-  deleteTask(task: Task, index: number) {
+  deleteTask(task: Unit, index: number) {
     this.deletedTasksReg.emit(task)
     this.editingLearningGoal.deleteTask(task, index)
   }
 
-  renderFormTasks(tasks: Task[]) {
+  renderFormUnits(units: Unit[]) {
     let formGroupArray: FormGroup[] = []
-    tasks.forEach(task => {
+    units.forEach(unit => {
       formGroupArray.push(new FormGroup({
-        name: new FormControl(task.name),
-        completed: new FormControl(task.completed),
-        id: new FormControl(task.id)
+        name: new FormControl(unit.name),
+        completed: new FormControl(unit.completed),
+        id: new FormControl(unit.id)
       }))
     })
     return formGroupArray
@@ -56,8 +56,8 @@ export class LearningGoalEditComponent implements OnInit {
     this.editingForm = this.formBuilder.group({
       goal: this.editingLearningGoal.goal,
       description: this.editingLearningGoal.description,
-      tasks: this.formBuilder.array(
-        [this.renderFormTasks(this.editingLearningGoal.tasks)]
+      units: this.formBuilder.array(
+        [this.renderFormUnits(this.editingLearningGoal.units)]
       )
     })
   }

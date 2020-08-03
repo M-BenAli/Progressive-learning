@@ -4,9 +4,9 @@ import {LearningGoalService} from "../../services/learning-goal.service";
 import {state, style, trigger} from "@angular/animations";
 
 @Component({
-  selector: 'app-task-list',
+  selector: 'app-unit-list',
   animations: [
-    trigger('taskCompletion', [
+    trigger('unitCompletion', [
       state('incomplete', style({
         backgroundColor: 'orange'
       })),
@@ -18,15 +18,14 @@ import {state, style, trigger} from "@angular/animations";
       // ])
     ])
   ],
-  templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css']
+  templateUrl: './unit-list.component.html',
+  styleUrls: ['./unit-list.component.css']
 })
-export class TaskListComponent implements OnInit {
-
+export class UnitListComponent implements OnInit {
 
   @Input() learningGoal: LearningGoal;
   @Output() updatedLearningGoal: EventEmitter<LearningGoal>;
-  tasksBaseURL: string;
+  unitsBaseURL: string;
 
   constructor(private learningGoalService: LearningGoalService) {
     this.updatedLearningGoal = new EventEmitter<LearningGoal>();
@@ -47,7 +46,7 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.learningGoal);
-    this.tasksBaseURL = `/learning-goals/${this.learningGoal.id}/tasks/`
+    this.unitsBaseURL = `/learning-goals/${this.learningGoal.id}/units/`
   }
 
 }

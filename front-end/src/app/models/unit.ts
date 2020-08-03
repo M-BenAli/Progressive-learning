@@ -1,6 +1,6 @@
 import {Resource} from "./resource";
 
-export class Task {
+export class Unit {
 
   id: number
   name: string
@@ -21,9 +21,9 @@ export class Task {
     this.resources.push(resource);
   }
 
-  static fromJSON(data: Task){
+  static fromJSON(data: Unit){
     if (data.resources) data.resources = data.resources.map(r => Resource.fromJSON(r));
-    return new Task(data.name, data.completed, data.summary, data.id, data.resources);
+    return new Unit(data.name, data.completed, data.summary, data.id, data.resources);
   }
 
 

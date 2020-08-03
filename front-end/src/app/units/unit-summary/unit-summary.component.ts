@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: 'app-task-summary',
-  templateUrl: './task-summary.component.html',
-  styleUrls: ['./task-summary.component.css']
+  selector: 'app-unit-summary',
+  templateUrl: './unit-summary.component.html',
+  styleUrls: ['./unit-summary.component.css']
 })
-export class TaskSummaryComponent implements OnInit {
+export class UnitSummaryComponent implements OnInit {
   readonly DESCRIPTION_PLACEHOLDER: string = 'Summarize the most important points(preferably in your own words).';
 
   modules: object = {

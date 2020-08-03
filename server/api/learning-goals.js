@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const helpers = require('../utils/helpers');
 const LearningGoal = require('../models/Learning-goal');
-const Task = require('../models/Task');
+const Unit = require('../models/Unit');
 const Subject = require('../models/Subject');
 const User = require('../models/User');
 
@@ -14,11 +14,11 @@ router.get('/api/learning-goals', async function (req, res) {
             where: {
                 userId: null
             },
-            include: [Task, Subject]
+            include: [Unit, Subject]
         });
     } else {
         learningGoals = await LearningGoal.findAll({
-            include: [Task, Subject]
+            include: [Unit, Subject]
         });
     }
     res.status(200).json(learningGoals);
@@ -26,7 +26,7 @@ router.get('/api/learning-goals', async function (req, res) {
 
 router.get('/api/learning-goals/:id', async function (req, res) {
     const learningGoal = await LearningGoal.findByPk(req.params.id, {
-        include: [Task, Subject, {
+        include: [Unit, Subject, {
             model: User,
             attributes: {
                 exclude: ['password', 'password_salt']
@@ -43,7 +43,7 @@ router.get('/api/learning-goals/:id', async function (req, res) {
 
 router.put('/api/learning-goals/:id', async function (req, res) {
     let learningGoal = await LearningGoal.findByPk(req.params.id, {
-        include: [Task, Subject, {
+        include: [Unit, Subject, {
             model: User,
             attributes: {
                 exclude: ['password', 'password_salt']
@@ -54,9 +54,9 @@ router.put('/api/learning-goals/:id', async function (req, res) {
     if (!learningGoal || learningGoal.goal == null) {
         res.status(400).json({message: 'No learning goal found with that ID!'});
     } else {
-        let updatedTasks = req.body.tasks;
-        updatedTasks.forEach(task => console.log(task));
-        await learningGoal.updateTasks(updatedTasks);
+        let updatedUnits = req.body.units;
+        updatedUnits.forEach(unit => console.log(unit));
+        await learningGoal.updateUnits(updatedUnits);
         console.log(learningGoal.toJSON());
         await learningGoal.reload();
         learningGoal.goal = req.body.goal;
@@ -68,7 +68,7 @@ router.put('/api/learning-goals/:id', async function (req, res) {
 });
 
 router.post('/api/learning-goals', async function (req, res) {
-    const {goal, progress, description, tasks, subject, user} = req.body;
+    const {goal, progress, description, units, subject, user} = req.body;
     console.log(req.body);
 
     if (!goal) {
@@ -79,15 +79,15 @@ router.post('/api/learning-goals', async function (req, res) {
         goal: goal,
         progress: progress,
         description: description,
-        tasks: tasks,
+        units: units,
         subjectId: subject ? subject.id : null,
         userId: user ? user.id : null
     }, {
-        include: [Task]
+        include: [Unit]
     });
 
     learningGoal = await LearningGoal.findByPk(learningGoal.id, {
-        include: [ Task, Subject, User]
+        include: [ Unit, Subject, User]
     });
 
     console.log(learningGoal.toJSON(), await learningGoal.getSubject());
@@ -98,13 +98,13 @@ router.post('/api/learning-goals', async function (req, res) {
 
 router.delete('/api/learning-goals/:id', async function (req, res) {
     const learningGoal = await LearningGoal.findByPk(req.params.id, {
-        include: [Task]
+        include: [Unit]
     });
-    const tasks = learningGoal.tasks;
+    const units = learningGoal.units;
     console.log(learningGoal.toJSON());
-    for (let task of tasks) {
-        task = await Task.findByPk(task.id);
-        task.destroy();
+    for (let unit of units) {
+        unit = await Unit.findByPk(unit.id);
+        unit.destroy();
     }
     await learningGoal.reload();
     await learningGoal.updateProgress();
@@ -127,7 +127,7 @@ router.get('/api/users/:userId/learning-goals', helpers.isAuth, async function (
 
     if (user) {
         const learningGoals = await user.getLearningGoals({
-            include: [Task, Subject]
+            include: [Unit, Subject]
         });
         res.status(200).json(learningGoals);
     } else {

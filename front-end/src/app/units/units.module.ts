@@ -1,24 +1,24 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TasksRoutingModule} from './tasks-routing.module';
-import {TaskComponent} from './task/task.component';
+import {UnitsRoutingModule} from './units-routing.module';
+import {UnitComponent} from './unit/unit.component';
 import {FormsModule} from "@angular/forms";
 import {ResourcesComponent} from "../resources/resources.component";
-import {TaskListComponent} from './task-list/task-list.component';
+import {UnitListComponent} from './unit-list/unit-list.component';
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {TaskSummaryComponent} from './task-summary/task-summary.component';
+import {UnitSummaryComponent} from './unit-summary/unit-summary.component';
 import {QuillModule} from "ngx-quill";
 
 
 @NgModule({
-    declarations: [TaskComponent, ResourcesComponent, TaskListComponent, TaskSummaryComponent],
+    declarations: [UnitComponent, ResourcesComponent, UnitListComponent, UnitSummaryComponent],
     exports: [
-        TaskListComponent
+        UnitListComponent
     ],
     imports: [
         CommonModule,
-        TasksRoutingModule,
+        UnitsRoutingModule,
         FormsModule,
         BrowserModule,
         BrowserAnimationsModule,
@@ -26,4 +26,4 @@ import {QuillModule} from "ngx-quill";
 
     ]
 })
-export class TasksModule { }
+export class UnitsModule { }

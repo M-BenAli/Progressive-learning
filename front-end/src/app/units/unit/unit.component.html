@@ -1,11 +1,11 @@
-<div id="task-component" class="" *ngIf="task">
+<div id="task-component" class="" *ngIf="unit">
   <div class="row p-1 justify-content-center mt-3 main-section">
     <div class="row row-container">
       <div class="col-sm-12 col-md-10 col-lg-7 m-auto">
-        <h3 class="d-inline-flex" *ngIf="!editTaskName">{{task.name}}</h3>
+        <h3 class="d-inline-flex" *ngIf="!editTaskName">{{unit.name}}</h3>
         <input id="task_header-edit" type="text"
                class="form-control d-inline mr-2 mt-1 w-75"
-               [(ngModel)]="task.name" *ngIf="editTaskName">
+               [(ngModel)]="unit.name" *ngIf="editTaskName">
         <a class="btn btn-sm btn-light ml-2" *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser())"
            (click)="editTaskName = !editTaskName">
           <i class="fa fa-lg fa-pencil-alt" title="Edit task name"></i>
@@ -19,13 +19,13 @@
 <!--                    class="form-control "-->
 <!--                    [(ngModel)]="task.summary"-->
 <!--                    [placeholder]="DESCRIPTION_PLACEHOLDER"></textarea>-->
-          <app-task-summary [summary]="this.task.summary" (updatedSummary)="updateSummary($event)"></app-task-summary>
+          <app-unit-summary [summary]="this.unit.summary" (updatedSummary)="updateSummary($event)"></app-unit-summary>
           <div>
             <div class="custom-control custom-checkbox" *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser())">
               <input type="checkbox" class="custom-control-input mt-2 mr-3 mx-2 my-2"
-                     name="{{task.name}}" id="{{task.name}}" [checked]="task.completed"
-                     [(ngModel)]="task.completed">
-              <label class="custom-control-label" for="{{task.name}}">Mark as completed</label>
+                     name="{{unit.name}}" id="{{unit.name}}" [checked]="unit.completed"
+                     [(ngModel)]="unit.completed">
+              <label class="custom-control-label" for="{{unit.name}}">Mark as completed</label>
             </div>
             <button *ngIf="!saving" class="btn btn-success mt-2" type="button"
                     [disabled]="!permissionsService.hasPermission(sessionService.getCurrentUser())"

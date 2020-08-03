@@ -23,7 +23,7 @@ db.sync({}).then(() => {
 // Start express app
 const app = express();
 const learningGoalsRoute = require('./api/learning-goals');
-const tasksRoute = require('./api/tasks');
+const unitsRoute = require('./api/units');
 const resourcesRoute = require('./api/resources');
 const subjectsRoute = require('./api/subjects');
 const usersRoute = require('./api/users');
@@ -55,7 +55,7 @@ const corsWhiteList = [
 ];
 app.use(function (req, res, next) {
     if (corsWhiteList.includes(req.headers.origin)) {
-        console.log(`Matching with a whitelisted origin: ${req.headers.origin}`);
+        // console.log(`Matching with a whitelisted origin: ${req.headers.origin}`);
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
     }
     res.setHeader('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, HEAD');
@@ -65,7 +65,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(learningGoalsRoute, tasksRoute, resourcesRoute, subjectsRoute,
+app.use(learningGoalsRoute, unitsRoute, resourcesRoute, subjectsRoute,
     authenticationRoute, usersRoute);
 
 app.get('/', function (req, res) {

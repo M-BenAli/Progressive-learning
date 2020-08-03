@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {LearningGoal} from "../../models/learning-goal";
 import {LearningGoalService} from "../../services/learning-goal.service";
-import {Task} from "../../models/task";
+import {Unit} from "../../models/unit";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {SessionService} from "../../services/session/session.service";
@@ -30,7 +30,7 @@ export class LearningGoalCreateComponent implements OnInit {
     this.subjects = [];
     this.learningGoalForm = this.formBuilder.group({
       goal: '',
-      tasks: this.formBuilder.array([
+      units: this.formBuilder.array([
         this.formBuilder.control('')
       ]),
       description: '',
@@ -39,14 +39,14 @@ export class LearningGoalCreateComponent implements OnInit {
 
   }
 
-  get tasks() {
-    return this.learningGoalForm.get('tasks') as FormArray;
+  get units() {
+    return this.learningGoalForm.get('units') as FormArray;
   }
 
   addTask() {
-    console.log("Adding a task")
+    console.log("Adding a unit")
     console.log(this.learningGoalForm.value)
-    this.tasks.push(this.formBuilder.control(''))
+    this.units.push(this.formBuilder.control(''))
   }
 
   //Create the learning goal which will contain the form information
@@ -56,9 +56,9 @@ export class LearningGoalCreateComponent implements OnInit {
     let subject = this.subjects.find(s => s.id === parseInt(learningGoalData.subjectID));
     let learningGoal = new LearningGoal(learningGoalData.goal, [], 0,
       this.sessionService.currentUser, subject, learningGoalData.description)
-    learningGoalData.tasks.forEach(t => {
-      let task = new Task(t, false)
-      learningGoal.tasks.push(task)
+    learningGoalData.units.forEach(t => {
+      let unit = new Unit(t, false)
+      learningGoal.units.push(unit)
     })
 
     this.learningGoalForm.reset()

@@ -9,10 +9,10 @@
           <p>{{learningGoal.description}}</p>
         </div>
       </div>
-      <div class="tasks-list">
-        <h5>Tasks</h5>
-        <app-task-list [learningGoal]="learningGoal"
-                       (updatedLearningGoal)="onUpdatedLearningGoal($event)"></app-task-list>
+      <div class="unit-list">
+        <h5>Units</h5>
+        <app-unit-list [learningGoal]="learningGoal"
+                       (updatedLearningGoal)="onUpdatedLearningGoal($event)"></app-unit-list>
       </div>
       <div class="progress-section">
         <h5>Progress</h5>

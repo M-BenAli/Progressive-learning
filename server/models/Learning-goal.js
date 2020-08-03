@@ -1,23 +1,23 @@
 const {DataTypes, Model} = require('sequelize');
-const Task = require('./Task');
+const Unit = require('./Unit');
 const sequelize = require('../config/database');
 
 class LearningGoal extends Model {
     async updateProgress() {
         console.log('Updating progress..');
         let progressPercentage = 0;
-        let completedTasks = 0;
-        let tasks = await this.getTasks({
+        let completedUnits = 0;
+        let units = await this.getUnits({
             where: {
                 learningGoalId: this.id
             }
         });
         // console.log(tasks);
-        tasks.forEach(task => {
-            task.completed ? completedTasks++ : null;
+        units.forEach(unit => {
+            unit.completed ? completedUnits++ : null;
         });
-        if (tasks.length > 0) {
-            progressPercentage = (100 / tasks.length) * completedTasks;
+        if (units.length > 0) {
+            progressPercentage = (100 / units.length) * completedUnits;
             progressPercentage = Math.round((progressPercentage + Number.EPSILON) * 100 / 100);
         }
         this.progress = progressPercentage;
@@ -25,20 +25,21 @@ class LearningGoal extends Model {
         await this.save();
     }
 
-    async updateTasks(updatedTasks) {
-        for (let updatedTask of updatedTasks) {
-            if (!updatedTask.id) {
-                const task = await Task.build({
-                    name: updatedTask.name, completed: updatedTask.completed,
+    async updateUnits(updatedUnits) {
+        for (let updatedUnit of updatedUnits) {
+            if (!updatedUnit.id) {
+                const unit = await Unit.build({
+                    name: updatedUnit.name,
+                    completed: updatedUnit.completed,
                     learningGoalId: this.id
                 });
-                await task.save();
-                console.log(task.toJSON());
-            } else if (updatedTask.id) {
-                let task = await Task.findByPk(updatedTask.id);
-                task.name = updatedTask.name;
-                task.completed = updatedTask.completed;
-                await task.save();
+                await unit.save();
+                console.log(unit.toJSON());
+            } else if (updatedUnit.id) {
+                let unit = await Unit.findByPk(updatedUnit.id);
+                unit.name = updatedUnit.name;
+                unit.completed = updatedUnit.completed;
+                await unit.save();
             }
         }
     }

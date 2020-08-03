@@ -9,7 +9,7 @@ import {LoginComponent} from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {LearningGoalsModule} from './learning-goals/learning-goals.module';
-import {TasksModule} from "./tasks/tasks.module";
+import {UnitsModule} from "./units/units.module";
 import {FooterComponent} from './components/footer/footer.component';
 import {UserComponent} from './users/user/user.component';
 import {UsersModule} from "./users/users.module";
@@ -38,7 +38,7 @@ import {SignUpComponent} from './components/sign-up/sign-up.component';
     FormsModule,
     HttpClientModule,
     LearningGoalsModule,
-    TasksModule,
+    UnitsModule,
     UsersModule,
     SubjectsModule,
     AppRoutingModule,

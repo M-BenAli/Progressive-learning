@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Resource, ResourceTypes} from "../models/resource";
-import {TaskService} from "../services/task.service";
+import {UnitService} from "../services/unit.service";
 import {ActivatedRoute} from "@angular/router";
 import {ResourceService} from "../services/resource.service";
 import {SessionService} from "../services/session/session.service";
@@ -27,7 +27,7 @@ export class ResourcesComponent implements OnInit {
   resourceTypes: string[];
   @Output() deletedResource: EventEmitter<Resource>;
 
-  constructor(private taskService: TaskService, private resourceService: ResourceService,
+  constructor(private taskService: UnitService, private resourceService: ResourceService,
               public permissionService: PermissionService,
               public sessionService: SessionService,
               private activatedRoute: ActivatedRoute) {

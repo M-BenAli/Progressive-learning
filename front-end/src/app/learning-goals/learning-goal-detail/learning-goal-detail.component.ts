@@ -3,8 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {LearningGoal} from "../../models/learning-goal";
 import {LearningGoalService} from "../../services/learning-goal.service";
 import {LearningGoalEditComponent} from "../learning-goal-edit/learning-goal-edit.component";
-import {Task} from "../../models/task";
-import {TaskService} from "../../services/task.service";
+import {Unit} from "../../models/unit";
+import {UnitService} from "../../services/unit.service";
 import {PermissionService} from "../../services/permissions/permission.service";
 import {SessionService} from "../../services/session/session.service";
 
@@ -17,7 +17,7 @@ export class LearningGoalDetailComponent implements OnInit {
 
   learningGoal: LearningGoal;
   renderEdit: boolean;
-  deletedTasksReg: Task[];
+  deletedTasksReg: Unit[];
 
   @ViewChild(LearningGoalEditComponent) learningEdit: LearningGoalEditComponent
   @Output() editing: EventEmitter<boolean>;
@@ -30,7 +30,7 @@ export class LearningGoalDetailComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
               private learningGoalService: LearningGoalService,
-              private taskService: TaskService,
+              private taskService: UnitService,
               public sessionService: SessionService,
               public permissionService: PermissionService) {
     this.renderEdit = false

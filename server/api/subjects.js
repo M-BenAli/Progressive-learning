@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Subject = require('../models/Subject');
 const LearningGoal = require('../models/Learning-goal');
-const Task = require('../models/Task');
+const Task = require('../models/Unit');
 const User = require('../models/User');
 const helpers = require('../utils/helpers');
 

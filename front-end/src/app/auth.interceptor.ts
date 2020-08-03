@@ -14,7 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
     this.SECURED_PATHS = [
       'users/',
       'subjects/',
-      'tasks/'
+      'units/'
     ]
   }
 

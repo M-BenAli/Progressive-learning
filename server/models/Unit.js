@@ -1,10 +1,10 @@
 const {DataTypes, Model} = require('sequelize');
 const sequelize = require('../config/database');
 
-class Task extends Model {
+class Unit extends Model {
 }
 
-module.exports = Task.init({
+module.exports = Unit.init({
     name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -17,5 +17,5 @@ module.exports = Task.init({
     }
 }, {
     sequelize,
-    modelName: 'task'
+    modelName: 'unit'
 });
