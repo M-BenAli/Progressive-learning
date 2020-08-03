@@ -17,7 +17,7 @@ export class LearningGoalDetailComponent implements OnInit {
 
   learningGoal: LearningGoal;
   renderEdit: boolean;
-  deletedTasksReg: Unit[];
+  deletedUnitsReg: Unit[];
 
   @ViewChild(LearningGoalEditComponent) learningEdit: LearningGoalEditComponent
   @Output() editing: EventEmitter<boolean>;
@@ -30,7 +30,7 @@ export class LearningGoalDetailComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
               private learningGoalService: LearningGoalService,
-              private taskService: UnitService,
+              private unitService: UnitService,
               public sessionService: SessionService,
               public permissionService: PermissionService) {
     this.renderEdit = false
@@ -38,7 +38,7 @@ export class LearningGoalDetailComponent implements OnInit {
     this.deleted = new EventEmitter<boolean>()
     this.cancel = new EventEmitter<boolean>()
     this.saved = new EventEmitter<LearningGoal>()
-    this.deletedTasksReg = []
+    this.deletedUnitsReg = []
   }
 
   onEdit() {
@@ -53,7 +53,7 @@ export class LearningGoalDetailComponent implements OnInit {
  async onSave() {
     this.renderEdit = false
     this.learningGoal = this.learningEdit.editingLearningGoal
-    await this.clearTasksReg();
+    await this.clearUnitsReg();
     this.learningGoal.calculateProgress();
     console.log(this.learningGoal);
     this.learningGoalService.update(this.learningGoal.id, this.learningGoal)
@@ -94,19 +94,19 @@ export class LearningGoalDetailComponent implements OnInit {
     this.cancel.emit(true);
   }
 
-  registerDeletedTask(task) {
-    this.deletedTasksReg.push(task)
+  registerDeletedUnit(unit) {
+    this.deletedUnitsReg.push(unit)
   }
 
-  async clearTasksReg() {
-    for (let task of this.deletedTasksReg) {
-      console.log(task);
-      this.learningGoal.deleteTask(task);
-      if (task.id) {
-        await this.taskService.delete(task).toPromise();
+  async clearUnitsReg() {
+    for (let unit of this.deletedUnitsReg) {
+      console.log(unit);
+      this.learningGoal.deleteUnit(unit);
+      if (unit.id) {
+        await this.unitService.delete(unit).toPromise();
       }
     }
-    this.deletedTasksReg = []
+    this.deletedUnitsReg = []
   }
 
   onUpdatedLearningGoal(learningGoal: LearningGoal) {

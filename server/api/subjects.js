@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Subject = require('../models/Subject');
 const LearningGoal = require('../models/Learning-goal');
-const Task = require('../models/Unit');
+const Unit = require('../models/Unit');
 const User = require('../models/User');
 const helpers = require('../utils/helpers');
 
@@ -31,7 +31,7 @@ router.get('/api/subjects/:id', async function (req, res) {
     const subject = await Subject.findByPk(subjectID, {
         include: [
             {
-                model: LearningGoal, include: [Task, Subject, {
+                model: LearningGoal, include: [Unit, Subject, {
                     model: User, attributes: ['id', 'email', 'admin', 'createdAt', 'updatedAt']
                 }]
             }

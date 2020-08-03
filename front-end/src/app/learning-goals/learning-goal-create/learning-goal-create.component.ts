@@ -43,7 +43,7 @@ export class LearningGoalCreateComponent implements OnInit {
     return this.learningGoalForm.get('units') as FormArray;
   }
 
-  addTask() {
+  addUnit() {
     console.log("Adding a unit")
     console.log(this.learningGoalForm.value)
     this.units.push(this.formBuilder.control(''))

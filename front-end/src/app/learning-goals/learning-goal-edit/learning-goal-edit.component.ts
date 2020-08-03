@@ -15,14 +15,14 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 export class LearningGoalEditComponent implements OnInit {
 
   @Input() editingLearningGoal: LearningGoal;
-  @Output() deletedTasksReg: EventEmitter<Unit>;
+  @Output() deletedUnitsReg: EventEmitter<Unit>;
   editingForm;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
               private learningGoalService: LearningGoalService,
-              private taskService: UnitService,
+              private unitService: UnitService,
               private formBuilder: FormBuilder) {
-    this.deletedTasksReg = new EventEmitter<Unit>()
+    this.deletedUnitsReg = new EventEmitter<Unit>()
 
   }
 
@@ -34,9 +34,9 @@ export class LearningGoalEditComponent implements OnInit {
     this.editingLearningGoal.addUnit(new Unit('', false))
   }
 
-  deleteTask(task: Unit, index: number) {
-    this.deletedTasksReg.emit(task)
-    this.editingLearningGoal.deleteTask(task, index)
+  deleteUnit(task: Unit, index: number) {
+    this.deletedUnitsReg.emit(task)
+    this.editingLearningGoal.deleteUnit(task, index)
   }
 
   renderFormUnits(units: Unit[]) {

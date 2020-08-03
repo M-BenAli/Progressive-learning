@@ -31,7 +31,7 @@ export class UnitListComponent implements OnInit {
     this.updatedLearningGoal = new EventEmitter<LearningGoal>();
   }
 
-  reloadTaskProgress() {
+  reloadUnitProgress() {
     this.learningGoal.calculateProgress();
     this.learningGoalService.update(this.learningGoal.id, this.learningGoal)
       .subscribe((learningGoal: LearningGoal) => {

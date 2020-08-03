@@ -26,7 +26,7 @@
   </div>
   <div id="editing-learning-goal" *ngIf="renderEdit">
     <app-learning-goal-edit [editingLearningGoal]="learningGoal"
-                            (deletedTasksReg)="registerDeletedTask($event)">
+                            (deletedUnitsReg)="registerDeletedUnit($event)">
     </app-learning-goal-edit>
   </div>
   <div class="mt-2 border-dark border-top pt-3"

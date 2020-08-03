@@ -1,6 +1,6 @@
 import {Unit} from './unit';
 
-describe('Task', () => {
+describe('Unit', () => {
   it('should create an instance', () => {
     expect(new Unit("Understanding DNA", false, "", 1, [])).toBeTruthy();
   });

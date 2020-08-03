@@ -7,7 +7,7 @@
       <input type="checkbox" class="custom-control-input mx-2 my-2" name="{{unit.name}}"
              id="{{unit.id}}"
              [checked]="unit.completed" [(ngModel)]="unit.completed"
-             (change)="reloadTaskProgress()">
+             (change)="reloadUnitProgress()">
       <label class="custom-control-label" for="{{unit.id}}"></label>
       <a [routerLink]="[unitsBaseURL, unit.id]"
          class="">{{unit.name}}</a>

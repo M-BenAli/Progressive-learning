@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 
 import {UnitService} from './unit.service';
 
-describe('TaskService', () => {
+describe('UnitService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {

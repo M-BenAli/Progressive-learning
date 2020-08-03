@@ -1,24 +1,19 @@
-<div id="task-component" class="" *ngIf="unit">
+<div id="unit-component" class="" *ngIf="unit">
   <div class="row p-1 justify-content-center mt-3 main-section">
     <div class="row row-container">
       <div class="col-sm-12 col-md-10 col-lg-7 m-auto">
-        <h3 class="d-inline-flex" *ngIf="!editTaskName">{{unit.name}}</h3>
-        <input id="task_header-edit" type="text"
+        <h3 class="d-inline-flex" *ngIf="!editUnitName">{{unit.name}}</h3>
+        <input id="unit_header-edit" type="text"
                class="form-control d-inline mr-2 mt-1 w-75"
-               [(ngModel)]="unit.name" *ngIf="editTaskName">
+               [(ngModel)]="unit.name" *ngIf="editUnitName">
         <a class="btn btn-sm btn-light ml-2" *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser())"
-           (click)="editTaskName = !editTaskName">
+           (click)="editUnitName = !editUnitName">
           <i class="fa fa-lg fa-pencil-alt" title="Edit task name"></i>
         </a>
       </div>
       <div class="w-100 mb-2"></div>
       <div class="col-sm-12 col-md-8 col-lg-7">
-        <div class="task_summary p-2">
-<!--          <label for="summary">Summary</label>-->
-<!--          <textarea name="summary" id="summary"-->
-<!--                    class="form-control "-->
-<!--                    [(ngModel)]="task.summary"-->
-<!--                    [placeholder]="DESCRIPTION_PLACEHOLDER"></textarea>-->
+        <div class="unit_summary p-2">
           <app-unit-summary [summary]="this.unit.summary" (updatedSummary)="updateSummary($event)"></app-unit-summary>
           <div>
             <div class="custom-control custom-checkbox" *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser())">

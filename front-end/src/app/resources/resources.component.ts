@@ -27,7 +27,7 @@ export class ResourcesComponent implements OnInit {
   resourceTypes: string[];
   @Output() deletedResource: EventEmitter<Resource>;
 
-  constructor(private taskService: UnitService, private resourceService: ResourceService,
+  constructor(private unitService: UnitService, private resourceService: ResourceService,
               public permissionService: PermissionService,
               public sessionService: SessionService,
               private activatedRoute: ActivatedRoute) {
@@ -55,7 +55,7 @@ export class ResourcesComponent implements OnInit {
     }).unsubscribe();
 
     if (taskID) {
-      this.taskService.addResource(taskID, this.newResource).subscribe(
+      this.unitService.addResource(taskID, this.newResource).subscribe(
         (resourceData: []) => {
           this.resources = [];
           resourceData.forEach(resource => {
@@ -85,7 +85,7 @@ export class ResourcesComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(next => {
       taskID = next.get('id');
     }).unsubscribe();
-    this.taskService.getResources(taskID).subscribe(
+    this.unitService.getResources(taskID).subscribe(
       (resourceData: Resource[]) => {
         this.resources = [];
         resourceData.forEach(resource => {

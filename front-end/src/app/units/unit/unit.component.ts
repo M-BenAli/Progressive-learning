@@ -15,14 +15,14 @@ export class UnitComponent implements OnInit {
 
 
   public unit: Unit;
-  public editTaskName: boolean;
+  public editUnitName: boolean;
   // public summaryCopy: string;
   public saving: boolean;
 
   constructor(private unitService: UnitService, public permissionsService: PermissionService,
               public sessionService: SessionService,
               private activatedRoute: ActivatedRoute, private router: Router) {
-    this.editTaskName = false;
+    this.editUnitName = false;
 
   }
 

@@ -32,7 +32,7 @@ export class LearningGoal {
     this.units.push(unit)
   }
 
-  public deleteTask(unit: Unit, index?: number): void {
+  public deleteUnit(unit: Unit, index?: number): void {
     if (index) {
       this.units.splice(index, 1);
     } else if(unit.id) {
