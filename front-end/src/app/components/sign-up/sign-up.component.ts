@@ -42,7 +42,6 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(formData) {
-    console.log(formData);
     this.sessionService.signUp(formData).subscribe(resp => {
       const token = resp.headers.get('Authorization');
       this.sessionService.setToken(token);
