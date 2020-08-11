@@ -13,8 +13,8 @@
     </li>
   </ul>
 </div>
+<h4 class="border-bottom border-dark">Images</h4>
 <div class="resource-images">
-  <h4 class="border-bottom border-dark">Images</h4>
   <div class="resource-image p-2" *ngFor="let resource of resourceImages; let i = index">
     <a class="btn btn-sm btn-danger mr-2 h-100" (click)="onDelete(resource, i, 'Image')" title="Delete resource">
       <i class="fa fa-times"></i>
