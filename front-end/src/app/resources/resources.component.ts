@@ -19,19 +19,23 @@ export class ResourcesComponent implements OnInit {
     Youtube: 'fab fa-youtube',
     Article: 'far fa-newspaper',
     Book: 'fas fa-book',
-    ScientificPaper: 'fa fa-pager'
+    ScientificPaper: 'fa fa-pager',
+    Image: 'fa fa-image'
   }
 
-  resources: Resource[];
+  resourceLinks: Resource[];
+  resourceImages: Resource[];
   newResource: Resource;
   resourceTypes: string[];
   @Output() deletedResource: EventEmitter<Resource>;
+  selectedResourceImg: Resource;
 
   constructor(private unitService: UnitService, private resourceService: ResourceService,
               public permissionService: PermissionService,
               public sessionService: SessionService,
               private activatedRoute: ActivatedRoute) {
-    this.resources = [];
+    this.resourceLinks = [];
+    this.resourceImages = [];
     this.resourceTypes = Object.values(ResourceTypes)
     this.deletedResource = new EventEmitter();
   }
@@ -44,8 +48,8 @@ export class ResourcesComponent implements OnInit {
     this.newResource = new Resource('', ResourceTypes.Wikipedia);
   }
 
-  getResourceKeyFromValue(enumValue){
-   return Object.keys(ResourceTypes).find(type => ResourceTypes[type] === enumValue);
+  getResourceKeyFromValue(enumValue) {
+    return Object.keys(ResourceTypes).find(type => ResourceTypes[type] === enumValue);
   }
 
   onCreate() {
@@ -55,29 +59,38 @@ export class ResourcesComponent implements OnInit {
     }).unsubscribe();
 
     if (taskID) {
+      this.resourceLinks = [];
+      this.resourceImages = [];
       this.unitService.addResource(taskID, this.newResource).subscribe(
-        (resourceData: []) => {
-          this.resources = [];
+        (resourceData: Resource[]) => {
           resourceData.forEach(resource => {
-            this.resources.push(Resource.fromJSON(resource));
+            resource.type === 'Image' ? this.resourceImages.push(resource) : this.resourceLinks.push(resource)
           })
         }, error => {
           console.log(error);
         }, () => {
           this.newResource = null;
-          console.log(this.resources)
+          console.log(this.resourceLinks)
         });
     }
   }
 
-  onDelete(resource: Resource, index: number){
-    this.resources.splice(index, 1);
+  onDelete(resource: Resource, index?: number, type?: string) {
+    if (type === 'Image') {
+      this.resourceImages.splice(index, 1);
+    } else {
+      this.resourceLinks.splice(index, 1);
+    }
     this.resourceService.delete(resource.id).subscribe();
     this.deletedResource.emit(resource);
   }
 
   onCancel() {
     this.newResource = null;
+  }
+
+  onImageHover() {
+    console.log("Hovering over an image");
   }
 
   ngOnInit(): void {
@@ -87,14 +100,16 @@ export class ResourcesComponent implements OnInit {
     }).unsubscribe();
     this.unitService.getResources(taskID).subscribe(
       (resourceData: Resource[]) => {
-        this.resources = [];
+        this.resourceLinks = [];
         resourceData.forEach(resource => {
-          this.resources.push(Resource.fromJSON(resource));
+          resource.type === 'Image' ? this.resourceImages.push(resource) : this.resourceLinks.push(resource)
+
         })
       }, error => {
         console.log(error)
       },
-      () => {});
+      () => {
+      });
   }
 
 }

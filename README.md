@@ -50,11 +50,11 @@ In order to build the app yourself follow these steps:
 
 ![LearningGoal](screenshots/lg-view-3.png "Learning-goal 3")
 
-**Task summary examples:**
+**Unit summary examples:**
 
-![Task](screenshots/task-view-1.png "Task 1")
+![Unit](screenshots/task-view-1.png "Unit 1")
 
-![Task](screenshots/task-view-2.png "Task 2")
+![Unit](screenshots/task-view-2.png "Unit 2")
     
 ## Contribution
 

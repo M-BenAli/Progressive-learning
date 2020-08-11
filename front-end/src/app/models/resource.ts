@@ -4,7 +4,8 @@ export enum ResourceTypes {
   Github = "Github",
   Book = "Book",
   ScientificPaper = "Scientific paper",
-  Article = "Article"
+  Article = "Article",
+  Image = "Image"
 }
 
 export class Resource {
