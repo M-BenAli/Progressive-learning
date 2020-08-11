@@ -52,9 +52,9 @@ In order to build the app yourself follow these steps:
 
 **Unit summary examples:**
 
-![Unit](screenshots/task-view-1.png "Task 1")
+![Unit](screenshots/task-view-1.png "Unit 1")
 
-![Unit](screenshots/task-view-2.png "Task 2")
+![Unit](screenshots/task-view-2.png "Unit 2")
     
 ## Contribution
 

@@ -1,6 +1,7 @@
-<div class="resources-list mb-3">
+<div class="resource-links mb-3">
+  <h4 class="border-bottom border-dark">URL sources</h4>
   <ul class="list-group">
-    <li class="list-group-item text-truncate" *ngFor="let resource of resources; let i = index">
+    <li class="list-group-item" *ngFor="let resource of resourceLinks; let i = index">
       <a class="btn btn-sm btn-danger mr-2" (click)="onDelete(resource, i)"
          title="Delete resource">
         <i class="fa fa-times"></i>
@@ -9,13 +10,24 @@
             [ngClass]="RESOURCE_ICONS[getResourceKeyFromValue(resource.type)]"></span>
       <a [href]="resource.url" target="_blank">{{resource.url}}
         <span class="float-right fa fa-arrow-circle-right"></span></a>
-
     </li>
   </ul>
 </div>
-<button class="btn btn-sm btn-primary" [disabled]="!permissionService.hasPermission(sessionService.getCurrentUser())"
+<h4 class="border-bottom border-dark">Images</h4>
+<div class="resource-images">
+  <div class="resource-image p-2" *ngFor="let resource of resourceImages; let i = index">
+    <a class="btn btn-sm btn-danger mr-2 h-100" (click)="onDelete(resource, i, 'Image')" title="Delete resource">
+      <i class="fa fa-times"></i>
+    </a>
+    <a type="button" href="#" data-toggle="modal" data-target="#imageModal" (click)="selectedResourceImg = resource">
+      <img [src]="resource.url" [alt]="'resource-image-' + i" (mouseover)="onImageHover()" width="75%" height="75%">
+    </a>
+  </div>
+</div>
+<button class="btn btn-sm btn-primary mt-2"
+        [disabled]="!permissionService.hasPermission(sessionService.getCurrentUser())"
         (click)="renderNewResource()"><span class="fa fa-xs fa-plus"></span>
-  Add resource link
+  Add resource
 </button>
 <div class="border border-danger bg-danger mt-5 p-2"
      *ngIf="!permissionService.hasPermission(sessionService.getCurrentUser())">
@@ -40,3 +52,16 @@
   </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" *ngIf="selectedResourceImg">
+        <img [src]="selectedResourceImg.url" [alt]="'resource-image-' + selectedResourceImg.id" width="100%"
+             height="100%">
+      </div>
+
+    </div>
+  </div>
+</div>

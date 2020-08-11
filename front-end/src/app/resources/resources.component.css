@@ -1,4 +1,35 @@
-.resources-list {
+.resource-links {
   max-height: 300px;
   overflow: auto;
+}
+
+.resource-images {
+  overflow-y: auto;
+  max-height: 300px;
+  border-radius: .25rem;
+  border: 1px solid white;
+  background-color: #fff;
+
+}
+
+.view-button {
+  right: 100px;
+  color: black;
+}
+
+
+.resource-image {
+  border: 1px solid rgba(0,0,0,.125);
+  display: flex;
+  justify-content: center;
+}
+
+.resource-image img {
+  display: block;
+  margin: auto;
+}
+
+.resource-image img:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
 }
