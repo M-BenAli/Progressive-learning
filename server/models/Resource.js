@@ -10,7 +10,7 @@ module.exports = Resource.init({
     },
     type: {
         type: DataTypes.ENUM,
-        values: ['Github', 'Wikipedia', 'Youtube', 'Book', 'Scientific paper', 'Article'],
+        values: ['Github', 'Wikipedia', 'Youtube', 'Book', 'Scientific paper', 'Article', 'Image'],
         allowNull: false
     }
 }, {

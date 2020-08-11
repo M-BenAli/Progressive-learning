@@ -23,7 +23,7 @@ const Subject = require('../models/Subject');
 // Sequelize associations
 User.learningGoals = User.hasMany(LearningGoal);
 User.subjects = User.hasMany(Subject);
-LearningGoal.Unit = LearningGoal.hasMany(Unit);
+LearningGoal.units = LearningGoal.hasMany(Unit);
 LearningGoal.user = LearningGoal.belongsTo(User);
 LearningGoal.subject = LearningGoal.belongsTo(Subject, {
     allowNull: true
