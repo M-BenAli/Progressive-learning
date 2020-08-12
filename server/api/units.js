@@ -29,6 +29,30 @@ router.get('/api/units/:id', async function (req, res) {
 });
 
 
+router.get('/api/units/:id/resources', async function (req, res) {
+    const unitID = req.params.id;
+
+    if (!unitID) {
+        return res.status(400).json({
+            message: 'No unit ID has been included in the request'
+        });
+    }
+
+    const unit = await Unit.findByPk(unitID, {
+        include: Resource
+    });
+
+    if (!unit) {
+        return res.status(404).json({
+            message: 'No unit found with given ID'
+        });
+    } else {
+        return res.status(200).json(unit.resources);
+    }
+
+});
+
+
 router.put('/api/units/:id', async function (req, res) {
     const {name, completed, summary} = req.body;
 
@@ -71,19 +95,6 @@ router.post('/api/units', async function (req, res) {
 
 });
 
-router.delete('/api/units/:id', async function (req, res) {
-    const unit = await Unit.findByPk(req.params.id);
-
-    if (!unit) {
-        return res.status(404).json({
-            message: 'No unit found with given id.'
-        });
-    } else {
-        await unit.destroy();
-        return res.status(204).json('Deleted unit');
-    }
-
-});
 
 router.post('/api/units/:id/resources', async function (req, res) {
     const unitID = req.params.id;
@@ -121,28 +132,20 @@ router.post('/api/units/:id/resources', async function (req, res) {
     return res.status(200).json(unit.resources);
 });
 
-router.get('/api/units/:id/resources', async function (req, res) {
-    const unitID = req.params.id;
-
-    if (!unitID) {
-        return res.status(400).json({
-            message: 'No unit ID has been included in the request'
-        });
-    }
-
-    const unit = await Unit.findByPk(unitID, {
-        include: Resource
-    });
+router.delete('/api/units/:id', async function (req, res) {
+    const unit = await Unit.findByPk(req.params.id);
 
     if (!unit) {
         return res.status(404).json({
-            message: 'No unit found with given ID'
+            message: 'No unit found with given id.'
         });
     } else {
-        return res.status(200).json(unit.resources);
+        await unit.destroy();
+        return res.status(204).json('Deleted unit');
     }
 
 });
+
 
 module.exports = router;
 
