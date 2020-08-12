@@ -1,4 +1,5 @@
 <div id="unit-component" class="" *ngIf="unit">
+  <h3 class="text-white">{{this.learningGoal.goal}}</h3>
   <div class="row p-1 justify-content-center mt-3 main-section">
     <div class="row row-container pb-3">
       <div class="col-sm-12 col-md-10 col-lg-7 m-auto">
@@ -16,7 +17,8 @@
         <div class="unit_summary p-2">
           <app-unit-summary [summary]="this.unit.summary" (updatedSummary)="updateSummary($event)"></app-unit-summary>
           <div>
-            <div class="custom-control custom-checkbox" *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser())">
+            <div class="custom-control custom-checkbox"
+                 *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser())">
               <input type="checkbox" class="custom-control-input mt-2 mr-3 mx-2 my-2"
                      name="{{unit.name}}" id="{{unit.name}}" [checked]="unit.completed"
                      [(ngModel)]="unit.completed">
@@ -24,7 +26,8 @@
             </div>
             <button *ngIf="!saving" class="btn btn-success mt-2" type="button"
                     [disabled]="!permissionsService.hasPermission(sessionService.getCurrentUser())"
-                    (click)="onSave()">Save</button>
+                    (click)="onSave()">Save
+            </button>
             <button *ngIf="saving" class="btn btn-success mt-2" type="button" disabled>
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
               <span class="sr-only">Saving..</span>

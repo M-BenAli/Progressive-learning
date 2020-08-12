@@ -12,7 +12,7 @@ which are run separately. **NOTE**: This project is still in its initial stages 
 ## Features
 
 * Create learning-goals and structure them in several 'learning' units(e.g. chapters, parts).
-* Add resource URL's/links related to a unit.
+* Add resource URL's/images related to a unit.
 * Write summaries about a unit and the related material.
 * Keep track of progress on learning-goals by marking units as complete or incomplate.
 * Organize learning-goals into subjects.

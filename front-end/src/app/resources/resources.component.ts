@@ -89,10 +89,6 @@ export class ResourcesComponent implements OnInit {
     this.newResource = null;
   }
 
-  onImageHover() {
-    console.log("Hovering over an image");
-  }
-
   ngOnInit(): void {
     let taskID;
     this.activatedRoute.paramMap.subscribe(next => {

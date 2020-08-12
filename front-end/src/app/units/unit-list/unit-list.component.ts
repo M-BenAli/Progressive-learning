@@ -45,7 +45,6 @@ export class UnitListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.learningGoal);
     this.unitsBaseURL = `/learning-goals/${this.learningGoal.id}/units/`
   }
 

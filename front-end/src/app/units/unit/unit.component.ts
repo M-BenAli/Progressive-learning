@@ -5,6 +5,7 @@ import {Unit} from 'src/app/models/unit';
 import {PermissionService} from "../../services/permissions/permission.service";
 import {SessionService} from "../../services/session/session.service";
 import {Resource} from "../../models/resource";
+import {LearningGoal} from "../../models/learning-goal";
 
 @Component({
   selector: 'app-unit',
@@ -18,6 +19,7 @@ export class UnitComponent implements OnInit {
   public editUnitName: boolean;
   // public summaryCopy: string;
   public saving: boolean;
+  public learningGoal: LearningGoal;
 
   constructor(private unitService: UnitService, public permissionsService: PermissionService,
               public sessionService: SessionService,
@@ -52,6 +54,7 @@ export class UnitComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.unitService.get(params.id).subscribe((unit: Unit) => {
         this.unit = Unit.fromJSON(unit);
+        this.learningGoal = LearningGoal.fromJSON(unit['learningGoal']);
       }, (error) => {
         console.log(error);
         this.router.navigate(['**']);
