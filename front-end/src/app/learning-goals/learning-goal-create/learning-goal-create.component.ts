@@ -31,7 +31,6 @@ export class LearningGoalCreateComponent implements OnInit {
     this.learningGoalForm = this.formBuilder.group({
       goal: '',
       units: this.formBuilder.array([
-        this.formBuilder.control('')
       ]),
       description: '',
       subjectID: ''
