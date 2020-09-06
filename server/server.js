@@ -69,9 +69,7 @@ app.use(learningGoalsRoute, unitsRoute, resourcesRoute, subjectsRoute,
     authenticationRoute, usersRoute);
 
 app.get('/', function (req, res) {
-    // req.session.views = (req.session.views || 0) + 1;
     res.send('Progressive learning back-end server');
-    // res.end(req.session.views);
 });
 
 app.listen(port);
