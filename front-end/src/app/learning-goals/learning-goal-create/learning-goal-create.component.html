@@ -5,7 +5,7 @@
            placeholder="Enter your learning goal">
     <div id="unit-section" class="mt-3" formArrayName="units">
       <h4>Units</h4>
-      <button type="button" class="btn btn-dark fa fa-plus float-right" (click)="addUnit()"></button>
+      <button type="button" class="btn btn-dark fa fa-plus float-end" (click)="addUnit()"></button>
       <div *ngFor="let unit of units.controls; index as i">
         <div class="form-group" id="units">
           <input type="text" [formControlName]="i" class="form-control mt-1"
@@ -28,7 +28,7 @@
     </select>
   </div>
     <div class="btn-group mb-1 mt-3">
-      <button class="btn btn-dark mr-2" type="submit">Learn</button>
+      <button class="btn btn-dark me-2" type="submit">Learn</button>
       <button class="btn btn-danger" type="button" (click)="onCancel()">Cancel</button>
     </div>
 </form>

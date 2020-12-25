@@ -1,11 +1,11 @@
 <div class="col-md-4 col-sm-12 mt-2 subject" *ngFor="let subject of subjects; index as i">
   <div class="card subject-box">
-    <a class="subject-del-btn btn btn-sm btn-danger d-inline ml-auto"
+    <a class="subject-del-btn btn btn-sm btn-danger d-inline ms-auto"
        (click)="onDelete(subject, i)">
       <span class="fa fa-times"></span></a>
     <div class="card-body p-0" style="transform: rotate(0)">
       <h5 class="card-title text-center">{{subject.name}}
-        <span class="badge badge-primary" title="Amount of learning goals">
+        <span class="badge bg-primary" title="Amount of learning goals">
           {{subject.learningGoals.length}}</span>
       </h5>
       <p class="card-text p-2 text-truncate">

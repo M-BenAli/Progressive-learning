@@ -5,9 +5,9 @@
          placeholder="Enter your learning goal">
   <div id="unit-section" class="mt-3">
     <h4 class="d-inline">Units</h4>
-    <button class="btn btn-dark fa fa-plus float-right" (click)="addUnit()"></button>
+    <button class="btn btn-dark fa fa-plus float-end" (click)="addUnit()"></button>
     <div class="mt-1" *ngFor="let unit of this.editingLearningGoal.units; index as i;">
-      <div class="form-row unit-item p-1 mb-2" id="units">
+      <div class="row unit-item p-1 mb-2" id="units">
         <input type="checkbox" name="unitCompletion" id="unitCompletion" [checked]="unit.completed"
                class="form-check-label mx-2 my-3 col-auto" (change)="unit.completed = !unit.completed">
         <input [(ngModel)]="unit.name"
@@ -16,6 +16,7 @@
         <a class="btn btn-danger btn-sm m-2 col-auto" title="Delete unit" (click)="deleteUnit(unit, i)">
           <span class="fa fa-times"></span>
         </a>
+
       </div>
     </div>
     <div id="unit-description" class="mt-1">

@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "progressive-learning"
+    }
+  },
+  "defaultProject": "progressive-learning",
+  "cli": {
+    "analytics": "bd110d87-ce51-4fb6-b7ef-abdd1c125bb5"
+  }
 }

@@ -31,11 +31,11 @@
   </div>
   <div class="mt-2 border-dark border-top pt-3"
        *ngIf="permissionService.hasPermission(this.sessionService.getCurrentUser())">
-    <button class="btn btn-info mr-1" [disabled]="renderEdit" (click)="onEdit()">Edit</button>
-    <button class="btn btn-danger mr-1" (click)="onCancel()">
+    <button class="btn btn-info me-1" [disabled]="renderEdit" (click)="onEdit()">Edit</button>
+    <button class="btn btn-danger me-1" (click)="onCancel()">
       Cancel</button>
     <button class="btn btn-success" [hidden]="!renderEdit" (click)="onSave()">Save</button>
-    <button class="btn btn-danger float-right" (click)="onDelete()">
+    <button class="btn btn-danger float-end" (click)="onDelete()">
       <i class="fa fa-trash"></i> Delete</button>
   </div>
 </div>

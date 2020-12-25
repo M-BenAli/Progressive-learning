@@ -1,18 +1,22 @@
 <h1 class="text-white">Profile</h1>
 <div class="row main-section">
   <div class="col-sm-12 aqua-box p-1" *ngIf="currentUser">
-    <h3 class="text-truncate mb-4 ml-3">Hello <span class="text-primary font-weight-bold">{{currentUser.email}}</span></h3>
-    <div class="form-group col-md-7">
-      <label for="userEmail" class="font-weight-bold">Change email</label>
-      <input type="text" id="userEmail" name="userEmail"
-             class="form-control col-sm-12 col-md-7 col-lg-4"
-             [formControl]="userEmail" [email]="true">
-      <button class="btn btn-sm btn-dark" (click)="userEmail.disabled ? userEmail.enable() :
+    <div class="ms-3">
+      <h3 class="text-truncate mb-4">Hello <span class="text-primary font-weight-bold">{{currentUser.email}}</span></h3>
+      <div class="form-group col-md-5">
+        <label for="userEmail" class="fw-bold d-block">Change email</label>
+        <input type="text" id="userEmail" name="userEmail"
+               class="form-control d-inline w-75"
+               [formControl]="userEmail" [email]="true">
+        <button class="btn btn-dark mb-1 ms-2" (click)="userEmail.disabled ? userEmail.enable() :
       userEmail.disable()"><span class="fa fa-edit"></span></button>
-      <div class="custom-control custom-checkbox d-block col-2" *ngIf="currentUser.admin">
-        <input type="checkbox" class="custom-control-input" name="isAdmin"
-               id="isAdmin" [(ngModel)]="currentUser.admin" disabled>
-        <label class="custom-control-label" for="isAdmin">Admin</label>
+        <div class="input-group">
+          <div class="custom-control custom-checkbox d-block col-2" *ngIf="currentUser.admin">
+            <input type="checkbox" class="form-check" name="isAdmin"
+                   id="isAdmin" [(ngModel)]="currentUser.admin" disabled>
+            <label class="form-check-label" for="isAdmin">Admin</label>
+          </div>
+        </div>
       </div>
     </div>
     <div class="w-100"></div>
@@ -20,8 +24,9 @@
       <div class="validation-errors d-inline" *ngIf="userEmail.errors">
         <p class="text-danger font-weight-bold">Invalid email</p>
       </div>
-      <button class="btn btn-success d-inline" (click)="updateUser()"
-              [disabled]="userEmail.errors">Save</button>
+      <button class="btn btn-success d-inline ms-3" (click)="updateUser()"
+              [disabled]="userEmail.errors">Save
+      </button>
     </div>
 
   </div>

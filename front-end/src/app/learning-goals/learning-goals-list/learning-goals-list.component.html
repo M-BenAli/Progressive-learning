@@ -6,11 +6,9 @@
         <span class="sr-only">Loading..</span>
       </div>
       <div class="input-group mb-2">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><span class="fa fa-search"></span></div>
-        </div>
+        <div class="input-group-text"><span class="fa fa-search"></span></div>
         <input type="text" class="form-control col-6" id="searchBar" placeholder="Search"
-        [(ngModel)]="searchQuery">
+               [(ngModel)]="searchQuery">
       </div>
       <div class="learning_goal-list list-group" *ngIf="learningGoals">
         <button class="list-group-item list-group-item-action"
@@ -22,13 +20,13 @@
         <button class="btn btn-primary" (click)="renderCreate()">Create learning goal</button>
       </div>
     </div>
-    <div class="" *ngIf="!selectedLearningGoal && !renderingCreate">
+    <div class="col" *ngIf="!selectedLearningGoal && !renderingCreate">
       <p>Select a learning-goal or create one</p>
     </div>
     <div class="learning_goal-detail col-md-6 col-lg-5" *ngIf="selectedLearningGoal">
       <app-learning-goal-detail [selectedLGoal]="selectedLearningGoal"
-        (editing)="onEdit($event)" (deleted)="onDelete($event)"
-        (saved)="onSave($event)" (cancel)="onCancel($event)">
+                                (editing)="onEdit($event)" (deleted)="onDelete($event)"
+                                (saved)="onSave($event)" (cancel)="onCancel($event)">
       </app-learning-goal-detail>
     </div>
     <div class="learning_goal-create col-md-6 col-lg-6" *ngIf="renderingCreate">

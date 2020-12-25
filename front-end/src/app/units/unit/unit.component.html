@@ -2,12 +2,12 @@
   <h3 class="text-white"> {{this.learningGoal.goal}}</h3>
   <div class="row p-1 justify-content-center mt-3 main-section">
     <div class="row row-container pb-3">
-      <div class="col-sm-12 col-md-10 col-lg-7 m-auto">
+      <div class="col-sm-12 col-md-10 col-lg-7">
         <h3 class="d-inline-flex" *ngIf="!editUnitName">{{unit.name}}</h3>
         <input id="unit_header-edit" type="text"
-               class="form-control d-inline mr-2 mt-1 w-75"
+               class="form-control d-inline me-2 mt-1 w-75"
                [(ngModel)]="unit.name" *ngIf="editUnitName">
-        <a class="btn btn-sm btn-light ml-2" *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser())"
+        <a class="btn btn-sm btn-light ms-2" *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser())"
            (click)="editUnitName = !editUnitName">
           <i class="fa fa-lg fa-pencil-alt" title="Edit task name"></i>
         </a>
@@ -17,12 +17,12 @@
         <div class="unit_summary p-2">
           <app-unit-summary [summary]="this.unit.summary" (updatedSummary)="updateSummary($event)"></app-unit-summary>
           <div>
-            <div class="custom-control custom-checkbox"
+            <div class="input-group"
                  *ngIf="permissionsService.hasPermission(sessionService.getCurrentUser())">
-              <input type="checkbox" class="custom-control-input mt-2 mr-3 mx-2 my-2"
+              <input type="checkbox" class="form-check-input me-2"
                      name="{{unit.name}}" id="{{unit.name}}" [checked]="unit.completed"
                      [(ngModel)]="unit.completed">
-              <label class="custom-control-label" for="{{unit.name}}">Mark as completed</label>
+              <label class="form-check-label" for="{{unit.name}}">Mark as completed</label>
             </div>
             <button *ngIf="!saving" class="btn btn-success mt-2" type="button"
                     [disabled]="!permissionsService.hasPermission(sessionService.getCurrentUser())"

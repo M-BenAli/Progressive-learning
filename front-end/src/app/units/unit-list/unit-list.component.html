@@ -3,18 +3,18 @@
 
 <div class="unit-list" *ngFor="let unit of learningGoal.units">
   <div class="form-row unit-item p-2 mb-2" [@unitCompletion]="unit.completed ? 'completed' : 'incomplete'">
-    <div class="custom-control custom-checkbox">
-      <input type="checkbox" class="custom-control-input mx-2 my-2" name="{{unit.name}}"
+
+    <div class="input-group">
+      <input type="checkbox" class="form-check-input me-2" name="{{unit.name}}"
              id="{{unit.id}}"
              [checked]="unit.completed" [(ngModel)]="unit.completed"
              (change)="reloadUnitProgress()">
-      <label class="custom-control-label" for="{{unit.id}}"></label>
       <a [routerLink]="[unitsBaseURL, unit.id]"
-         class="">{{unit.name}}</a>
+         class="text-decoration-none">{{unit.name}}</a>
     </div>
   </div>
 </div>
-<div class="" *ngIf="learningGoal.units.length === 0">
+<div *ngIf="learningGoal.units.length === 0">
   <p>Learning goal has no units yet</p>
 </div>
 

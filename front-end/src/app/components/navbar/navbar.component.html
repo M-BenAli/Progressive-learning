@@ -3,14 +3,14 @@
     <img alt="Up-arrow" src="assets/images/Blue_growth_arrow.png"
          class="mr-2"
          style="width: 30px; height: 30px;">Progressive learning</a>
-  <ul class="navbar-nav order-1 ml-auto">
-    <li class="nav-item mr-1" *ngIf="this.sessionService.isAuthenticated()">
+  <ul class="navbar-nav order-1 ms-auto">
+    <li class="nav-item me-1" *ngIf="this.sessionService.isAuthenticated()">
       <a [routerLink]="['dashboard']" class="nav-link btn btn-dark 1">Dashboard</a>
     </li>
-    <li class="nav-item mr-1" *ngIf="!this.sessionService.isAuthenticated()">
+    <li class="nav-item me-1" *ngIf="!this.sessionService.isAuthenticated()">
       <a [routerLink]="['learning-goals']" class="nav-link btn btn-dark ">Learning-goals</a>
     </li>
-    <li class="nav-item mr-1" *ngIf="!this.sessionService.isAuthenticated()">
+    <li class="nav-item me-1" *ngIf="!this.sessionService.isAuthenticated()">
     <a [routerLink]="['login']" class="nav-link btn btn-dark">Login</a>
     </li>
     <li class="nav-item" *ngIf="!this.sessionService.isAuthenticated()">
@@ -21,7 +21,7 @@
         <a [routerLink]="['/users/' + this.sessionService.getCurrentUser().id]"
            class="nav-link btn btn-dark"><span class="fa fa-user"></span> User Profile</a>
         <a [routerLink]="['login']" (click)="onLogOut()"
-           class="nav-link ml-1 btn btn-danger">Log out</a>
+           class="nav-link ms-1 btn btn-danger">Log out</a>
       </div>
     </li>
   </ul>
