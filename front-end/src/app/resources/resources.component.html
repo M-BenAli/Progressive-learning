@@ -20,7 +20,7 @@
     <a class="btn btn-sm btn-danger me-2 h-100" (click)="onDelete(resource, i, 'Image')" title="Delete resource">
       <i class="fa fa-times"></i>
     </a>
-    <a type="button" href="#" data-toggle="modal" data-target="#imageModal" (click)="selectedResourceImg = resource">
+    <a type="button" data-bs-toggle="modal" data-bs-target="#imageModal" (click)="selectedResourceImg = resource">
       <img [src]="resource.url" [alt]="'resource-image-' + i" width="75%" height="75%">
     </a>
   </div>

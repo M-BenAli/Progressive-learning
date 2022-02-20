@@ -3,11 +3,12 @@ import {LearningGoal} from "../models/learning-goal";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {environment} from "../../environments/environment";
+import {LearningGoalServiceInterface} from "./learning-goal.interface.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class LearningGoalService {
+export class LearningGoalService implements LearningGoalServiceInterface {
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }
