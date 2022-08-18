@@ -15,7 +15,7 @@ router.post('/api/authentication/login', async function (req, res) {
     passwordCorrect = user ? helpers.isPasswordCorrect(password, user.password, user.password_salt) : false;
 
     if (!user || !passwordCorrect) {
-        res.status(400).json({
+        res.status(404).json({
             message: 'Invalid credentials, enter the right credentials or create an account.'
         });
     } else {

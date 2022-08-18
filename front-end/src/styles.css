@@ -11,7 +11,7 @@ html, body {
 }
 
 body {
-  background-color: #151e21;
+  background-color: white;
 }
 
 .main-section {
@@ -25,8 +25,8 @@ body {
   border-width: 1px;
   border-color: black;
   border-radius: 10px;
-  background-color: #71c7c5;
-  width: 100%;
+  background-color: rgb(211, 211, 211);
+  width: 85%;
 }
 
 .aqua-box {

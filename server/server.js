@@ -53,6 +53,7 @@ const corsWhiteList = [
     'http://localhost:4200',
     'https://progressive-learning.netlify.app'
 ];
+
 app.use(function (req, res, next) {
     if (corsWhiteList.includes(req.headers.origin)) {
         // console.log(`Matching with a whitelisted origin: ${req.headers.origin}`);
@@ -73,3 +74,4 @@ app.get('/', function (req, res) {
 });
 
 app.listen(port);
+console.log(`Running server on port ${port}`);

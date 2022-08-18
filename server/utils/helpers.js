@@ -40,6 +40,7 @@ function isAuth(req, res, next) {
 
 function isPasswordCorrect(passwordAttempt, savedHash, savedSalt) {
     const iterations = 10000;
+   
     return savedHash == crypto.pbkdf2Sync(passwordAttempt, savedSalt, iterations, 64, 'sha512').toString('hex');
 }
 
