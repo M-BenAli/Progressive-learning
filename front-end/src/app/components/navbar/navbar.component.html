@@ -1,28 +1,17 @@
-<nav class="navbar navbar-expand-md bg-dark">
+<nav class="navbar navbar-expand-md bg-dark ">
   <a routerLink="/" class="navbar-brand text-white order-0">
-    <img alt="Up-arrow" src="assets/images/Blue_growth_arrow.png"
-         class="mr-2"
-         style="width: 30px; height: 30px;"/>
-         <span class="fw-bold">Progressive learning</span></a>
+    <img alt="Up-arrow" src="assets/images/Blue_growth_arrow.png" class="mr-2" style="width: 30px; height: 30px;" />
+    <span class="fw-bold">Progressive learning</span></a>
   <ul class="navbar-nav order-1 ms-auto">
-    <li class="nav-item me-1" *ngIf="this.sessionService.isAuthenticated()">
-      <a [routerLink]="['dashboard']" class="nav-link btn btn-dark 1">Dashboard</a>
-    </li>
     <li class="nav-item me-1" *ngIf="!this.sessionService.isAuthenticated()">
-    <a [routerLink]="['login']" class="nav-link btn btn-outline-dark btn-lg">Login</a>
+      <a [routerLink]="['login']" class="nav-link btn btn-outline-dark btn-lg">Login</a>
     </li>
     <span></span>
     <li class="nav-item" *ngIf="!this.sessionService.isAuthenticated()">
-    <a [routerLink]="['sign-up']" class="nav-link btn btn-outline-dark btn-lg">Sign-up</a>
+      <a [routerLink]="['sign-up']" class="nav-link btn btn-outline-dark btn-lg">Sign-up</a>
     </li>
     <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
-      <div class="btn-group">
-        <a [routerLink]="['/users/' + this.sessionService.getCurrentUser().id]"
-           class="nav-link btn btn-dark"><span class="fa fa-user"></span> User Profile</a>
-        <a [routerLink]="['login']" (click)="onLogOut()"
-           class="nav-link ms-1 btn btn-danger">Log out</a>
-      </div>
+      <a [routerLink]="['login']" (click)="onLogOut()" class="nav-link ms-1 btn btn-danger">Log out</a>
     </li>
   </ul>
 </nav>
-

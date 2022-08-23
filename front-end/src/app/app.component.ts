@@ -1,15 +1,18 @@
 import {Component} from '@angular/core';
 import {SessionService} from "./services/session/session.service";
 import {Router} from "@angular/router";
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'progressive-learning';
   loading: boolean;
+  currentUser: User; 
 
   constructor(private sessionService: SessionService,
               private router: Router) {
@@ -35,6 +38,7 @@ export class AppComponent {
         },
         () => {
           this.loading = false;
+          this.currentUser = this.sessionService.getCurrentUser();
         }
       );
     }

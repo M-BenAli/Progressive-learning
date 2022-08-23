@@ -16,8 +16,7 @@ body {
 
 .main-section {
   overflow-y: auto;
-  padding: 5px;
-  height: 100%;
+  padding: 15px;
 }
 
 .row-container {

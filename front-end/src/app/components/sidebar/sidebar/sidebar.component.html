@@ -1,0 +1,16 @@
+<div class="d-flex flex-column flex-shrink-0 bg-white h-100" style="width: 4.5rem;">
+    <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+      <li class="nav-item">
+        <a [routerLink]="DASHBOARD_ROUTE" (click)="onSelection(DASHBOARD_ROUTE)" class="nav-link py-3 border-bottom"
+        [ngClass]="selectedSideBar == DASHBOARD_ROUTE ? 'active' : ''" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+         <span class="fa fa-home"></span>
+        </a>
+      </li>  
+      <li class="nav-item">
+        <a [routerLink]="USER_ROUTE" (click)="onSelection(USER_ROUTE)" class="nav-link py-3 border-bottom" 
+        [ngClass]="selectedSideBar == USER_ROUTE ? 'active' : ''" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+            <span class="fa fa-user"></span>
+        </a>
+      </li>
+    </ul>
+  </div>

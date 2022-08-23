@@ -19,6 +19,7 @@ import {ForbiddenComponent} from './error-pages/forbidden/forbidden.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {SubjectsModule} from "./subjects/subjects.module";
 import {SignUpComponent} from './components/sign-up/sign-up.component';
+import { SidebarComponent } from './components/sidebar/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {SignUpComponent} from './components/sign-up/sign-up.component';
     ForbiddenComponent,
     DashboardComponent,
     SignUpComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
