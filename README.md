@@ -1,4 +1,4 @@
-# Progressive learning webapplication
+# Progressive learning webapplication (OLD version no longer under development)
 
 Progressive learning is a general purpose knowledge management system.
 The main features of the app are: 
@@ -7,7 +7,7 @@ The main features of the app are:
 
 The app is developed using the SEAN(Sequelize, Express, Angular, Node) stack
 and with MYSQL as the database. It consists of a server and front-end module
-which are run separately. **NOTE**: This project is still in its initial stages and under development.
+which are run separately.
 
 ## Features
 
